@@ -7,8 +7,8 @@ Pull data from LinkedIn and recommend jobs/internships based on user profile and
 
 APIS
 [Glassdoor](https://www.glassdoor.com/developer/index.htm)
-[LinkedIn] (https://developer.linkedin.com/docs/rest-api#)
-[LinkedIn-job recommender] https://developer.linkedin.com/docs/guide/v2/jobs/recommended-jobs
+[LinkedIn] https://developer.linkedin.com/docs/rest-api#)
+[LinkedIn-job recommender](https://developer.linkedin.com/docs/guide/v2/jobs/recommended-jobs)
 [Indeed](http://opensource.indeedeng.io/api-documentation/)
 
 
