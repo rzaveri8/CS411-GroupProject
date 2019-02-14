@@ -18,7 +18,7 @@ API's:
 
 
 ## Restaurant Recommender:
-Users log into their facebook account. Users choose type of cuisine they want to eat, price range, and distance. Restaurants are generated based on this data, yelp reviews for restaurants are shown as well as a map for how the user gets to their preferred restaurant. A spotify playlist is also generated based that correlates with the mood of the type of food the user chooses to get.
+Users log into app through their facebook account. Users choose type of cuisine they want to eat, price range, and distance. Restaurants are generated based on this data, yelp reviews for restaurants are shown, and a map for how the user gets to their preferred restaurant. A Spotify playlist is also generated that correlates with the mood of the type of food the user chooses.
 
 API’s:
 
