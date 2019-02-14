@@ -1,9 +1,10 @@
 
 # Project Ideas
 
-## LinkedIn Jobs Recommender/ Glassdoor Reviews:
+## LinkedIn Jobs Recommender via LinkedIn and Glassdoor Reviews:
 
-Pull data from LinkedIn and recommend jobs/internships based on user profile and experience. Then, pull data from Glassdoor and inform the user about how likely they are to get that particular job based on user feedback about that particular position, and also based off the reviews of that particular company 
+Allow user to connect their LinkedIn account to our app, which will find jobs or internships in their field that are filtered using their current experience and skills. Then, using that job data, our app will connect to Glassdoor, where the app will retrieve the ratings of each particular job at a company as well as user reviews of that job, the numerical data of the number of people who interviewed and got the job, the experiences of those people and the people who already have the position, and potentially any tips for the interviews for those jobs. Then, we will send the textual data to IBM Watson to do sentiment analysis and return the average experience of an individual in that position, and the average experience of an individual interviewing for that position. We will use the numerical data to calculate how likely the candidate is to get that job if they receive an interview, and return a summary of all of our results for each job back to the user. 
+
 
 API's:
 
@@ -17,7 +18,7 @@ API's:
 
 
 ## Restaurant Recommender:
-Track your meals for ~1 week to get a sense of a user’s tastes. Recommend restaurant based on these tastes, how far away they want to travel, yelp reviews and then generate a spotify playlist that correlates with the mood of the type of food the user chooses to get. 
+Users log into their facebook account. Users choose type of cuisine they want to eat, price range, and distance. Restaurants are generated based on this data, yelp reviews for restaurants are shown as well as a map for how the user gets to their preferred restaurant. A spotify playlist is also generated based that correlates with the mood of the type of food the user chooses to get.
 
 API’s:
 
@@ -26,6 +27,3 @@ API’s:
 [Spotify](https://developer.spotify.com/documentation/web-api/)
 
 
-## Fastest Path From Pt A → Pt B:
-	
-Combines public transportation, bike, walking, uber, etc to find the fastest possible route from point a to point b. Would get data from Uber Api and MBTA API and combine the information to create the fastest way to get somewhere. Users would be presented with the estimated cost to time ratio and would be able to pick their preferred route. 
