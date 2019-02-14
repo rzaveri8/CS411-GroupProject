@@ -7,8 +7,11 @@ Pull data from LinkedIn and recommend jobs/internships based on user profile and
 
 APIS
 [Glassdoor](https://www.glassdoor.com/developer/index.htm)
-[LinkedIn] https://developer.linkedin.com/docs/rest-api#)
+
+[LinkedIn](https://developer.linkedin.com/docs/rest-api#)
+
 [LinkedIn-job recommender](https://developer.linkedin.com/docs/guide/v2/jobs/recommended-jobs)
+
 [Indeed](http://opensource.indeedeng.io/api-documentation/)
 
 
@@ -18,6 +21,7 @@ Track your meals for ~1 week to get a sense of a user’s tastes. Recommend rest
 API’s:
 
 [Yelp](https://www.yelp.com/developers)
+
 [Spotify](https://developer.spotify.com/documentation/web-api/)
 
 
