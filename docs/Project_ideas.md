@@ -5,7 +5,8 @@
 
 Pull data from LinkedIn and recommend jobs/internships based on user profile and experience. Then, pull data from Glassdoor and inform the user about how likely they are to get that particular job based on user feedback about that particular position, and also based off the reviews of that particular company 
 
-APIS
+API's:
+
 [Glassdoor](https://www.glassdoor.com/developer/index.htm)
 
 [LinkedIn](https://developer.linkedin.com/docs/rest-api#)
