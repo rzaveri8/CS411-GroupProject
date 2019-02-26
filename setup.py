@@ -1,4 +1,4 @@
-#create a package so that we have some sort of dependency management
+#create a package so that we have some sort of dependency managemen
 
 from setuptools import setup
 
