@@ -5,40 +5,40 @@ Allow user to connect their LinkedIn account to our app, which will find jobs or
 
 <h3> CORE SERVICES </h3>
 
-Indeed: </br>
+<strong> Indeed: </strong> </br>
 Create endpoint for Indeed job data - Done </br>
-Test multiple concurrent connections to Indeed - </br>
-Setup API calls to Indeed endpoint - </br>
+Test multiple concurrent connections to Indeed  </br>
+Setup API calls to Indeed endpoint </br>
 
-LinkedIn: </br>
+<strong> LinkedIn: </strong> </br>
 Connect to LinkedIn using User's LinkedIn account </br>
 Verify account is eligible </br>
 Return job recommendations </br>
 Send job recommendations to Indeed endpoint </br>
 
-Watson: </br>
+<strong> Watson: </strong> </br>
 Explore our options with Watson </br>
 
-Glassdoor: </br>
+<strong> Glassdoor: </strong> </br>
 Explore our options with Glassdoor </br>
 
 <h3> WEBSITE/WEB APP </h3>
 
-Front-end: </br>
+<strong> Front-end: </strong> </br>
 Create splash page </br>
 Create sign-up view </br>
 Create log-in view </br>
 Create dashboard </br>
 
-Back-end: </br>
+<strong> Back-end: </strong> </br>
 Write Sign-up/Log-in functionality
 
-Database: </br>
+<strong> Database: </strong> </br>
 Setup database to store user profiles
 
 
 <h3> INFRASTRUCTURE </h3>
 
-Server:</br>
+<strong> Server: </strong> </br>
 Explore our options with where we are going to host the app and its micro-services </br>
 Determine hosting parameters
