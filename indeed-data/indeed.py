@@ -8,7 +8,7 @@ class IndeedSearch:
     options = Options();
     #options.AddUserProfilePreference("profile.default_content_setting_values.images", 2); #do not load images
     options.add_argument("--headless"); #run in headless mode
-    driver = webdriver.Chrome(options = options);
+    driver = webdriver.Chrome('/usr/bin/chromedriver',options = options);
     query = "";
     avgRating = 0;
 

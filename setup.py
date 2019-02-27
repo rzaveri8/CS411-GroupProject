@@ -9,5 +9,6 @@ setup(name="Indeed Data",
       packages=["indeed-data"],
       install_requires=[
       'selenium',
+      'flask',
       ]
     );
