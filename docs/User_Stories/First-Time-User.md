@@ -1,1 +1,4 @@
 
+# First-Time User (Creating an Account):
+
+	A first time user will create an account by providing us their first name, last name, password, and email address. We will also provide the option to sign in with their Facebook or Google credentials using OpenID, for which then we will create a profile in our database behind the scenes so that we can store their data on our server.  After verifying that the account does not already exist and that the password meets our requirements, we will authenticate the email address with LinkedIn to ensure that an account exists on LinkedIn. If we can’t authenticate the email with LinkedIn, they will be asked to try again or, if they do not have a LinkedIn account, to go back and create one first. An account cannot be created without an active LinkedIn account. 
