@@ -1,7 +1,4 @@
 # Logged-In User Resume Parser:
 
-As a logged-in user, the user will be able to upload their resumes to our web app and have it parsed upon upload.
-The parsers preliminary function is to pull out key phrases from the resume, so that they can have an understanding of the 
-distinctions These will be returned to the user to give them guidance on how they might need to adjust their resume to 
-tailor it for a given industry or job. 
+As a logged-in user, the user will be able to upload their resumes to our web app and have it parsed upon upload. At the dashboard, they will click on the My Resumes link, which will take them to the page with their parsed resumes, if any, presented in a list. For existing parsed resumes, they can click on each of the items in the list to get the information we pulled out from their resume. If they want to parse a new resume, they can click the Analyze My Resume button at the top of the page, which will take them to a page where they can upload their resume. The parsers preliminary function is to pull out key phrases from the resume and return it to the user upon upload, so that they can have an understanding of what stands out to the average recruiter when reviewing their resume. The parser will also return a readability score so they can judge how accessible their resume is by electronic job application processors. At the bottom of the summary of their results, they will be presented with an Analyze an Updated Resume button, which will take them to the page where they can run through the process again of uploading a new resume. 
 
