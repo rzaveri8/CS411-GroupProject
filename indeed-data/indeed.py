@@ -52,7 +52,10 @@ class IndeedSearch:
         for rating in ratings:
             sum = sum + rating;
         self.avgRating = sum / len(ratings);
-        return self.avgRating;
+        data = {
+        "rating": self.avgRating
+        }
+        return data;
 
     def getReviews(self):
         #print("The requested job is " + self.job);
@@ -63,7 +66,10 @@ class IndeedSearch:
             currReview = str(review.text);
             reviews[count] = currReview;
             count = count + 1;
-        return reviews;
+        data = {
+        "reviews": reviews
+        }
+        return data;
 
     def getPros(self):
         pass
@@ -72,7 +78,6 @@ class IndeedSearch:
         pass
 
     def returnAllData(self):
-        self.connect();
         rating = self.getAvgRating();
         reviews = self.getReviews();
         self.disconnect();
