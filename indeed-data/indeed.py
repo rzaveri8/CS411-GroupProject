@@ -55,7 +55,7 @@ class IndeedSearch:
         return self.avgRating;
 
     def getReviews(self):
-        print("The requested job is " + self.job);
+        #print("The requested job is " + self.job);
         reviewsRawData = self.driver.find_elements_by_class_name('cmp-review-text');
         reviews = [0] * len(reviewsRawData);
         count = 0;
@@ -70,6 +70,18 @@ class IndeedSearch:
 
     def getCons(self):
         pass
+
+    def returnAllData(self):
+        self.connect();
+        rating = self.getAvgRating();
+        reviews = self.getReviews();
+        self.disconnect();
+        #TODO: add company and position to data object
+        data = {
+        "rating": rating,
+        "reviews": reviews
+        } #object that holds our retreived data
+        return data;
 
     def disconnect(self):
         self.driver.close();
