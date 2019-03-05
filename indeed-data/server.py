@@ -9,7 +9,7 @@ app = Flask(__name__)
 def verify_status():
     return "The server on the AWS EC2 instance works!"
 
-@app.route("/api/rating/<company_name>/<position>") #variable parts of url passed into function
+@app.route("/api/rating/<company_name>/<position>") 
 def api_rating_request(company_name, position):
     newSearch = IndeedSearch(company_name, position);
     newSearch.connect();
