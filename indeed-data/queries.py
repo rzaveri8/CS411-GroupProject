@@ -4,5 +4,5 @@ from indeed import IndeedSearch
 someJob = IndeedSearch("Amazon", "Product Manager");
 someJob.connect();
 print(someJob.getAvgRating());
-someJob.getReviews();
+print(someJob.getReviews());
 someJob.disconnect();

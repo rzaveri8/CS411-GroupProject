@@ -8,7 +8,8 @@ class IndeedSearch:
     options = Options();
     #options.AddUserProfilePreference("profile.default_content_setting_values.images", 2); #do not load images
     options.add_argument("--headless"); #run in headless mode
-    driver = webdriver.Chrome('/usr/bin/chromedriver',options = options);
+    #ec2 env driver = webdriver.Chrome('/usr/bin/chromedriver',options = options);
+    driver = webdriver.Chrome(options=options);
     query = "";
     avgRating = 0;
 
@@ -54,14 +55,15 @@ class IndeedSearch:
         return self.avgRating;
 
     def getReviews(self):
-        reviews = self.driver.find_elements_by_class_name('cmp-review-text');
+        print("The requested job is " + self.job);
+        reviewsRawData = self.driver.find_elements_by_class_name('cmp-review-text');
+        reviews = [0] * len(reviewsRawData);
         count = 0;
-        for review in reviews:
+        for review in reviewsRawData:
+            currReview = str(review.text);
+            reviews[count] = currReview;
             count = count + 1;
-            print("Review # " + str(count));
-            print(review.text);
-            print("\n");
-        return;
+        return reviews;
 
     def getPros(self):
         pass

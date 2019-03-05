@@ -12,9 +12,10 @@ Setup API calls to Indeed endpoint </br>
 
 <strong> LinkedIn: </strong> </br>
 Connect to LinkedIn using User's LinkedIn account </br>
-Verify account is eligible </br>
+Verify account is eligible /Determine how to judge the strength of a LinkedIn profile </br>
 Return job recommendations </br>
 Send job recommendations to Indeed endpoint </br>
+
 
 <strong> Watson: </strong> </br>
 Explore our options with Watson </br>
