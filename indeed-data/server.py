@@ -5,6 +5,7 @@ from IndeedRequest import IndeedRequest
 app = Flask(__name__)
 
 #TODO: Fix invalid session id for multiple requests within the same session
+#TODO: Further abstract requests by creating one handler for different types of requests
 
 
 @app.route("/") #by default these routes are GET requests
