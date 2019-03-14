@@ -1,5 +1,5 @@
 <?php
-require_once("../setup.php");
+require_once("./setup.php");
 require_once($dir . '/request-params.php');
 
 $linkedInAuthUrl = "https://www.linkedin.com/oauth/v2/authorization?" . $auth_params["response"] . $auth_params["client_id"] . $auth_params["redirect_uri"] . $auth_params["random_string"];
