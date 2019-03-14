@@ -8,18 +8,18 @@ $userCode = "";
 $message = "";
 $isAuthorized = true;
 
-if(!isset($_COOKIE['linkedInAuthCode'])){ //if we don't have a cookie saved, then the user must have just authorized LinkedIn, or needs to do so
+if(isset($_COOKIE['linkedInAuthCode'])){  //the user is already authorized; 
+  $message = "You have already been authorized on LinkedIn";
+}
+else{//if we don't have a cookie saved, then the user must have just authorized LinkedIn, or needs to do so
   $userCode = $_GET['code'];
-  if(!is_null($userCode) && $userCode != ""){
+  if(!is_null($userCode) && $userCode != ""){ //code is available as parameter
     setcookie("linkedInAuthCode", $userCode);
     $message = "Your LinkedIn authorization code has been saved.";
   }
-  else{
+  else{ //code is not available
     $isAuthorized = false;
     $message = "Please authorize on LinkedIn using the link below";
   };
-}
-else{ //else the user is already authorized;
-  $message = "You have already been authorized on LinkedIn";
 }
 ?>
