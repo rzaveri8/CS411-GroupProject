@@ -1,34 +1,65 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options;
 from flask import Flask
 from flask import request
 from flask import Response
-from IndeedRequest import IndeedRequest
+from indeed import *
+import json
 app = Flask(__name__)
 
-#TODO: Fix invalid session id for multiple requests within the same session
-#TODO: Further abstract requests by creating one handler for different types of requests
+
+options = Options();
+options.add_argument("--headless"); #run in headless mode
+driver = webdriver.Chrome(options=options);
+
+@app.route("/")
+def it_works():
+    return "The server works";
 
 
-@app.route("/") #by default these routes are GET requests
-def verify_status():
-    return "The server works!"
+@app.route("/api/all/<company>")
+def test_driver(company):
+    url = "https://www." + company + ".com";
+    driver.get(url);
+    return("Got " + company + " page");
 
 @app.route("/api/all/<company>/<position>")
-def api_all_data(company, position):
-    request = IndeedRequest(company,position);
-    response = Response(request.requestAllData(), status=200, mimetype="application/json");
+def get_all(company, position):
+    url = buildQuery(company, position);
+    currentDriver = driver.get(url);
+    print("Successfully fetched " + url);
+    nullPageCheck = driver.find_elements_by_class_name('cmp-ZrpPromo-text');
+    if(len(nullPageCheck) > 0 ):
+        return "Indeed data not available for this position at this company";
+    data = {
+    "rating": getAvgRating(),
+    "reviews": getReviews(),
+    "pros": getPros(),
+    "cons": getCons()
+    }
+    print("Succesfully fetched all data");
+    response = Response(json.dumps(data), status=200, mimetype="application/json"); #use json.dumps to correctly encode the dict into a json object
     return response;
 
-@app.route("/api/rating/<company_name>/<position>")
-def api_rating_request(company_name, position):
-    request = IndeedRequest(company_name, position);
-    response = Response(request.requestRating(), status=200, mimetype="application/json");
-    return response;
+def getAvgRating():
+    rawRatingsData = driver.find_elements_by_class_name('cmp-ratingNumber');
+    print("Got ratings data");
+    return processRatings(rawRatingsData);
 
-@app.route("/api/reviews/<company_name>/<position>")
-def api_reviews_request(company_name, position):
-    request = IndeedRequest(company_name, position);
-    response = Response(request.requestReviews(), status=200, mimetype="application/json");
-    return response;
+def getReviews():
+    rawReviewsData = driver.find_elements_by_class_name('cmp-review-text');
+    print("Got reviews data");
+    return processReviews(rawReviewsData);
+
+def getPros():
+    rawProsData = driver.find_elements_by_class_name('cmp-review-pro-text');
+    print("Got pros data");
+    return processPros(rawProsData);
+
+def getCons():
+    rawConsData = driver.find_elements_by_class_name('cmp-review-con-text');
+    print("Got cons data");
+    return processCons(rawConsData);
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=80);
