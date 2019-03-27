@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 import { Job } from './job';
 import { JOBS } from './mock-jobs';
@@ -8,11 +9,10 @@ import { JOBS } from './mock-jobs';
 })
 export class JobService {
 
-
-  getJobs(): Job[] {
-    return JOBS;
-  }
-
   constructor() { }
+
+  getJobs(): Observable<Job[]> {
+    return of(JOBS);
+  }
 
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Job } from '../job';
-import { JOBS } from '../mock-jobs';
 
 import { JobService } from '../job.service';
 
@@ -16,11 +15,11 @@ export class JobsComponent implements OnInit {
   constructor(private jobService: JobService) { }
 
   getJobs(): void {
-    this.jobs = this.jobService.getJobs();
+    this.jobService.getJobs().subscribe(jobs => this.jobs = jobs);
   }
 
   ngOnInit() {
-    this.jobs = this.jobService.getJobs();
+    this.getJobs();
   }
 
 }
