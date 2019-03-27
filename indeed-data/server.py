@@ -5,12 +5,14 @@ from flask import request
 from flask import Response
 from indeed import *
 import json
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 
 options = Options();
 options.add_argument("--headless"); #run in headless mode
-driver = webdriver.Chrome(options=options);
+driver = webdriver.Chrome("/usr/bin/chromedriver", options=options);
 
 @app.route("/")
 def it_works():
@@ -62,4 +64,4 @@ def getCons():
     return processCons(rawConsData);
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80);
+    app.run(host="0.0.0.0", port=8080);
