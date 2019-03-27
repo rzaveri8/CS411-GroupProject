@@ -1,0 +1,22 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css');
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.bg {
+  /* The image used */
+  background-image: url("/Users/misn1/OneDrive/Documents/images/white.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*.hide-text {
+  display: none;
+}
