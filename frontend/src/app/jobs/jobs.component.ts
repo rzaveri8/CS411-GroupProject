@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Job } from '../job';
 import { JOBS } from '../mock-jobs';
 
+import { JobService } from '../job.service';
+
 @Component({
   selector: 'app-jobs',
   templateUrl: './jobs.component.html',
@@ -9,11 +11,16 @@ import { JOBS } from '../mock-jobs';
 })
 export class JobsComponent implements OnInit {
 
-  jobs = JOBS;
+  jobs: Job[];
 
-  constructor() { }
+  constructor(private jobService: JobService) { }
+
+  getJobs(): void {
+    this.jobs = this.jobService.getJobs();
+  }
 
   ngOnInit() {
+    this.jobs = this.jobService.getJobs();
   }
 
 }
