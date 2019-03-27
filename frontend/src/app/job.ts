@@ -1,4 +1,6 @@
 export class Job  {
-  name: string;
-  id: number;
+  rating: number;
+  reviews: string[];
+  pros: string[];
+  cons: string[];
 }
