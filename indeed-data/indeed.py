@@ -24,7 +24,7 @@ def printQuery(self):
     return;
 
 def processRatings(ratingsData):
-    print("Processing ratings data");
+    #print("Processing ratings data");
     ratings = [0] * len(ratingsData);
     sum = 0;
     for i in range(0, len(ratingsData)): #build an array of all the ratings, each as a double
@@ -35,7 +35,7 @@ def processRatings(ratingsData):
     return avgRating;
 
 def processReviews(reviewsRawData):
-    print("Processing reviews data");
+    #print("Processing reviews data");
     reviews = [0] * len(reviewsRawData);
     count = 0;
     for review in reviewsRawData:
@@ -45,7 +45,7 @@ def processReviews(reviewsRawData):
     return reviews;
 
 def processPros(prosRawData):
-    print("Processing pros data");
+    #print("Processing pros data");
     pros = [0] * len(prosRawData);
     count = 0;
     for pro in prosRawData:
@@ -55,7 +55,7 @@ def processPros(prosRawData):
     return pros;
 
 def processCons(consRawData):
-    print("Processing cons data");
+    #print("Processing cons data");
     cons = [0] * len(consRawData);
     count = 0;
     for con in consRawData:

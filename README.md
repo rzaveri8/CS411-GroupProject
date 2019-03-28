@@ -7,8 +7,8 @@ Allow user to connect their LinkedIn account to our app, which will find jobs or
 
 <strong> Indeed: </strong> </br>
 Create endpoint for Indeed job data - Done </br>
-Test multiple concurrent connections to Indeed  </br>
-Setup API calls to Indeed endpoint </br>
+Test multiple concurrent connections to Indeed - Done  </br>
+Setup API calls to Indeed endpoint - Done </br>
 
 <strong> LinkedIn: </strong> </br>
 Connect to LinkedIn using User's LinkedIn account </br>

@@ -1,3 +1,10 @@
+"""
+Indeed API 
+Runs as service on our AWS instance
+Not for local testing
+"""
+
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options;
 from flask import Flask
@@ -7,12 +14,15 @@ from indeed import *
 import json
 from flask_cors import CORS
 app = Flask(__name__)
-CORS(app)
+CORS(app) #allow the api to accessed from any origin NOT SECURE
 
 
 options = Options();
 options.add_argument("--headless"); #run in headless mode
 driver = webdriver.Chrome("/usr/bin/chromedriver", options=options);
+
+#"/usr/bin/chromedriver" is where the chromedriver is located on our aws instance(running Ubuntu)
+
 
 @app.route("/")
 def it_works():
