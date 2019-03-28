@@ -54,8 +54,7 @@ export class JobsComponent implements OnInit {
     var comp = this.parseCompany(this.company);
     var pos = this.parsePosition(this.position);
     var baseUrl = "http://52.14.17.113:8080/api/all/";
-    var fullUrl = baseUrl + comp + "/" + pos;
-    this.fullURL = fullUrl;
+    this.fullURL = baseUrl + comp + "/" + pos;
   }
 
   getJobs(){
@@ -67,8 +66,6 @@ export class JobsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.position = "software engineer";
-    this.company = "amazon";
     this.getJobs();
     // this.jobs = new Job();
     // this.jobs.rating = 3.14;
@@ -77,5 +74,3 @@ export class JobsComponent implements OnInit {
   }
 
 }
-
-// console.log(this.jobs);

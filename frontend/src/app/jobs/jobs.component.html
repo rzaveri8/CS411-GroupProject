@@ -34,11 +34,10 @@
   <div class="container hide-text">
     <h4 class="text-left"><u>Results</u></h4>
     <div class="card">
-      <div class="card-body">
-        <h6 class="text-left">Company Rating: {{ jobs.rating }}</h6>
-        <h6 class="text-left">Position: {{ formatPos }}</h6>
-        <h6 class="text-left ml-3">pros: {{ jobs.pros }}</h6>
-        <h6 class="text-left ml-3">cons: {{ jobs.cons }}</h6>
+      <div class="card-body" *ngIf = "jobs !== undefined">
+        <h6 class="text-left ml-3">Company Rating: {{ jobs.rating }}</h6>
+        <h6 class="text-left ml-3">Pros: {{ jobs.pros }}</h6>
+        <h6 class="text-left ml-3">Cons: {{ jobs.cons }}</h6>
       </div>
     </div>
     <h5 class="text-left pt-3 pb-0">Reviews:</h5>
