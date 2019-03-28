@@ -1,3 +1,4 @@
 *.pem
 *.pyc
 node_modules/
+*.log
