@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options;
 
 def formatJobTitle(position):
+    #if the position is not formatted as 'jobtitlepart1+jobtitlepart2', do so now
     formattedJobTitle = "";
     for char in range(0,len(position)):
         if(position[char] != " "):
@@ -11,6 +12,15 @@ def formatJobTitle(position):
 
     position= formattedJobTitle
     return position;
+
+def prettyText(title, separator):
+    raw = title.split(separator);
+    pretty = "";
+    for i in range(len(raw)):
+        raw[i] = raw[i].capitalize();
+        pretty += raw[i] + " ";
+    pretty = pretty[:-1]; #remove space at end
+    return pretty;
 
 def buildQuery(company, position):
     position = formatJobTitle(position);

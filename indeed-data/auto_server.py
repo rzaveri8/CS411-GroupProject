@@ -1,5 +1,5 @@
 """
-Indeed API 
+Indeed API
 Runs as service on our AWS instance
 Not for local testing
 """
@@ -23,7 +23,6 @@ driver = webdriver.Chrome("/usr/bin/chromedriver", options=options);
 
 #"/usr/bin/chromedriver" is where the chromedriver is located on our aws instance(running Ubuntu)
 
-
 @app.route("/")
 def it_works():
     return "The server works";
@@ -42,12 +41,19 @@ def get_all(company, position):
     print("Successfully fetched " + url);
     nullPageCheck = driver.find_elements_by_class_name('cmp-ZrpPromo-text');
     if(len(nullPageCheck) > 0 ):
-        return "Indeed data not available for this position at this company";
-    data = {
-    "rating": getAvgRating(),
-    "reviews": getReviews(),
-    "pros": getPros(),
-    "cons": getCons()
+        data = {
+        "responseType": 404;
+        "responseMessage": "Indeed data not available for this position at this company"
+        }
+    else{
+        data = {
+        "position": getPrettyText(position, "+"),
+        "company": getPrettyText(company, "-"),
+        "rating": getAvgRating(),
+        "reviews": getReviews(),
+        "pros": getPros(),
+        "cons": getCons()
+        }
     }
     print("Succesfully fetched all data");
     response = Response(json.dumps(data), status=200, mimetype="application/json"); #use json.dumps to correctly encode the dict into a json object
@@ -72,6 +78,9 @@ def getCons():
     rawConsData = driver.find_elements_by_class_name('cmp-review-con-text');
     print("Got cons data");
     return processCons(rawConsData);
+
+def getPrettyText(company, separator):
+    return prettyText(company, separator);
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080);

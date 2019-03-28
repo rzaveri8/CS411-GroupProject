@@ -1,7 +1,6 @@
-from indeed import IndeedSearch
+from indeed import *
 
 
-someJob = IndeedSearch("Amazon", "Product Manager");
-someJob.connect();
-print(someJob.returnAllData());
-someJob.disconnect();
+print(prettyText("business+administrative+assistant", "+"));
+print(prettyText("exxon-mobil", "-"))
+print(prettyText("best-buy", "-"));
