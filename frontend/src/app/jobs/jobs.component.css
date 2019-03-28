@@ -5,7 +5,7 @@ body, html {
 }
 .bg {
   /* The image used GET IMAGE FROM NICOLE */
-  background-image: url("/Users/misn1/OneDrive/Documents/images/white.jpg");
+  background-image: url("../../assets/images/white.jpg");
 
   /* Full height */
   height: 100%;
