@@ -1,2 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
+
+@import 'assets/css/bootstrap.min.css';

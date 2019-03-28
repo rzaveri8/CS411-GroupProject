@@ -1,11 +1,10 @@
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css');
 body, html {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 .bg {
-  /* The image used */
+  /* The image used GET IMAGE FROM NICOLE */
   background-image: url("/Users/misn1/OneDrive/Documents/images/white.jpg");
 
   /* Full height */

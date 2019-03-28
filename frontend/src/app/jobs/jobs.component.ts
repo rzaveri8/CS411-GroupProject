@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Job } from '../job';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-// import { JobService } from '../job.service';
 
 @Component({
   selector: 'app-jobs',
@@ -21,7 +20,7 @@ export class JobsComponent implements OnInit {
 
   getJobs(){
     this.httpClient.get('http://52.14.17.113:8080/api/all/amazon/Software+Engineer').subscribe((res) => {
-      // this.jobs = res;
+      this.jobs = res;
       // let jobArray = new Job();
       // jobArray.rating = this.jobs.rating;
       // jobArray.reviews = this.jobs.reviews;
@@ -35,9 +34,11 @@ export class JobsComponent implements OnInit {
 
   ngOnInit() {
     this.getJobs();
+    /*
     this.jobs = new Job();
     this.jobs.rating = 3.14;
     this.jobs.reviews = ["hello", "world"];
+    */
   }
 
 }
