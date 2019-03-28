@@ -20,7 +20,7 @@ export class JobsComponent implements OnInit {
 
   getJobs(){
     this.httpClient.get('http://52.14.17.113:8080/api/all/amazon/Software+Engineer').subscribe((res) => {
-      this.jobs = res;
+      //this.jobs = res;
       // let jobArray = new Job();
       // jobArray.rating = this.jobs.rating;
       // jobArray.reviews = this.jobs.reviews;
