@@ -42,10 +42,10 @@ def get_all(company, position):
     nullPageCheck = driver.find_elements_by_class_name('cmp-ZrpPromo-text');
     if(len(nullPageCheck) > 0 ):
         data = {
-        "responseType": 404;
+        "responseType": 404,
         "responseMessage": "Indeed data not available for this position at this company"
         }
-    else{
+    else:
         data = {
         "position": getPrettyText(position, "+"),
         "company": getPrettyText(company, "-"),
@@ -53,8 +53,7 @@ def get_all(company, position):
         "reviews": getReviews(),
         "pros": getPros(),
         "cons": getCons()
-        }
-    }
+        } 
     print("Succesfully fetched all data");
     response = Response(json.dumps(data), status=200, mimetype="application/json"); #use json.dumps to correctly encode the dict into a json object
     return response;
