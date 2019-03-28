@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class JobsComponent implements OnInit {
 
-  jobs: Job[];
+  jobs: any;
 
   position: string;
   company: string;

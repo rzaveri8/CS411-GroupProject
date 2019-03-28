@@ -3,7 +3,6 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Job } from './job';
-import { JOBS } from './mock-jobs';
 
 import { map } from 'rxjs/operators';
 

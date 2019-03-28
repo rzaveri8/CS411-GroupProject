@@ -5,7 +5,6 @@
   </li>
 </ul> -->
 <body>
-
   <div class="bg">
   <h4 class="text-center pt-5">What does Indeed think?</h4>
   <h6 class="text-center pt-3">Learn more about a specific position at a company</h6>
@@ -31,13 +30,17 @@
     </div>
   </section>
   <div class="col-12 pt-4">
-  <div class="container hide-text">
-    <h4 class="text-left"><u>Results</u></h4>
+  <div class="container hide-text" *ngIf = "jobs !== undefined">
+    <h3>Company: {{ jobs.company }}</h3>
+    <h3>Position: {{ jobs.position }}</h3>
+    <h5 class="text-left pt-3 pb-0">Information:</h5>
     <div class="card">
-      <div class="card-body" *ngIf = "jobs !== undefined">
+      <div class="card-body">
         <h6 class="text-left ml-3">Company Rating: {{ jobs.rating }}</h6>
-        <h6 class="text-left ml-3">Pros: {{ jobs.pros }}</h6>
-        <h6 class="text-left ml-3">Cons: {{ jobs.cons }}</h6>
+        <h6 class="text-left ml-3">Pros:</h6>
+          {{ jobs.pros}}
+        <h6 class="text-left ml-3">Cons:</h6>
+          {{ jobs.cons }}
       </div>
     </div>
     <h5 class="text-left pt-3 pb-0">Reviews:</h5>
