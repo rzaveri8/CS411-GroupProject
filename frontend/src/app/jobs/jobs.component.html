@@ -5,23 +5,23 @@
   </li>
 </ul> -->
 <body>
-  <div class="bg">
-  <h4 class="text-center pt-5">What does Indeed think?</h4>
-  <h6 class="text-center pt-3">Learn more about a specific position at a company</h6>
+  <section class="intro">
+  <h2 class="text-center pt-5">What does <img src="../../assets/images/indeed-logo.png" width=150px style="margin-bottom:10px;"> think?</h2>
+  <h6 class="text-center pt-3">See what people are saying about a job you want to pursue </h6>
   <section class="search-sec d-flex align-items-center pt-3">
     <div class="container">
         <form action="#" method="get" novalidate="novalidate">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row d-flex justify-content-center">
-                        <div class="col-lg-5 col-md-5 col-sm-12 p-0">
+                        <div class="col-lg-4 offset-lg-1 col-md-5 col-sm-12 p-0">
                             <input type = "text" class="form-control search-slt" name="position" [(ngModel)]="position" placeholder="Enter Position"/>
                         </div>
-                         <div class="col-lg-5 col-md-5 col-sm-12 p-0">
+                         <div class="col-lg-3 col-md-5 col-sm-12 p-0" style="margin-left: 10px;">
                             <input type="text" class="form-control search-slt" name="company" [(ngModel)]="company" placeholder="Enter Company">
                           </div>
-                        <div class="col-lg-1 col-md-1 col-sm-12 p-0">
-                            <button type="button" class="btn btn-danger wrn-btn" (click) = "getJobs()">Search</button>
+                        <div class="col-lg-3 col-md-1 col-sm-12 p-0">
+                            <button type="button" class="btn btn-danger wrn-btn custom-button" (click) = "getJobs()">Search</button>
                         </div>
                     </div>
                 </div>
@@ -29,30 +29,51 @@
         </form>
     </div>
   </section>
+</section>
   <div class="col-12 pt-4">
-  <div class="container hide-text" *ngIf = "jobs !== undefined">
-    <h3>Company: {{ jobs.company }}</h3>
-    <h3>Position: {{ jobs.position }}</h3>
-    <h5 class="text-left pt-3 pb-0">Information:</h5>
-    <div class="card">
-      <div class="card-body">
-        <h6 class="text-left ml-3">Company Rating: {{ jobs.rating }}</h6>
-        <h6 class="text-left ml-3">Pros:</h6>
-          {{ jobs.pros}}
-        <h6 class="text-left ml-3">Cons:</h6>
-          {{ jobs.cons }}
-      </div>
+  <div class="text-center">
+    <h6 *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
+    <div *ngIf="errorMessage == true">
+      <h3> We weren't able to find any data for that job. Try another ! </h3>
+      <h4> Looking for suggestions ? Try these: </h4>
+      <ul>
+        <li class="no-list"> Software Engineer at Microsoft </li>
+        <li class="no-list"> Product Manager at Amazon </li>
+        <li class="no-list"> Color Consultant at Sephora </li>
+        <li class="no-list"> Designer at Apple </li>
+      </ul>
     </div>
-    <h5 class="text-left pt-3 pb-0">Reviews:</h5>
-    <br>
-    <div class="card" *ngFor = "let review of jobs.reviews" >
-      <div class="card-body">
-        {{ review }}
-      </div>
-    </div>
-    <br>
   </div>
+  <div class="container hide-text" *ngIf = "jobs !== undefined">
+    <h3>What's it like to be a {{ jobs.position }} at {{ jobs.company }} ? </h3>
+    <div class="row">
+      <div class="col-md-9">
+        <h5 class="text-left pt-3 pb-0">Reviews:</h5>
+        <div class="card review-card mb-3" *ngFor = "let review of jobs.reviews" >
+          <div class="card-body">
+            {{ review }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <h5 class="text-center mt-3">In a nutshell: </h5>
+        <div class="card nutshell-card">
+            <h6 class="text-left">Company Rating: {{ jobs.rating }}</h6>
+            <div *ngIf = "jobs.pros.length > 0">
+            <h6 class="text-left" style="color:green;">Pros:</h6>
+            <ul *ngFor = "let pro of jobs.pros">
+              <li> {{ pro }} </li>
+            </ul>
+            </div>
+            <div *ngIf = "jobs.cons.length > 0">
+            <h6 class="text-left" style="color:red;">Cons:</h6>
+            <ul *ngFor = "let con of jobs.cons">
+              <li> {{ con }} </li>
+            </ul>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+</div>
 </body>

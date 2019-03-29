@@ -2,3 +2,40 @@
 /* Application-wide Styles */
 
 @import 'assets/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css?family=Lato|Montserrat|Permanent+Marker');
+body, html {
+  height: 95%;
+  margin: 0;
+  padding: 0;
+  background-color: transparent !important;
+  font-family: 'Lato', sans-serif;
+}
+.full-viewport {
+  /* The image used */
+  background-image: url('././assets/images/white.jpg');
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.navbar{
+  background-color: #a2cae647!important;
+  padding: .5rem 2rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.form-control{
+  padding: 1.375rem 1.25rem;
+}
+
+.navbar-brand{
+  font-family: 'Permanent Marker', sans-serif;
+  color: #064b7f !important;
+  font-size: 2rem;
+}

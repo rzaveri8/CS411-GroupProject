@@ -11,11 +11,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class JobsComponent implements OnInit {
 
   jobs: any;
+  rawResponse: any;
 
   position: string;
   company: string;
 
   fullURL: string;
+  errorMessage: boolean;
+  loading: boolean;
 
   constructor(public httpClient: HttpClient) { }
 
@@ -58,15 +61,25 @@ export class JobsComponent implements OnInit {
   }
 
   getJobs(){
+    this.jobs = undefined; //reset our jobs object so that the user doesn't see the old job information when doing a new search
+    this.errorMessage = false; //reset error message
+    this.loading = true;
     this.buildUrl();
     this.httpClient.get(this.fullURL).subscribe((res) => {
-      this.jobs = res;
+      this.loading = false;
+      this.rawResponse = res;
+      if(this.rawResponse.responseType == 404){
+        this.errorMessage = true;
+        //console.log("Not found");
+      }
+      else{
+        this.errorMessage = false;
+        this.jobs = this.rawResponse;
+      }
     });
   }
 
   ngOnInit() {
-
-    this.getJobs();
     // this.jobs = new Job();
     // this.jobs.rating = 3.14;
     // this.jobs.reviews = ["hello", "world"];
