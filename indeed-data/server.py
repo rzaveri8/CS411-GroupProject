@@ -9,10 +9,12 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-
+#Web driver options
 options = Options();
 options.add_argument("--headless"); #run in headless mode
-driver = webdriver.Chrome("/usr/bin/chromedriver", options=options);
+
+#Init chrome web driver for Indeed
+indeedDriver = webdriver.Chrome("/usr/bin/chromedriver", options=options);
 
 @app.route("/")
 def it_works():
@@ -22,15 +24,16 @@ def it_works():
 @app.route("/api/all/<company>")
 def test_driver(company):
     url = "https://www." + company + ".com";
-    driver.get(url);
+    indeedDriver.get(url);
     return("Got " + company + " page");
 
-@app.route("/api/all/<company>/<position>")
+#INDEED
+@app.route("/api/indeed/<company>/<position>")
 def get_all(company, position):
     url = buildQuery(company, position);
-    currentDriver = driver.get(url);
+    currentDriver = indeedDriver.get(url);
     print("Successfully fetched " + url);
-    nullPageCheck = driver.find_elements_by_class_name('cmp-ZrpPromo-text');
+    nullPageCheck = indeedDriver.find_elements_by_class_name('cmp-ZrpPromo-text');
     if(len(nullPageCheck) > 0 ):
         return "Indeed data not available for this position at this company";
     data = {
@@ -44,22 +47,22 @@ def get_all(company, position):
     return response;
 
 def getAvgRating():
-    rawRatingsData = driver.find_elements_by_class_name('cmp-ratingNumber');
+    rawRatingsData = indeedDriver.find_elements_by_class_name('cmp-ratingNumber');
     print("Got ratings data");
     return processRatings(rawRatingsData);
 
 def getReviews():
-    rawReviewsData = driver.find_elements_by_class_name('cmp-review-text');
+    rawReviewsData = indeedDriver.find_elements_by_class_name('cmp-review-text');
     print("Got reviews data");
     return processReviews(rawReviewsData);
 
 def getPros():
-    rawProsData = driver.find_elements_by_class_name('cmp-review-pro-text');
+    rawProsData = indeedDriver.find_elements_by_class_name('cmp-review-pro-text');
     print("Got pros data");
     return processPros(rawProsData);
 
 def getCons():
-    rawConsData = driver.find_elements_by_class_name('cmp-review-con-text');
+    rawConsData = indeedDriver.find_elements_by_class_name('cmp-review-con-text');
     print("Got cons data");
     return processCons(rawConsData);
 
