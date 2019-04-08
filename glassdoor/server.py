@@ -1,3 +1,7 @@
+"""
+Glassdoor API
+"""
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options;
 from flask import Flask
@@ -19,7 +23,6 @@ options.add_argument("--headless"); #run in headless mode
 driver = webdriver.Chrome(options=options)
 loggedIn = False; #flag that tells us whether or not we are logged into Glassdoor
 
-#GLASSDOOR
 
 #We have to be logged in order to get data
 def login():
@@ -57,7 +60,7 @@ def login():
 
 @app.route("/api/glassdoor/<company>/<position>")
 def initGlassdoorSearch(company,position):
-    print("The flag says " + str(loggedIn));
+    #print("The flag says " + str(loggedIn)); #TODO: Determine why flag is not updating
     print("Attempting query");
     searchUrl = buildUrl(company, position);
     driver.get(searchUrl) #execute search
@@ -69,7 +72,7 @@ def initGlassdoorSearch(company,position):
        "comments": getInterviewComments(),
        "questions": getInterviewQuestions()
     }
-    return "Request went through"
+    return Response(json.dumps(data), status=200, mimetype="application/json");
 
 
 #individual offer comments
@@ -89,20 +92,20 @@ def getInterviewDifficulty():
     return processInterviewDifficulty(difficultyRating);
 
 #individual comments
-#TODO: Determine how to truncate individual comments, or get full content.
+#TODO: Determine how to truncate individual comments, and/or get full content.
 def getInterviewComments():
     commentsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[2]/div/p[4]');
     return processInterviewComments(commentsRawData);
 
 
-#TODO: Get interview questions ?
+#TODO: Remove links from text
 def getInterviewQuestions():
-    driver.execute_script('document.getElementsByClassName("questionResponse")');
-    print("Removed extra content");
+    #driver.execute_script('document.getElementsByClassName("questionResponse")');
+    #print("Removed extra content");
     questionsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[2]/div/div/ul/li/span');
     return processInterviewQuestions(questionsRawData);
 
-#TODO: Get interview path
+#TODO: Get interview paths
 
 
 
@@ -116,6 +119,7 @@ def getInterviewExperiences():
 def getInterviewDifficultyLevels():
     difficultyLevelsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[1]/div/div[3]/div/div[2]/span');
     return processInterviewDifficultyLevels(difficultyLevelsRawData);
+
 
 if __name__ == "__main__":
     if login():
