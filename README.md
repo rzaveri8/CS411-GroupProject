@@ -20,8 +20,10 @@ Send job recommendations to Indeed endpoint </br>
 <strong> Watson: </strong> </br>
 Explore our options with Watson </br>
 
-<strong> Glassdoor: </strong> </br>
-Explore our options with Glassdoor </br>
+<strong> Glassdoor: </strong>
+
+Setup API calls to Glassdoor - Done
+Process Glassdoor data
 
 <h3> WEBSITE/WEB APP </h3>
 
@@ -35,11 +37,13 @@ Create dashboard </br>
 Write Sign-up/Log-in functionality
 
 <strong> Database: </strong> </br>
-Setup database to store user profiles
+Setup database to store user profiles - Done
+Write calls to database
 
 
 <h3> INFRASTRUCTURE </h3>
 
 <strong> Server: </strong> </br>
-Explore our options with where we are going to host the app and its micro-services </br>
-Determine hosting parameters
+
+Explore our options with where we are going to host the app and its micro-services - Done
+Determine hosting parameters - Done

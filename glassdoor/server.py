@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 #Web driver options
 options = Options();
-#options.add_argument("--headless"); #run in headless mode
+options.add_argument("--headless"); #run in headless mode
 
 #Init chrome web driver for Glassdoor
 #EC2 driver = "/usr/bin/chromedriver"
@@ -66,7 +66,8 @@ def initGlassdoorSearch(company,position):
        "offers": getInterviewOffers(),
        "experience": getInterviewExperience(),
        "difficulty": getInterviewDifficulty(),
-       "comments": getInterviewComments()
+       "comments": getInterviewComments(),
+       "questions": getInterviewQuestions()
     }
     return "Request went through"
 
@@ -95,6 +96,12 @@ def getInterviewComments():
 
 
 #TODO: Get interview questions ?
+def getInterviewQuestions():
+    driver.execute_script('document.getElementsByClassName("questionResponse")');
+    print("Removed extra content");
+    questionsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[2]/div/div/ul/li/span');
+    return processInterviewQuestions(questionsRawData);
+
 #TODO: Get interview path
 
 

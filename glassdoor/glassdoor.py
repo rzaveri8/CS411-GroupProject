@@ -35,6 +35,12 @@ def processInterviewDifficultyLevels(difficultyLevelsRawData):
         print(difficultyLevelsRawData[i].text);
     return;
 
+def processInterviewQuestions(questionsRawData):
+    for i in range(len(questionsRawData)):
+        print(questionsRawData[i].text);
+    return;
 
-#TODO: parse input parameters
+#def process
+
+#TODO: parse input parameters if not done on the client side
 buildUrl("amazon", "software+engineer");
