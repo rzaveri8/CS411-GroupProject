@@ -92,16 +92,17 @@ def getInterviewDifficulty():
     return processInterviewDifficulty(difficultyRating);
 
 #individual comments
-#TODO: Determine how to truncate individual comments, and/or get full content.
+#Note: We don't get a comment if it doesn't have an 'Application' component
 def getInterviewComments():
     commentsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[2]/div/p[4]');
-    return processInterviewComments(commentsRawData);
+    #add class to the additional comment data
+    driver.execute_script("var evenMoreContent = $('.moreContent').children(':nth-child(1)'); for(var i=0;i<evenMoreContent.length;i++){ evenMoreContent[i].classList.add('additional-comment');}")
+    additionalCommentsRawData = driver.find_elements_by_xpath('//*[@class="additional-comment"]');
+    return processInterviewComments(commentsRawData,additionalCommentsRawData);
 
 
-#TODO: Remove links from text
 def getInterviewQuestions():
-    #driver.execute_script('document.getElementsByClassName("questionResponse")');
-    #print("Removed extra content");
+    driver.execute_script('$(".questionResponse").remove();'); #remove links to 'answer questions' and/or 'question solutions'
     questionsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[2]/div/div/ul/li/span');
     return processInterviewQuestions(questionsRawData);
 

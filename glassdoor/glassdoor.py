@@ -22,10 +22,20 @@ def processInterviewDifficulty(rating):
     difficultyRating = rating.text;
     return difficultyRating;
 
-def processInterviewComments(commentsRawData):
+def processInterviewComments(commentsRawData, additionalCommentsRawData):
     commentsData = [0] * len(commentsRawData);
+    j = 0; #keep track of our additional comments, as not every comment will have an additional comment
     for i in range(len(commentsRawData)):
-        commentsData[i] = commentsRawData[i].text;
+        comment = commentsRawData[i].text;
+        if(comment[-9:] == "Show More"):
+            #there is more content to this comment that is hidden in the additional comments
+            comment = comment[:-10]; #strip the "Show More" string from this comment
+            #since the additional comments are initially hidden, we need to use get_attribute('textContent') to actually get the text
+            additionalCommentContent = additionalCommentsRawData[j].get_attribute('textContent');
+            j+=1;
+            commentsData[i] = comment + additionalCommentContent;
+        else:
+            commentsData[i] = comment;
     return commentsData;
 
 def processInterviewQuestions(questionsRawData):
