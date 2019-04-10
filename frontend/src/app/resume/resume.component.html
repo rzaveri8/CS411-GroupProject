@@ -1,0 +1,11 @@
+<p>
+  Resume Grader
+</p>
+
+<button type="button" class="btn btn-danger wrn-btn custom-button" (click) = "getResume()">Search</button>
+
+<div class="container hide-text" *ngIf = "resume !== undefined">
+  <h1> Grade: {{ resume.rezscore.score[0].grade[0] }}</h1>
+  <h2> Advice: {{ resume.rezscore.advice[0].tip[0].long[0] }}</h2>
+  <h2> Percentile: {{ resume.rezscore.score[0].percentile[0] }} </h2>
+</div>

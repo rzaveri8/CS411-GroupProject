@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Job } from '../job';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
 @Component({
   selector: 'app-jobs',
   templateUrl: './jobs.component.html',
@@ -70,20 +69,15 @@ export class JobsComponent implements OnInit {
       this.rawResponse = res;
       if(this.rawResponse.responseType == 404){
         this.errorMessage = true;
-        //console.log("Not found");
       }
       else{
         this.errorMessage = false;
         this.jobs = this.rawResponse;
       }
     });
-  }
-
-  ngOnInit() {
-    // this.jobs = new Job();
-    // this.jobs.rating = 3.14;
-    // this.jobs.reviews = ["hello", "world"];
 
   }
+
+  ngOnInit() { }
 
 }
