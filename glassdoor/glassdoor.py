@@ -44,6 +44,14 @@ def processInterviewQuestions(questionsRawData):
         interviewQuestions[i] = questionsRawData[i].text;
     return interviewQuestions;
 
+def processInterviewPaths(pathNames, pathPcts):
+    size = len(pathNames);
+    interviewPaths = [[0 for i in range(2)] for j in range(size)]; #initialize our 2d array
+    for i in range(len(pathNames)):
+        interviewPaths[i][0] = pathNames[i].text;
+        interviewPaths[i][1] = pathPcts[i].text;
+    print(interviewPaths);
+    return interviewPaths;
 
 #We can get percentages using processInterviewExperience instead of getting individual experiences, so we don't need to use this
 def processInterviewExperiences(experiencesRawData):
@@ -57,8 +65,6 @@ def processInterviewDifficultyLevels(difficultyLevelsRawData):
         print(difficultyLevelsRawData[i].text);
     return;
 
-
-#def process
 
 #TODO: parse input parameters if not done on the client side
 buildUrl("amazon", "software+engineer");

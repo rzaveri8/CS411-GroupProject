@@ -70,7 +70,8 @@ def initGlassdoorSearch(company,position):
        "experience": getInterviewExperience(),
        "difficulty": getInterviewDifficulty(),
        "comments": getInterviewComments(),
-       "questions": getInterviewQuestions()
+       "questions": getInterviewQuestions(),
+       "path": getInterviewPaths()
     }
     return Response(json.dumps(data), status=200, mimetype="application/json");
 
@@ -106,9 +107,12 @@ def getInterviewQuestions():
     questionsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[2]/div/div/ul/li/span');
     return processInterviewQuestions(questionsRawData);
 
-#TODO: Get interview paths
-
-
+def getInterviewPaths():
+    driver.execute_script(
+    'var obtainedStatsContainerElements=document.getElementsByClassName("tbl dataTbl fill toggleable")[0].childNodes;function addClassToStatsRow(){for(var t=0;t<obtainedStatsContainerElements.length;t++){"row "==obtainedStatsContainerElements[t].className&&obtainedStatsContainerElements[t].classList.add("method-obtained")}}var obtainedElements=document.getElementsByClassName("method-obtained");function addClassesToMethodStats(){for(var t=0;t<obtainedElements.length;t++){var e=obtainedElements[t].childNodes;e[0].childNodes[1].classList.add("method-name"),e[1].childNodes[0].classList.add("method-pct")}}addClassToStatsRow(),addClassesToMethodStats();')
+    interviewPathMethods = driver.find_elements_by_class_name('method-name');
+    interviewPathPercentages = driver.find_elements_by_class_name('method-pct');
+    return processInterviewPaths(interviewPathMethods, interviewPathPercentages);
 
 
 #individual experience comments
