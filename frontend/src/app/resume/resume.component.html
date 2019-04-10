@@ -1,8 +1,15 @@
-<p>
-  Resume Grader
-</p>
+<div class="text-center pt-5">
+  <p>
+    Resume Grader
+  </p>
+</div>
 
-<button type="button" class="btn btn-danger wrn-btn custom-button" (click) = "getResume()">Search</button>
+<div class="text-center pt-5">
+  <textarea name="resume" [(ngModel)]="resStr"></textarea>
+</div>
+
+
+<button type="button" class="btn btn-danger wrn-btn custom-button text-center" (click) = "getResume()">Search</button>
 
 <div class="container hide-text" *ngIf = "resume !== undefined">
   <h1> Grade: {{ resume.rezscore.score[0].grade[0] }}</h1>

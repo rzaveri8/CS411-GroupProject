@@ -13,12 +13,14 @@ export class ResumeComponent implements OnInit {
 
   resume: any;
 
+  resStr: string;
 
   constructor(public httpClient: HttpClient) { }
 
   getResume()
   {
-    this.httpClient.get("http://rezscore.com/a/f3f2cd/grade?resume=CINDY", { responseType: 'text' } ).subscribe(response => {
+    var link = "http://rezscore.com/a/f3f2cd/grade?resume=" + this.resStr;
+    this.httpClient.get(link, { responseType: 'text' } ).subscribe(response => {
       var res;
       parseString( response, function (err, result) {
         console.dir(result); // Prints JSON object!
