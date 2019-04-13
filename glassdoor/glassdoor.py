@@ -50,7 +50,6 @@ def processInterviewPaths(pathNames, pathPcts):
     for i in range(len(pathNames)):
         interviewPaths[i][0] = pathNames[i].text;
         interviewPaths[i][1] = pathPcts[i].text;
-    print(interviewPaths);
     return interviewPaths;
 
 #We can get percentages using processInterviewExperience instead of getting individual experiences, so we don't need to use this
@@ -64,7 +63,3 @@ def processInterviewDifficultyLevels(difficultyLevelsRawData):
     for i in range(len(difficultyLevelsRawData)):
         print(difficultyLevelsRawData[i].text);
     return;
-
-
-#TODO: parse input parameters if not done on the client side
-buildUrl("amazon", "software+engineer");
