@@ -79,10 +79,10 @@ passport.serializeUser(function(user,done){
     After doing that, we will invoke done() to tell passport to store the user's id and access token in their session.
     In the session, their id and token will be stored under the user object under the passport object.
     */
-   console.log(user);
+   console.log("The user is " + user);
    var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
    database.query(checkUserExistsQuery, [user.id], function(err,results, fields){
-       if(err) throw error;
+       if(err) throw err;
        else{
            if(results.length == 0){
             //New user, insert them into database
