@@ -1,10 +1,11 @@
+
 const express = require('express');
 const session = require('express-session');
 const bodyParser= require('body-parser');
 const store = require('express-mysql-session');
 const request = require('request');
 
-const passport = require('passport'); 
+const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 const credentials = require('./controllers/credentials');
@@ -14,12 +15,16 @@ const app = express();
 app.listen(3000);
 
 /*
-To demonstrate the basic functionality of logging in with Linked, 
+To demonstrate the basic functionality of logging in with Linked,
 we will use the templating engine Pug to render some barebones pages
 */
 
 app.set("view engine", "pug");
 app.set("views", "./views");
+
+export function test() {
+    console.log('test');
+}
 
 
 /* establish our store options, session and its options. We will not be setting a cookie expiration for this case. */
@@ -55,11 +60,11 @@ passport.use(new LinkedInStrategy({
     callbackURL: "http://localhost:3000/auth/callback",
     scope: ['r_basicprofile']
 }, function(accessToken, refreshToken, profile, done){
-    /* 
-    This is our verify callback. We use this callback to invoke done() 
-    to tell passport that we successfully authenticated the user. 
-    The first argument can be used to log errors, and is null otherwise. 
-    Use the second argument to tell passport what we want it to save after authentication 
+    /*
+    This is our verify callback. We use this callback to invoke done()
+    to tell passport that we successfully authenticated the user.
+    The first argument can be used to log errors, and is null otherwise.
+    Use the second argument to tell passport what we want it to save after authentication
     to help us identify the user
     (e.g user_id, username, email)
     */
@@ -68,19 +73,26 @@ passport.use(new LinkedInStrategy({
         accessToken: accessToken,
         id: profile.id,
         firstName: profile.name.givenName,
-        lastName: profile.name.familyName
+        lastName: profile.name.familyName,
+
     }
+    console.log(profile);
     return done(null,user);
 }))
 
 passport.serializeUser(function(user,done){
-    /* 
+    /*
     Here we want to save the user in the database if this is their first time logging into our app.
     After doing that, we will invoke done() to tell passport to store the user's id and access token in their session.
     In the session, their id and token will be stored under the user object under the passport object.
     */
+<<<<<<< HEAD
    console.log("The user is " + user);
    var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
+=======
+   console.log(user);
+  /* var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
+>>>>>>> b8d273fc17c5fc24ca42a0263aa9e73432fb4043
    database.query(checkUserExistsQuery, [user.id], function(err,results, fields){
        if(err) throw err;
        else{
@@ -94,6 +106,7 @@ passport.serializeUser(function(user,done){
            //Else they already exist, no further opertions neccessary on user
        }
    })
+   */
     console.log("User was serialized");
     user = {
         id: user.id,
@@ -102,10 +115,10 @@ passport.serializeUser(function(user,done){
     done(null,user);
 })
 passport.deserializeUser(function(user,done){
-    /* 
+    /*
     Deserialize the user's information (id and token) from the session.
     This allows us to access the passport object in the session store as req.user within all requests.
-    In this case, the passport object contains a user object. 
+    In this case, the passport object contains a user object.
     */
     done(null,user);
 })
@@ -126,8 +139,8 @@ app.get("/", function(req,res){
 })
 
 app.get("/dashboard", function(req,res){
-    /* 
-    If we get here, then the user successfully logged in. For all subsequent requests, we can access their token 
+    /*
+    If we get here, then the user successfully logged in. For all subsequent requests, we can access their token
     using req.user.token and their id using req.user.id
     */
     res.render("dashboard");
@@ -145,7 +158,7 @@ app.get("/dashboard", function(req,res){
 
 
 app.get("/logout", function(req,res){
-    /* 
+    /*
     Passport exposes a logout() function on the req object. Calling it will delete the user's id and token from their session
     */
     req.logout();
