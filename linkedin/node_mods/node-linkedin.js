@@ -75,7 +75,7 @@ http.createServer(function(req, response) {
 
 // Ensure your server's listening port matches your callbackURL port on Line 11 above
 }).listen(8081);
-console.log('Visit http://52.14.17.113:8081/ in your browser to test the LinkedIn Oauth2 API Authentication');
+console.log('Visit http://localhost:8081/ in your browser to test the LinkedIn Oauth2 API Authentication');
 
 
 var RandomState = function(howLong) {``
