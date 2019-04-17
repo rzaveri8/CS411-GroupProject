@@ -11,7 +11,7 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const credentials = require('./controllers/credentials');
 const database = require('./controllers/dbConnection');
 const app = express();
-const path = require('path');
+
 app.listen(3000);
 
 /*
@@ -21,7 +21,11 @@ we will use the templating engine Pug to render some barebones pages
 
 app.set("view engine", "pug");
 app.set("views", "./views");
-app.use(express.static("dist"));
+
+export function test() {
+    console.log('test');
+}
+
 
 /* establish our store options, session and its options. We will not be setting a cookie expiration for this case. */
 
@@ -70,33 +74,9 @@ passport.use(new LinkedInStrategy({
         id: profile.id,
         firstName: profile.name.givenName,
         lastName: profile.name.familyName,
-        headline: profile._json.headline,
-        location: profile._json.location.name,
-        industry: profile._json.industry,
-        pictureUrl: profile._json.pictureUrl,
-        //url: profile._json.url
-      //  industry: industry,
-        //pictureUrl: pictureUrl,
 
     }
     console.log(profile);
-    'use strict';
-
-const fs = require('fs');
-
-let person1 = {
-  accessToken: accessToken,
-  id: profile.id,
-  firstName: profile.name.givenName,
-  lastName: profile.name.familyName,
-  location: profile._json.location.name,
-  industry: profile._json.industry,
-  pictureUrl: profile._json.pictureUrl,
-  url: profile._json.url
-};
-
-let data = JSON.stringify(person1);
-fs.writeFileSync('person1.json', data);
     return done(null,user);
 }))
 
@@ -106,31 +86,27 @@ passport.serializeUser(function(user,done){
     After doing that, we will invoke done() to tell passport to store the user's id and access token in their session.
     In the session, their id and token will be stored under the user object under the passport object.
     */
+<<<<<<< HEAD
    console.log("The user is " + user);
-
-
-   var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName,headline,location,industry,pictureURL) VALUES(?,?,?,?,?,?,?)";
-   database.query(insertUserQuery, [user.id,user.firstName, user.lastName,user.headline, user.location, user.industry, user.pictureURL ], function(err,results){
-       if(err) throw err; console.log(results)
-   })
-   //connection.connect();
-   /*var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
+   var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
+=======
+   console.log(user);
+  /* var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
+>>>>>>> b8d273fc17c5fc24ca42a0263aa9e73432fb4043
    database.query(checkUserExistsQuery, [user.id], function(err,results, fields){
        if(err) throw err;
        else{
            if(results.length == 0){
             //New user, insert them into database
             var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName) VALUES(?,?,?)";
-            database.query(insertUserQuery, [user.id,user.firstName, user.lastName,user.headline, user.location, user.industry, user.pictureURL ], function(err,results){
+            database.query(insertUserQuery, [user.id,user.firstName, user.lastName], function(err,results){
                 if(err) throw err;
             })
            }
-           //Else they already exist, no further operations neccessary on user
+           //Else they already exist, no further opertions neccessary on user
        }
-   }) */
-
-   //connection.end();
-
+   })
+   */
     console.log("User was serialized");
     user = {
         id: user.id,
@@ -156,9 +132,11 @@ app.get("/auth", passport.authenticate('linkedin', {state: 'SOME STATE'}), funct
 app.get("/auth/callback", passport.authenticate('linkedin', {
     successRedirect: "/dashboard",
     failureRedirect: "/"
-}));
+}))
 
-
+app.get("/", function(req,res){
+    res.render("login");
+})
 
 app.get("/dashboard", function(req,res){
     /*
@@ -186,10 +164,3 @@ app.get("/logout", function(req,res){
     req.logout();
     res.redirect("/");
 })
-
-
-// CONNECTING THE FRONT END
-// Catch all other routes and return the index file
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
-  });
