@@ -7,7 +7,7 @@ const bodyParser= require('body-parser');
 const store = require('express-mysql-session');
 const request = require('request');
 
-const passport = require('passport'); 
+const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 const credentials = require('./../../linkedin/controllers/credentials');
