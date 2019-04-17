@@ -23,6 +23,14 @@ app.set("view engine", "pug");
 app.set("views", "./views");
 app.use(express.static("dist"));
 
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
+
 /* establish our store options, session and its options. We will not be setting a cookie expiration for this case. */
 
 var storeOptions = {
