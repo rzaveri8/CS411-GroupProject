@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { parseString } from 'xml2js';
+import { ResumeService } from '../resume.service';
 
+import { test } from '../../../../linkedin/app';
+
+
+// declare var require: any;
+// const example = require('../../../../linkedin/app');
 
 @Component({
   selector: 'app-resume',
@@ -15,7 +21,24 @@ export class ResumeComponent implements OnInit {
 
   resStr: string;
 
-  constructor(public httpClient: HttpClient) { }
+  fileToUpload: File = null;
+
+  constructor(public httpClient: HttpClient, private resumeService: ResumeService) { }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(this.fileToUpload);
+    this.uploadFileToActivity();
+  }
+
+  uploadFileToActivity() {
+    this.resumeService.postFile(this.fileToUpload).subscribe(data => {
+      // do something, if upload success
+        console.log(data);
+      }, error => {
+        console.log(error);
+      });
+  }
 
   getResume()
   {
@@ -31,6 +54,8 @@ export class ResumeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // testng();
   }
 
 }
