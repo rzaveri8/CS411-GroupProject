@@ -10,8 +10,8 @@ const request = require('request');
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
-const credentials = require('./../../linkedin/controllers/credentials');
-const database = require('./../../linkedin/controllers/dbConnection');
+const credentials = require('./controllers/credentials');
+const database = require('./controllers/dbConnection');
 
 const api = require('./server/routes/api');
 const app = express();
