@@ -157,3 +157,7 @@ app.get("/logout", function(req,res){
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
+
+app.get("/api/test", function(req,res){
+    res.json({status: "Hey Laura Joy"});
+})
