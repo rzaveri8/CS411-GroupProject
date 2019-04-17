@@ -43,8 +43,8 @@ const request = require('request');
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
-const credentials = require('./controllers/credentials');
-const database = require('./controllers/dbConnection');
+const credentials = require('./../../controllers/credentials');
+const database = require('./../../controllers/dbConnection');
 const app = express();
 
 app.listen(3000);
