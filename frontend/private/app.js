@@ -132,23 +132,23 @@ app.get("/auth/callback", passport.authenticate('linkedin', {
     failureRedirect: "/"
 }));
   
-app.get("/dashboard", function(req,res){
-    /*
-    If we get here, then the user successfully logged in. For all subsequent requests, we can access their token
-    using req.user.token and their id using req.user.id
-    */
-    res.render("dashboard");
+// app.get("/dashboard", function(req,res){
+//     /*
+//     If we get here, then the user successfully logged in. For all subsequent requests, we can access their token
+//     using req.user.token and their id using req.user.id
+//     */
+//     res.render("dashboard");
 
-    const token = req.user.token;
-    var getProfileUrl = "https://api.linkedin.com/v2/me?oauth2_access_token=" + token;
-    request(getProfileUrl, function(error,response,body){
-        if(error){
-            console.log(error);
-        }
-        console.log("Response: " + response);
-        console.log("Body: " + body);
-    });
-});
+//     const token = req.user.token;
+//     var getProfileUrl = "https://api.linkedin.com/v2/me?oauth2_access_token=" + token;
+//     request(getProfileUrl, function(error,response,body){
+//         if(error){
+//             console.log(error);
+//         }
+//         console.log("Response: " + response);
+//         console.log("Body: " + body);
+//     });
+// });
 
 
 app.get("/logout", function(req,res){
