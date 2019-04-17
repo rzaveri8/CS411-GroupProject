@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^7.2.12",
     "@angular/router": "^7.2.12",
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "core-js": "^2.5.4",
     "credentials": "^3.0.2",
     "express": "^4.16.4",

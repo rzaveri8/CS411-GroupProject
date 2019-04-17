@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { parseString } from 'xml2js';
 import { ResumeService } from '../resume.service';
 
-import { test } from '../../../../linkedin/app';
-
 
 // declare var require: any;
 // const example = require('../../../../linkedin/app');

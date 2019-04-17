@@ -1,0 +1,21 @@
+{
+  "name": "velozity-backend",
+  "version": "1.0.0",
+  "description": "The backend infrastructure for the Velozity webapp",
+  "main": "app.js",
+  "repository": "https://github.com/rzaveri8/CS411-GroupProject",
+  "author": "Manuja DeSilva",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-mysql-session": "^2.1.0",
+    "express-session": "^1.16.1",
+    "mysql": "^2.16.0",
+    "passport": "^0.4.0",
+    "passport-linkedin-oauth2": "^1.6.1",
+    "pug": "^2.0.3",
+    "request": "^2.88.0",
+    "yarn": "^1.15.2"
+  }
+}

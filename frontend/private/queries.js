@@ -1,0 +1,1 @@
+console.log("The dirname is " + __dirname);
