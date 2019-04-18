@@ -1,17 +1,40 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<!-- <app-jobs></app-jobs> -->
-<!-- <app-resume></app-resume> -->
-<!-- <app-dashboard></app-dashboard> -->
+<div id="wrapper">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Velozity</a>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav ml-md-auto d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/resume" routerLinkActive="active">Resume Parser
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/jobs" routerLinkActive="active">Job Search
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Log Out</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link" href="https://github.com/rzaveri8/CS411-GroupProject/"> Learn More </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
 
-<h1>Angular Router</h1>
-<br><br>
-<nav>
+<!-- <nav>
   <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
   <br>
   <a routerLink="/jobs" routerLinkActive="active">Job Search</a>
   <br>
   <a routerLink="/resume" routerLinkActive="active">Resume Parser</a>
-</nav>
-
+</nav> -->
 
 <router-outlet></router-outlet>
