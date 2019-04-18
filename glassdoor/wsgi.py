@@ -1,4 +1,4 @@
-from server import * 
+from auto_server import * 
 
 if __name__ == "__main__":
     run()

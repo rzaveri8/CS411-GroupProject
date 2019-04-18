@@ -3,3 +3,7 @@
 node_modules/
 *.log
 credentials.js
+bin/
+lib/
+include/
+__pycache__
