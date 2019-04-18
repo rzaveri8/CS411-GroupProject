@@ -15,7 +15,8 @@ import json
 
 
 #Initialization
-env = environment['CurrentEnvironment'];
+#env = environment['CurrentEnvironment'];
+env = "prod"
 app = Flask(__name__);
 CORS(app)
 
