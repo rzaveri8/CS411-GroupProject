@@ -12,7 +12,7 @@ const credentials = require('./controllers/credentials');
 const database = require('./controllers/dbConnection');
 const app = express();
 const path = require('path');
-app.listen(3000);
+app.listen(8081);
 
 /*
 To demonstrate the basic functionality of logging in with Linked,
@@ -61,7 +61,7 @@ app.use(passport.session());
 passport.use(new LinkedInStrategy({
     clientID: credentials.linkedIn.apiKey,
     clientSecret: credentials.linkedIn.apiSecret,
-    callbackURL: "http://localhost:3000/auth/callback",
+    callbackURL: "http://52.14.17.113:8081/auth/callback",
     scope: ['r_basicprofile']
 }, function(accessToken, refreshToken, profile, done){
     /*
@@ -72,15 +72,39 @@ passport.use(new LinkedInStrategy({
     to help us identify the user
     (e.g user_id, username, email)
     */
-    console.log("Access token: " + accessToken);
+  //console.log("Access token: " + accessToken);
     var user = {
         accessToken: accessToken,
         id: profile.id,
         firstName: profile.name.givenName,
         lastName: profile.name.familyName,
+        headline: profile._json.headline,
+        location: profile._json.location.name,
+        industry: profile._json.industry,
+        pictureUrl: profile._json.pictureUrl,
+        //url: profile._json.url
+      //  industry: industry,
+        //pictureUrl: pictureUrl,
 
     }
-    console.log(profile);
+  //  console.log(profile);
+    'use strict';
+
+const fs = require('fs');
+
+let person1 = {
+  accessToken: accessToken,
+  id: profile.id,
+  firstName: profile.name.givenName,
+  lastName: profile.name.familyName,
+  location: profile._json.location.name,
+  industry: profile._json.industry,
+  pictureUrl: profile._json.pictureUrl,
+  url: profile._json.url
+};
+
+let data = JSON.stringify(person1);
+fs.writeFileSync('person1.json', data);
     return done(null,user);
 }))
 
@@ -91,20 +115,26 @@ passport.serializeUser(function(user,done){
     In the session, their id and token will be stored under the user object under the passport object.
     */
    console.log("The user is " + user);
+
+
+   //connection.connect();
    var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
    database.query(checkUserExistsQuery, [user.id], function(err,results, fields){
        if(err) throw err;
        else{
            if(results.length == 0){
             //New user, insert them into database
-            var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName) VALUES(?,?,?)";
-            database.query(insertUserQuery, [user.id,user.firstName, user.lastName], function(err,results){
-                if(err) throw err;
+            var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName,headline,location,industry,pictureURL) VALUES(?,?,?,?,?,?,?)";
+            database.query(insertUserQuery, [user.id,user.firstName, user.lastName,user.headline, user.location, user.industry, user.pictureURL ], function(err,results){
+                if(err) throw err; //console.log(results)
             })
            }
            //Else they already exist, no further operations neccessary on user
        }
    })
+
+   //connection.end();
+
     console.log("User was serialized");
     user = {
         id: user.id,
@@ -132,12 +162,16 @@ app.get("/auth/callback", passport.authenticate('linkedin', {
     failureRedirect: "/"
 }));
 
-// app.get("/dashboard", function(req,res){
-//     /*
-//     If we get here, then the user successfully logged in. For all subsequent requests, we can access their token
-//     using req.user.token and their id using req.user.id
-//     */
-//     res.render("dashboard");
+
+
+
+app.get("/dashboard", function(req,res){
+    /*
+    If we get here, then the user successfully logged in. For all subsequent requests, we can access their token
+    using req.user.token and their id using req.user.id
+    */
+    res.render("dashboard");
+
 
 //     const token = req.user.token;
 //     var getProfileUrl = "https://api.linkedin.com/v2/me?oauth2_access_token=" + token;
