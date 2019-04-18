@@ -12,7 +12,7 @@ const credentials = require('./controllers/credentials');
 const database = require('./controllers/dbConnection');
 const app = express();
 const path = require('path');
-app.listen(3000);
+app.listen(8081);
 
 /*
 To demonstrate the basic functionality of logging in with Linked,
@@ -53,7 +53,7 @@ app.use(passport.session());
 passport.use(new LinkedInStrategy({
     clientID: credentials.linkedIn.apiKey,
     clientSecret: credentials.linkedIn.apiSecret,
-    callbackURL: "http://localhost:3000/auth/callback",
+    callbackURL: "http://52.14.17.113/auth/callback",
     scope: ['r_basicprofile']
 }, function(accessToken, refreshToken, profile, done){
     /*
