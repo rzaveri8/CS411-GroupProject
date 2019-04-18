@@ -114,6 +114,7 @@ passport.serializeUser(function(user,done){
     After doing that, we will invoke done() to tell passport to store the user's id and access token in their session.
     In the session, their id and token will be stored under the user object under the passport object.
     */
+    console.log(profile.name.givenName);
    console.log("The user is " + user);
 
 
@@ -204,5 +205,3 @@ app.get('/', (req, res) => {
 app.get("/api/test", function(req,res){
     res.json({status: "Hey Laura Joy"});
 });
-
-
