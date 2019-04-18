@@ -1,0 +1,60 @@
+.bg {
+  background-image: url("https://backgroundcheckall.com/wp-content/uploads/2017/12/contact-us-background-9.jpg");
+   /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cnt {
+max-width:1100;
+}
+
+.custom {
+    width: 210px !important;
+}
+
+.btnRight{
+margin-left:90px;
+}
+
+.btnLeft{
+margin-left:140px;
+}
+
+* {
+  border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+}
+
+.navbar .navbar-nav li a {
+    color: white;
+    font-size: 16px;
+}
+
+.content {
+    padding:20px;
+    margin-top: 20px;
+    padding-top: 20px;
+    /*background-color: #EAEAEA;
+    border: 3px solid #9C9C9C;*/
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    font-family: sans-serif;
+    text-align: center;
+    line-height: 1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    max-width: 20%;
+    max-height: 50%;
+}
+
+
+
+
+
+
+
