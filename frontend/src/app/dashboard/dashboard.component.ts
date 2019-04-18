@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  profile: any =[];
+  constructor(public httpClient: HttpClient) { }
+
+    getProfile() {
+      return this.httpClient.get('/api/test')
+        .subscribe((res) => 
+          {
+            this.profile = res;
+          })
+    }
 
   ngOnInit() {
+    this.getProfile();
   }
 
 }

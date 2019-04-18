@@ -8,19 +8,30 @@ from flask import Flask
 from flask import request
 from flask import Response
 from glassdoor import *
+from logger import log
+from flask_cors import CORS
+from os import environ as environment
 import json
-#from flask_cors import CORS
-app = Flask(__name__)
-#CORS(app)
 
+
+#Initialization
+env = environment['CurrentEnvironment'];
+app = Flask(__name__);
+CORS(app)
 
 #Web driver options
 options = Options();
 options.add_argument("--headless"); #run in headless mode
 
-#Init chrome web driver for Glassdoor
-#EC2 driver = "/usr/bin/chromedriver"
-driver = webdriver.Chrome(options=options)
+
+if(env == "prod"):
+    EC2Driver = "/usr/bin/chromedriver"
+    driver = webdriver.Chrome(EC2Driver, options=options);
+    log("Running on prod");
+else:
+    driver = webdriver.Chrome(options=options)
+    log("Running on dev");
+
 loggedIn = False; #flag that tells us whether or not we are logged into Glassdoor
 
 
@@ -33,12 +44,12 @@ def login():
     if(len(verificationHeader) > 0):
         if(verificationHeader[0].text == "Your Glassdoor Dashboard"):
             #we are at the dashboard, so we are logged in
-            print("Webdriver already logged in");
+            log("Webdriver already logged in");
             loggedIn = True; #update the flag
             return True;
         else:
             #we may have ran into an error or are still not logged in properly
-            print("Not at the dashboard, may not be logged in. Exiting");
+            log("Not at the dashboard, may not be logged in. Exiting");
             loggedIn = False; #update the flag
             return False;
 
@@ -53,15 +64,15 @@ def login():
         usernameField.send_keys("xmd1412@gmail.com"); #fill in username field
         passwordField.send_keys("notarealpassword"); #fill in password field
         submit.click(); #submit
-        print("Now logged in");
+        log("Now logged in");
         loggedIn = True;
         return True;
 
 
 @app.route("/api/glassdoor/<company>/<position>")
 def initGlassdoorSearch(company,position):
-    #print("The flag says " + str(loggedIn)); #TODO: Determine why flag is not updating
-    print("Attempting query");
+    #log("The flag says " + str(loggedIn)); #TODO: Determine why flag is not updating
+    log("Attempting query");
     searchUrl = buildUrl(company, position);
     driver.get(searchUrl) #execute search
     result = driver.find_element_by_class_name("LC20lb").click();
@@ -124,11 +135,7 @@ def getInterviewExperiences():
 def getInterviewDifficultyLevels():
     difficultyLevelsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[1]/div/div[3]/div/div[2]/span');
     return processInterviewDifficultyLevels(difficultyLevelsRawData);
-
-
-if __name__ == "__main__":
+    
+def run():
     if login():
-        print("Starting server");
         app.run(host="0.0.0.0", port=8082);
-    else:
-        print("Could not login");
