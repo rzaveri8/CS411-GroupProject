@@ -8,20 +8,37 @@ import { AppComponent } from './app.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { ResumeComponent } from './resume/resume.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HomepageComponent } from './homepage/homepage.component';
+
+const appRoutes: Routes = [
+  { path: '', redirectTo: '/homepage', pathMatch: 'full'},
+  { path: 'job_search', component: JobsComponent },
+  { path: 'resume', component: ResumeComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'homepage', component: HomepageComponent }
+  ];
 
 @NgModule({
+  exports: [ RouterModule
+  ],
   declarations: [
     AppComponent,
     JobsComponent,
     ResumeComponent,
-    DashboardComponent
+    DashboardComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    RouterModule.forRoot(
+    appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )],
+
   providers: [],
   bootstrap: [AppComponent]
 })
