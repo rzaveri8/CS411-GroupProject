@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
         .subscribe((res) => 
           {
             this.profile = res;
-            console.log(res);
           })
     }
 

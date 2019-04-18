@@ -21,6 +21,14 @@ const ROUTES = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'jobs',
+    component: JobsComponent
+  },
+  {
+    path: 'resume',
+    component: ResumeComponent
   }
 ];
 
