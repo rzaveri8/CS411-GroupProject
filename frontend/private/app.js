@@ -112,13 +112,13 @@ passport.serializeUser(function(user,done){
    //connection.connect();
    var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
    database.query(checkUserExistsQuery, [user.id], function(err,results, fields){
-       if(err) throw err;)
+       if(err) throw err;
        else{
            if(results.length == 0){
             //New user, insert them into database
             var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName,headline,location,industry,pictureURL) VALUES(?,?,?,?,?,?,?)";
             database.query(insertUserQuery, [user.id,user.firstName, user.lastName,user.headline, user.location, user.industry, user.pictureURL ], function(err,results){
-                if(err) throw err; )//console.log(results)
+                if(err) throw err; //console.log(results)
             })
            }
            //Else they already exist, no further operations neccessary on user
