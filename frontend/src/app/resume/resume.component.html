@@ -1,15 +1,15 @@
 <div class="text-center pt-5">
-  <p>
+  <h1>
     Resume Grader
-  </p>
+  </h1>
 </div>
 
-<div class="text-center pt-5">
-  <textarea name="resume" [(ngModel)]="resStr"></textarea>
+<div class="form-group">
+  <label for="file">Choose File</label>
+  <input type="file"
+         id="file"
+         (change)="handleFileInput($event.target.files)">
 </div>
-
-
-<button type="button" class="btn btn-danger wrn-btn custom-button text-center" (click) = "getResume()">Search</button>
 
 <div class="container hide-text" *ngIf = "resume !== undefined">
   <h1> Grade: {{ resume.rezscore.score[0].grade[0] }}</h1>

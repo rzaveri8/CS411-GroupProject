@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { parseString } from 'xml2js';
-
+import { ResumeService } from '../resume.service';
 
 @Component({
   selector: 'app-resume',
@@ -10,24 +10,26 @@ import { parseString } from 'xml2js';
 })
 export class ResumeComponent implements OnInit {
 
-
   resume: any;
+  fileToUpload: File = null;
 
-  resStr: string;
+  constructor(public httpClient: HttpClient, private resumeService: ResumeService) { }
 
-  constructor(public httpClient: HttpClient) { }
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.uploadFileToActivity();
+  }
 
-  getResume()
-  {
-    var link = "http://rezscore.com/a/f3f2cd/grade?resume=" + this.resStr;
-    this.httpClient.get(link, { responseType: 'text' } ).subscribe(response => {
-      var res;
-      parseString( response, function (err, result) {
-        console.dir(result); // Prints JSON object!
-        res = result;
+  uploadFileToActivity() {
+    this.resumeService.postFile(this.fileToUpload).subscribe(data => {
+        var res;
+        parseString( data, function (err, result) {
+          res = result;
+        });
+        this.resume = res;
+      }, error => {
+        console.log(error);
       });
-      this.resume = res;
-    });
   }
 
   ngOnInit() {

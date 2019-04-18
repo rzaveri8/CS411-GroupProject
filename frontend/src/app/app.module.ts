@@ -3,21 +3,34 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { HttpClientModule }    from '@angular/common/http';
 
+import {RouterModule} from '@angular/router';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { ResumeComponent } from './resume/resume.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RouterModule, Routes } from '@angular/router';
-import { HomepageComponent } from './homepage/homepage.component';
+// Define the routes
 
-const appRoutes: Routes = [
-  { path: '', redirectTo: '/homepage', pathMatch: 'full'},
-  { path: 'job_search', component: JobsComponent },
-  { path: 'resume', component: ResumeComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'homepage', component: HomepageComponent }
-  ];
+const ROUTES = [
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: 'jobs',
+    component: JobsComponent
+  },
+  {
+    path: 'resume',
+    component: ResumeComponent
+  }
+];
 
 @NgModule({
   exports: [ RouterModule
@@ -34,11 +47,8 @@ const appRoutes: Routes = [
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(
-    appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    )],
-
+    RouterModule.forRoot(ROUTES) //add routes to app
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
