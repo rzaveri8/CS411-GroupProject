@@ -27,6 +27,7 @@ export class ResumeComponent implements OnInit {
           res = result;
         });
         this.resume = res;
+        console.log(this.resume);
       }, error => {
         console.log(error);
       });

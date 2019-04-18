@@ -12,7 +12,26 @@
 </div>
 
 <div class="container hide-text" *ngIf = "resume !== undefined">
-  <h1> Grade: {{ resume.rezscore.score[0].grade[0] }}</h1>
-  <h2> Advice: {{ resume.rezscore.advice[0].tip[0].long[0] }}</h2>
-  <h2> Percentile: {{ resume.rezscore.score[0].percentile[0] }} </h2>
+  <h4> <strong> Grade: </strong>{{ resume.rezscore.score[0].grade[0] }}</h4>
+  <h4> <strong>Advice Long: </strong>{{ resume.rezscore.advice[0].tip[0].long[0] }}</h4>
+  <h4> <strong>Advice Short: </strong>{{ resume.rezscore.advice[0].tip[0].short[0].a[0]._ }}</h4>
+  <h4> <strong>Percentile: </strong>{{ resume.rezscore.score[0].percentile[0] }} </h4>
+  <h4> <strong>Readability: </strong>{{ resume.rezscore.extended[0].ari_score[0] }}</h4>
+  <h4> <strong>Buzzword Percent: </strong>{{ resume.rezscore.extended[0].pct_buzzwords[0] }}</h4>
+  <h4> <strong>Whitespace Percent: </strong>{{ resume.rezscore.extended[0].pct_whitespace[0] }}</h4>
+  <h4> <strong>Word Count:</strong> {{ resume.rezscore.extended[0].wordcount[0] }}</h4>
+  <h4> <strong>First Industry Match:</strong> {{ resume.rezscore.industry[0].first_industry_match[0] }}</h4>
+  <h4> <strong>Second Industry Match: </strong>{{ resume.rezscore.industry[0].second_industry_match[0] }}</h4>
+  <h4> <strong>Third Industry Match:</strong> {{ resume.rezscore.industry[0].third_industry_match[0] }}</h4>
+  <h4> <strong>Most Popular Words:</strong></h4>
+    <ul>
+      <li *ngFor="let word of resume.rezscore.language[0].word"> {{ word.string[0] }} </li>
+    </ul>
+  <h4> <strong>Brevity Score:</strong> {{ resume.rezscore.score[0].brevity_score[0] }} </h4>
+  <h4> <strong>Depth Score: </strong>{{ resume.rezscore.score[0].depth_score[0] }} </h4>
+  <h4> <strong>Impact Score: </strong>{{ resume.rezscore.score[0].impact_score[0] }} </h4>
+  <h4> <strong>Grade Blurb:</strong> {{ resume.rezscore.score[0].grade_blurb[0] }} </h4>
+  <h4> <strong>Grade Headline: </strong>{{ resume.rezscore.score[0].grade_headline[0] }} </h4>
+
+
 </div>
