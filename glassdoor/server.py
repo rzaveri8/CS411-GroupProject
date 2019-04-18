@@ -24,35 +24,49 @@ options = Options();
 options.add_argument("--headless"); #run in headless mode
 
 
-if(env == "prod"):
+if(env == "exp" or env == "prod"):
+    #TODO: change to prod
     EC2Driver = "/usr/bin/chromedriver"
     driver = webdriver.Chrome(EC2Driver, options=options);
-    log("Running on prod");
+    log("Running on experimental production");
 else:
     driver = webdriver.Chrome(options=options)
     log("Running on dev");
 
-loggedIn = False; #flag that tells us whether or not we are logged into Glassdoor
+loggedIn = False;
 
+def verifyLoggedIn(verificationHeader, wait):
+    if(wait == False):
+        verificationHeaderResponse = driver.find_elements_by_xpath(verificationHeader);
+        if(len(verificationHeaderResponse) > 0):
+            if(verificationHeaderResponse[0].text == "Your Glassdoor Dashboard"):
+                #we are at the dashboard, so we are logged in
+                log("Webdriver logged in");
+                return True;
+            else:
+                #we may have ran into an error or are still not logged in properly
+                log("Not at the dashboard, may not be logged in. Exiting");
+                return False;
+    else:
+        driver.implicitly_wait(1); #wait for page to load
+        verificationHeaderResponse = driver.find_element_by_xpath(verificationHeader);
+        if(verificationHeaderResponse):
+            log("Now logged in");
+            return True;
+        else:
+            log("Could not verify");
+            return False;
 
 #We have to be logged in order to get data
 def login():
+    global loggedIn; 
     driver.get("https://www.glassdoor.com");
 
     #first test if are logged in
-    verificationHeader= driver.find_elements_by_xpath('//*[@id="MainCol"]/section[1]/div[1]/h2');
-    if(len(verificationHeader) > 0):
-        if(verificationHeader[0].text == "Your Glassdoor Dashboard"):
-            #we are at the dashboard, so we are logged in
-            log("Webdriver already logged in");
-            loggedIn = True; #update the flag
-            return True;
-        else:
-            #we may have ran into an error or are still not logged in properly
-            log("Not at the dashboard, may not be logged in. Exiting");
-            loggedIn = False; #update the flag
-            return False;
-
+    verificationHeaderAttemptOne= '//*[@id="MainCol"]/section[1]/div[1]/h2';
+    if(verifyLoggedIn(verificationHeaderAttemptOne, False)):
+        return True;
+    
     #else login to glassdoor
     else:
         driver.find_element_by_xpath('//*[@id="TopNav"]/nav/div/div/div[1]/div[1]/a').click(); #sign in button
@@ -64,14 +78,23 @@ def login():
         usernameField.send_keys("xmd1412@gmail.com"); #fill in username field
         passwordField.send_keys("notarealpassword"); #fill in password field
         submit.click(); #submit
-        log("Now logged in");
-        loggedIn = True;
-        return True;
+
+        verificationHeaderAttemptTwo = '//*[@id="MainCol"]/section[1]/div[1]/h2';
+        if(verifyLoggedIn(verificationHeaderAttemptTwo, True)):
+            log("Verified");
+            loggedIn = True;
+            return True;
+        else:
+            log("Not verified");
+            loggedIn = False;
+            return False;
 
 
 @app.route("/api/glassdoor/<company>/<position>")
 def initGlassdoorSearch(company,position):
-    #log("The flag says " + str(loggedIn)); #TODO: Determine why flag is not updating
+    if(loggedIn == False):
+        log("Not currently logged in")
+        login();
     log("Attempting query");
     searchUrl = buildUrl(company, position);
     driver.get(searchUrl) #execute search
@@ -135,7 +158,12 @@ def getInterviewExperiences():
 def getInterviewDifficultyLevels():
     difficultyLevelsRawData = driver.find_elements_by_xpath('//*[@class=" empReview cf "]/div[3]/div/div[2]/div[1]/div/div[3]/div/div[2]/span');
     return processInterviewDifficultyLevels(difficultyLevelsRawData);
-    
+
+
 def run():
-    if login():
-        app.run(host="0.0.0.0", port=8082);
+    login();
+    app.run(host="0.0.0.0", port=8082);
+
+def testLogin():
+    login();
+
