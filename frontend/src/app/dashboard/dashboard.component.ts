@@ -13,11 +13,15 @@ export class DashboardComponent implements OnInit {
   constructor(public httpClient: HttpClient) { }
 
     getProfile() {
-      return this.httpClient.get('/api/test')
-        .subscribe((res) => 
-          {
-            this.profile = res;
-          })
+
+      // return this.httpClient.get('/api/test')
+      //   .subscribe((res) => 
+      //     {
+      //       console.log(res);
+      //       this.profile = res;
+      //     })
+      this.profile = "hi";
+      return;
     }
 
   ngOnInit() {

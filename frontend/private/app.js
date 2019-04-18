@@ -183,6 +183,7 @@ app.get("/dashboard", function(req,res){
 //         console.log("Body: " + body);
 //     });
 // });
+});
 
 
 app.get("/logout", function(req,res){
@@ -202,4 +203,6 @@ app.get('/', (req, res) => {
 
 app.get("/api/test", function(req,res){
     res.json({status: "Hey Laura Joy"});
-})
+});
+
+
