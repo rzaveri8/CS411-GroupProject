@@ -12,7 +12,7 @@ const credentials = require('./controllers/credentials');
 const database = require('./controllers/dbConnection');
 const app = express();
 const path = require('path');
-app.listen(8081);
+app.listen(3000);//(8081);
 
 /*
 To demonstrate the basic functionality of logging in with Linked,
@@ -61,7 +61,7 @@ app.use(passport.session());
 passport.use(new LinkedInStrategy({
     clientID: credentials.linkedIn.apiKey,
     clientSecret: credentials.linkedIn.apiSecret,
-    callbackURL: "http://52.14.17.113:8081/auth/callback",
+    callbackURL: "http://localhost:3000/auth/callback",//"http://52.14.17.113:8081/auth/callback",
     scope: ['r_basicprofile']
 }, function(accessToken, refreshToken, profile, done){
     /*
@@ -73,6 +73,9 @@ passport.use(new LinkedInStrategy({
     (e.g user_id, username, email)
     */
   //console.log("Access token: " + accessToken);
+
+  //app.get("/users", (request, response) => {
+
     var user = {
         accessToken: accessToken,
         id: profile.id,
@@ -87,8 +90,9 @@ passport.use(new LinkedInStrategy({
         //pictureUrl: pictureUrl,
 
     }
+//  });
   //  console.log(profile);
-    'use strict';
+    //'use strict';
 
 const fs = require('fs');
 
@@ -108,6 +112,8 @@ let data = JSON.stringify(person1);
 fs.writeFileSync('person1.json', data);
     return done(null,user);
 }))
+
+//app.get
 
 passport.serializeUser(function(user,done){
     /*
@@ -153,6 +159,10 @@ passport.deserializeUser(function(user,done){
     This allows us to access the passport object in the session store as req.user within all requests.
     In this case, the passport object contains a user object.
     */
+
+    // Display all users
+
+// });
     done(null,user);
 })
 
@@ -161,11 +171,25 @@ app.get("/auth", passport.authenticate('linkedin', {state: 'SOME STATE'}), funct
     //Redirects to LinkedIn
 })
 
+app.get("/users",(req,res)=> {
+  console.log(req.user.id)
+  user.id
+})
+
+/*app.get("/users", (request, response) => {
+    database.query('SELECT * FROM users', (error, result) => {
+        if (error) throw error;
+
+        response.send(result);
+    }); */
+
 //Callback
 app.get("/auth/callback", passport.authenticate('linkedin', {
     successRedirect: "/dashboard",
     failureRedirect: "/"
 }));
+
+
 
 
 
