@@ -12,7 +12,8 @@ const credentials = require('./controllers/credentials');
 const database = require('./controllers/dbConnection');
 const app = express();
 const path = require('path');
-app.listen(8081);//(3000);//
+//const router = express.Router();
+app.listen(3000);//(8081);
 
 /*
 To demonstrate the basic functionality of logging in with Linked,
@@ -61,7 +62,7 @@ app.use(passport.session());
 passport.use(new LinkedInStrategy({
     clientID: credentials.linkedIn.apiKey,
     clientSecret: credentials.linkedIn.apiSecret,
-    callbackURL: "http://52.14.17.113:8081/auth/callback",//"http://localhost:3000/auth/callback",
+    callbackURL: "http://localhost:3000/auth/callback",//"http://52.14.17.113:8081/auth/callback",
     scope: ['r_basicprofile']
 }, function(accessToken, refreshToken, profile, done){
     /*
@@ -187,10 +188,11 @@ app.get("/auth", passport.authenticate('linkedin', {state: 'SOME STATE'}), funct
 })
 
 app.get("/users",(req,res)=> {
-  console.log(req.user.headline)
+  //console.log(req.user.headline)
     res.json([req.user.id,req.user.firstName,req.user.lastName,req.user.headline,req.user.location,req.user.industry,req.user.pictureUrl]);
 })
-
+// - fgure out how angular can tell if a person has logged in to authenticate it.
+// - integrate angualr with passport.js
 //app.get("/nojob")
 
 /*app.get("/users", (request, response) => {
