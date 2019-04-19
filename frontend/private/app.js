@@ -208,13 +208,13 @@ app.get("/auth/callback", passport.authenticate('linkedin', {
 }));
 
 
-app.get("/api/glassdoor/:company/:position",function(req,res) {
+/*app.get("/api/glassdoor/:company/:position",function(req,res) {
 //  http://52.14.17.113:8080/api/all/<company>/<position>
   console.log("get jobs")
   res.json(["Hey"]);
   res.send(req.params)
 
-})
+}) */
 
 
   /* Glassdoor:
