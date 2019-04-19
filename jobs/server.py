@@ -15,37 +15,70 @@ driver = webdriver.Chrome(options=options);
 
 loggedIn = False;
 
+
+#Login if neccessary
 def login():
     global loggedIn;
     driver.get("https://www.linkedin.com/uas/login");
     usernameField = driver.find_element_by_name("session_key");
     passwordField = driver.find_element_by_name("session_password");
     submit = driver.find_element_by_xpath("//*[@id='app__container']/main/div/form/div[3]/button");
-    usernameField.send_keys("mdesilva@bu.edu");
-    passwordField.send_keys("LOgitech22");
+    usernameField.send_keys("");
+    passwordField.send_keys("");
     submit.click();
     #Assume that at this point we are logged in 
-    loggedIn = True;
 
 
 
 @app.route("/api/jobs/<position>")
 def getJobs(position):
-    if(loggedIn == False):
-        login();
+    """if(loggedIn == False):
+        login();"""
     parsedPosition = urlEncode(position);
     url = buildUrl(position);
     driver.get(url);
-    titles = driver.find_elements_by_xpath('//*[@class="job-card-search__title artdeco-entity-lockup__title ember-view"]');
-    companies = driver.find_elements_by_xpath('//*[@class="job-card-search__company-name t-14 t-black artdeco-entity-lockup__subtitle ember-view"]');
-    #print("The length of job titles is");
-    #print(len(titles));
+    #Since LinkedIn has multiple UIs, we have to go through all the possible classes our data could be under
+    #Pass[i,0] represents a class job titles could be under
+    #Pass[i,1] represents a class job companies could be under
+    pass00 = driver.find_elements_by_xpath('//*[@class="job-card-search__title artdeco-entity-lockup__title ember-view"]');
+    pass01 = driver.find_elements_by_xpath('//*[@class="job-card-search__company-name t-14 t-black artdeco-entity-lockup__subtitle ember-view"]');
+    pass10 = driver.find_elements_by_class_name('listed-job-posting__title');
+    pass11 = driver.find_elements_by_class_name('listed-job-posting__company');
+    pass20 = driver.find_elements_by_class_name('result-card__title');
+    pass21 = driver.find_elements_by_class_name('job-result-card__subtitle-item');
+    passes = {
+        0: [pass00,pass01],
+        1: [pass10,pass11],
+        2: [pass20,pass21]
+    };
+    listingsIndex = getCorrectListingIndex([passes[0][0],passes[1][0],passes[2][0]]);
+    titles = passes[listingsIndex][0];
+    companies = passes[listingsIndex][1];
+    print(len(titles));
+    print(len(companies));
     jobs = processJobs(titles,companies);
     return Response(json.dumps(jobs), status=200, mimetype='application/json');
 
-
+def getCorrectListingIndex(arr):
+    #Since LinkedIn has multiple UIs for their job search, we have to calculate which one we currently have
+    for i in range(len(arr)):
+        length = len(arr[i]);
+        if(length > 0):
+            print("The first length greater than 0 found was");
+            print(length);
+            print("The index of the listings type is");
+            print(i);
+            return i;
+    
 def urlEncode(job):
-    jobParts = job.split(" ");
+    #If the job is inputted with whitespaces or '+'s, url encode the job
+    if(job.find(" ") != -1):
+        #job was sent with whitespaces
+        jobParts = job.split(" ");
+    elif(job.find("+") != -1):
+        #job was sent with '+'s
+        jobParts = job.split("+");
+
     jobPartsLength = len(jobParts);
     parsedJob = "";
     for i in range(jobPartsLength):
@@ -61,4 +94,4 @@ def buildUrl(urlEncodedJob):
     return finalUrl;
 
 if(__name__ == "__main__"):
-    app.run(host="0.0.0.0", port=8085);
+    app.run(host="0.0.0.0", port=8083);
