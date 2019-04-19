@@ -202,19 +202,19 @@ app.get("/users",(req,res)=> {
 
 //Callback
 app.get("/auth/callback", passport.authenticate('linkedin', {
-    successRedirect: "/dashboard",
+    successRedirect: "/",
     failureRedirect: "/",
     //console.log("success");
 }));
 
 
-/*app.get(":8082/api/glassdoor/:company/:position",function(req,res) {
+app.get("/api/glassdoor/:company/:position",function(req,res) {
   http://52.14.17.113:8080/api/all/<company>/<position>
   console.log("get jobs")
-  res.json([]);
+  res.json(["Hey"]);
   res.send(req.params)
 
-}) */
+})
 
 
   /* Glassdoor:
