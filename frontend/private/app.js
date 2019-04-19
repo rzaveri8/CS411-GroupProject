@@ -12,7 +12,7 @@ const credentials = require('./controllers/credentials');
 const database = require('./controllers/dbConnection');
 const app = express();
 const path = require('path');
-app.listen(3000);//(8081);
+app.listen(8081);//(3000);//
 
 /*
 To demonstrate the basic functionality of logging in with Linked,
@@ -61,7 +61,7 @@ app.use(passport.session());
 passport.use(new LinkedInStrategy({
     clientID: credentials.linkedIn.apiKey,
     clientSecret: credentials.linkedIn.apiSecret,
-    callbackURL: "http://localhost:3000/auth/callback",//"http://52.14.17.113:8081/auth/callback",
+    callbackURL: "http://52.14.17.113:8081/auth/callback",//"http://localhost:3000/auth/callback",
     scope: ['r_basicprofile']
 }, function(accessToken, refreshToken, profile, done){
     /*
@@ -103,6 +103,7 @@ let person1 = {
   lastName: profile.name.familyName,
   location: profile._json.location.name,
   industry: profile._json.industry,
+  headline: profile._json.headline,
   pictureUrl: profile._json.pictureUrl,
   url: profile._json.url
 };
@@ -124,32 +125,46 @@ passport.serializeUser(function(user,done){
 
    console.log("The user is " + user);
 
-   var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName,headline,location,industry,pictureURL) VALUES(?,?,?,?,?,?,?)";
+   /*var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName,headline,location,industry,pictureURL) VALUES(?,?,?,?,?,?,?)";
    database.query(insertUserQuery, [user.id,user.firstName, user.lastName,user.headline, user.location, user.industry, user.pictureURL ], function(err,results){
        if(err) throw err; //console.log(results)
-   })
+   }) */
    //connection.connect();
-/*   var checkUserExistsQuery = "SELECT * FROM users WHERE userkey=?";
+  var checkUserExistsQuery = "SELECT * FROM users WHERE userKey=?";
    database.query(checkUserExistsQuery, [user.id], function(err,results, fields){
        if(err) throw err;
        else{
            if(results.length == 0){
             //New user, insert them into database
             var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName,headline,location,industry,pictureURL) VALUES(?,?,?,?,?,?,?)";
-            database.query(insertUserQuery, [user.id,user.firstName, user.lastName,user.headline, user.location, user.industry, user.pictureURL ], function(err,results){
+            database.query(insertUserQuery, [user.id,user.firstName, user.lastName,user.headline, user.location, user.industry, user.pictureUrl ], function(err,results){
                 if(err) throw err; //console.log(results)
             })
            }
            //Else they already exist, no further operations neccessary on user
        }
-   }) */
+   })
+
+// NEED TO DO:
+// - if statement for existing
+// - if statement for if there's no industry - go to page where they insert job title, insert
+//that into data base
+// create api for angular to use to get data base info.
 
    //connection.end();
+
 
     console.log("User was serialized");
     user = {
         id: user.id,
-        token: user.accessToken
+        token: user.accessToken,
+        //id: profile.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        headline: user.headline,
+        location: user.location,
+        industry: user.industry,
+        pictureUrl: user.pictureUrl
     }
     done(null,user);
 })
@@ -172,9 +187,11 @@ app.get("/auth", passport.authenticate('linkedin', {state: 'SOME STATE'}), funct
 })
 
 app.get("/users",(req,res)=> {
-  console.log(req.user.id)
-  user.id
+  console.log(req.user.headline)
+    res.json([req.user.id,req.user.firstName,req.user.lastName,req.user.headline,req.user.location,req.user.industry,req.user.pictureUrl]);
 })
+
+//app.get("/nojob")
 
 /*app.get("/users", (request, response) => {
     database.query('SELECT * FROM users', (error, result) => {
@@ -186,10 +203,34 @@ app.get("/users",(req,res)=> {
 //Callback
 app.get("/auth/callback", passport.authenticate('linkedin', {
     successRedirect: "/dashboard",
-    failureRedirect: "/"
+    failureRedirect: "/",
+    //console.log("success");
 }));
 
 
+/*app.get(":8082/api/glassdoor/:company/:position",function(req,res) {
+  http://52.14.17.113:8080/api/all/<company>/<position>
+  console.log("get jobs")
+  res.json([]);
+  res.send(req.params)
+
+}) */
+
+
+  /* Glassdoor:
+http://52.14.17.113:8082/api/glassdoor/<company>/<position>
+// create an api that request the parameters for this info and fills it in.
+// does both of these requests at the same time
+
+Indeed:
+http://52.14.17.113:8080/api/all/<company>/<position>
+
+*if position has multiple words in it, make sure they are
+separated by spaces or '+'s, and also that each word in
+position is capitalized*/
+
+
+//})
 
 
 
