@@ -17,7 +17,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 const ROUTES = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'homepage',
     pathMatch: 'full'
   },
   {

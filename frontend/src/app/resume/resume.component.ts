@@ -21,6 +21,7 @@ export class ResumeComponent implements OnInit {
   }
 
   uploadFileToActivity() {
+    this.resume = undefined;
     this.resumeService.postFile(this.fileToUpload).subscribe(data => {
         var res;
         parseString( data, function (err, result) {
