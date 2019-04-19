@@ -11,6 +11,7 @@ import { JobsComponent } from './jobs/jobs.component';
 import { ResumeComponent } from './resume/resume.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
+
 // Define the routes
 
 const ROUTES = [
@@ -30,6 +31,10 @@ const ROUTES = [
   {
     path: 'resume',
     component: ResumeComponent
+  },
+  {
+    path: 'homepage',
+    component: HomepageComponent
   }
 ];
 
