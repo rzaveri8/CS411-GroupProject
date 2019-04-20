@@ -1,12 +1,16 @@
 .bg {
   background-image: url("https://backgroundcheckall.com/wp-content/uploads/2017/12/contact-us-background-9.jpg");
    /* Full height */
+
   height: 100%;
+  height: 100vh;
 
   /* Center and scale the image nicely */
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
 }
 
 .cnt {
