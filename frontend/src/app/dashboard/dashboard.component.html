@@ -1,19 +1,19 @@
 <div class = "bg">
-<h1 class = "pt-4" style = "text-align: center; font-family: Open Sans, sans-serif; font-size: 60px; color: white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Welcome Nicole!</h1>
-<div class = "container content">
-<div class = "pt-3" style = "text-align: center;">
-<img src="https://cdn.accounts.autodesk.com/content/identity/28.0.545.0609a05/z/Content/images/icons/user_X176.png" width="200" height="200">
-</div>
-<div class = "container pt-3" style = "text-align:left">
-  <h2 style = "font-family: Open Sans, sans-serif; font-size: 20px;">Job:</h2>
-  <h2 style = "font-family: Open Sans, sans-serif; font-size: 20px; margin-right:100%;">Location:</h2>
-</div>
-</div>
-  <div class = "container cnt pt-5">
-    <button type="button" class="custom btn-lg btn btn-primary active btnLeft" >Jobs Recommender</button>
-    <button type="button" class="custom btn-lg btn btn-primary active btnRight" routerLink="/resume" routerLinkActive="active">Resume Parser</button>
-    <button type="button" class="custom btn-lg btn btn-primary active btnRight" routerLink="/jobs" routerLinkActive="active">Job Search</button>
+  <h1 class = "pt-4" style = "text-align: center; font-family: Open Sans, sans-serif; font-size: 60px; color: white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Welcome {{ profile.firstName }}!</h1>
+  <div class = "container content">
+    <div class = "pt-3" style = "text-align: center;">
+      <img src="{{ profile.pictureUrl }}" width="200" height="200">
+    </div>
+    <div class = "container pt-3" style = "text-align:left">
+      <h2 style = "font-family: Open Sans, sans-serif; font-size: 20px;" *ngIf = "profile.industry != undefined">Job: {{ profile.industry }} </h2>
+      <h2 style = "font-family: Open Sans, sans-serif; font-size: 20px;" *ngIf = "profile.location != undefined">Location: {{ profile.location }}</h2>
+    </div>
   </div>
+    <div class = "container cnt pt-5">
+      <button type="button" class="custom btn-lg btn btn-primary active btnLeft" >Jobs Recommender</button>
+      <button type="button" class="custom btn-lg btn btn-primary active btnRight" routerLink="/resume" routerLinkActive="active">Resume Parser</button>
+      <button type="button" class="custom btn-lg btn btn-primary active btnRight" routerLink="/jobs" routerLinkActive="active">Job Search</button>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

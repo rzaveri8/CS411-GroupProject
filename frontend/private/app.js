@@ -12,19 +12,27 @@ const credentials = require('./controllers/credentials');
 const database = require('./controllers/dbConnection');
 const app = express();
 const path = require('path');
-//const router = express.Router();
-app.listen(3000);//(8081);
 
-/*
-To demonstrate the basic functionality of logging in with Linked,
-we will use the templating engine Pug to render some barebones pages
-*/
+var callbackURL = "";
 
-app.set("view engine", "pug");
-app.set("views", "./views");
+/* Setup Environment */
+var environment = process.env.CurrentEnvironment;
+
+if(environment == undefined){
+    //If the environment variable is not set, assume we are in a developer environment
+    environment = "dev";
+}
+
+if(environment == "dev"){
+    app.listen(3000);
+    callbackURL = "http://localhost:3000/auth/callback";
+}
+else{
+    app.listen(8081);
+    callbackURL = "http://52.14.17.113:8081/auth/callback";
+}
+
 app.use(express.static("dist"));
-
-
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -62,7 +70,7 @@ app.use(passport.session());
 passport.use(new LinkedInStrategy({
     clientID: credentials.linkedIn.apiKey,
     clientSecret: credentials.linkedIn.apiSecret,
-    callbackURL: "http://localhost:3000/auth/callback",//"http://52.14.17.113:8081/auth/callback",
+    callbackURL: callbackURL,
     scope: ['r_basicprofile']
 }, function(accessToken, refreshToken, profile, done){
     /*
@@ -73,10 +81,6 @@ passport.use(new LinkedInStrategy({
     to help us identify the user
     (e.g user_id, username, email)
     */
-  //console.log("Access token: " + accessToken);
-
-  //app.get("/users", (request, response) => {
-
     var user = {
         accessToken: accessToken,
         id: profile.id,
@@ -114,8 +118,6 @@ let data = JSON.stringify(person1);
 fs.writeFileSync('person1.json', data);
     return done(null,user);
 }))
-
-//app.get
 
 passport.serializeUser(function(user,done){
     /*
@@ -183,13 +185,13 @@ passport.deserializeUser(function(user,done){
 })
 
 //Authentication
-app.get("/auth", passport.authenticate('linkedin', {state: 'SOME STATE'}), function(req,res){
+app.get("/api/auth", passport.authenticate('linkedin', {state: 'SOME STATE'}), function(req,res){
     //Redirects to LinkedIn
 })
 
-app.get("/users",(req,res)=> {
+app.get("/api/user",(req,res)=> {
   //console.log(req.user.headline)
-    res.json([req.user.id,req.user.firstName,req.user.lastName,req.user.headline,req.user.location,req.user.industry,req.user.pictureUrl]);
+    res.json({id: req.user.id, firstName: req.user.firstName, lastName: req.user.lastName, headline: req.user.headline, location: req.user.location, industry: req.user.industry, pictureUrl: req.user.pictureUrl});
 })
 // - fgure out how angular can tell if a person has logged in to authenticate it.
 // - integrate angualr with passport.js
@@ -204,7 +206,7 @@ app.get("/users",(req,res)=> {
 
 //Callback
 app.get("/auth/callback", passport.authenticate('linkedin', {
-    successRedirect: "/",
+    successRedirect: "http://localhost:4200/dashboard",
     failureRedirect: "/",
     //console.log("success");
 }));
@@ -237,24 +239,33 @@ position is capitalized*/
 
 
 
-app.get("/dashboard", function(req,res){
+
+
+
+
+app.get("/api/isLoggedInLI", passport.authenticate('linkedin'), function(req,res){
     /*
-    If we get here, then the user successfully logged in. For all subsequent requests, we can access their token
-    using req.user.token and their id using req.user.id
+    If the following json object is sent back, then the user successfully logged in. For all subsequent requests, we can access their token
+    using req.user.token and their id using req.user.id.
+
+    If the user is not logged in, then Passport will by default send a 401 Unauthorized Response.
     */
-    res.render("dashboard");
+   console.log("Request received");
+   res.json({status:"User is logged in"});
+});
 
+app.get("/api/isLoggedIn", function(req,res){
+    console.log(req.user);
+    if(req.user){
+        res.json({logInStatus:1});
+    }
+    else{
+        res.json({logInStatus:0});
+    }
+});
 
-//     const token = req.user.token;
-//     var getProfileUrl = "https://api.linkedin.com/v2/me?oauth2_access_token=" + token;
-//     request(getProfileUrl, function(error,response,body){
-//         if(error){
-//             console.log(error);
-//         }
-//         console.log("Response: " + response);
-//         console.log("Body: " + body);
-//     });
-// });
+app.get("/api/testAng", function(req,res){
+    res.json({status: "The server speaks"});
 });
 
 
@@ -268,11 +279,18 @@ app.get("/logout", function(req,res){
 
 
 // CONNECTING THE FRONT END
-// Catch all other routes and return the index file
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
-  });
 
-app.get("/api/test", function(req,res){
-    res.json({status: "Hey Laura Joy"});
+// Catch all other routes and return the index file
+function allFrontEndRoutes(req,res){
+    res.sendFile('dist/index.html', { root: '.'});
+}
+app.use(allFrontEndRoutes);
+
+
+// Access dashboard
+app.get("/api/dashboard", passport.authenticate("linkedin"), function(req,res){
+    const firstName = req.user.firstName;
+    const lastName = req.user.lastName;
+    const headline = req.user.headline;
+    res.json({firstName: firstName, lastName: lastName, headline: headline});
 });

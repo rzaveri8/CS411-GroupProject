@@ -557,7 +557,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/laurajoyerb/Documents/MyCode/CS411-GroupProject/frontend/src/styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! /Users/manujadesilva/Desktop/CS411/semester-project/frontend/src/styles.css */"./src/styles.css");
 
 
 /***/ })
