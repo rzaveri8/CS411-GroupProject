@@ -14,7 +14,8 @@
 <div class="container">
   <div class="custom-file" style="text-align: left;">
     <input type="file" class="custom-file-input" id="file" (change)="handleFileInput($event.target.files)">
-    <label class="custom-file-label" style="width:320px;" for="file">Choose file</label>
+    <label class="custom-file-label" style="width:320px;" for="file" *ngIf = "fileToUpload == undefined">Choose file</label>
+    <label class="custom-file-label" style="width:320px;" for="file" *ngIf = "fileToUpload != undefined"> {{ fileToUpload.name }}</label>
   </div>
 </div>
 
