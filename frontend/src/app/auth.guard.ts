@@ -15,16 +15,16 @@ export class AuthGuard implements CanActivate  {
   response: any;
   async canActivate(){
     this.response = await this.http.get("/api/isLoggedIn").toPromise();
-    console.log("The response is " + this.response);
+    //console.log("The response is " + this.response);
     this.isLoggedIn = this.response.logInStatus;
     if(this.isLoggedIn == 1){
-      console.log("The user is logged in");
-      console.log(this.isLoggedIn);
+      //console.log("The user is logged in");
+      //console.log(this.isLoggedIn);
       return true;
     }
     else{
-      alert("You are not logged in. Please exit the premises");
-      console.log(this.isLoggedIn);
+      alert("You are not logged in. Please login with LinkedIn first");
+      //console.log(this.isLoggedIn);
       return false;
     }
   }

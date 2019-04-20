@@ -14,6 +14,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { RecommenderComponent } from './recommender/recommender.component';
 
 import { AuthGuard } from './auth.guard';
+import { LogoutComponent } from './logout/logout.component';
 
 // Define the routes
 
@@ -44,7 +45,13 @@ const ROUTES = [
   },
   {
     path: 'recommender',
+    canActivate: [AuthGuard],
     component: RecommenderComponent
+  },
+  {
+    path: 'logout',
+    canActivate: [AuthGuard],
+    component: LogoutComponent
   }
 ];
 
@@ -57,7 +64,8 @@ const ROUTES = [
     ResumeComponent,
     DashboardComponent,
     HomepageComponent,
-    RecommenderComponent
+    RecommenderComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
