@@ -12,6 +12,8 @@ import { ResumeComponent } from './resume/resume.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
+import { AuthGuard } from './auth.guard';
+
 // Define the routes
 
 const ROUTES = [
@@ -22,14 +24,17 @@ const ROUTES = [
   },
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     component: DashboardComponent
   },
   {
     path: 'jobs',
+    canActivate: [AuthGuard],
     component: JobsComponent
   },
   {
     path: 'resume',
+    canActivate: [AuthGuard],
     component: ResumeComponent
   },
   {
@@ -55,7 +60,7 @@ const ROUTES = [
     HttpClientModule,
     RouterModule.forRoot(ROUTES) //add routes to app
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
