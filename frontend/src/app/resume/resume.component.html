@@ -8,22 +8,13 @@
 
 <div class = "pb-5" style = "margin-left: 575px;">
 <div class="container">
-  <div class="custom-file" >
-    <label class="custom-file-label" style="width:320px;" for="file">Choose file</label>
-    <input type="file" class="custom-file-input center-title3" id="file" (change)="handleFileInput($event.target.files)">
-  </div>
+  <div class="custom-file" style="text-align: left;">
+    <input type="file" class="custom-file-input" id="file" (change)="handleFileInput($event.target.files)">
+    <label class="custom-file-label" style="width:320px;" for="file" *ngIf = "fileToUpload == undefined">Choose file</label>
+    <label class="custom-file-label"style="width:320px;" for="file" *ngIf = "fileToUpload != undefined"> {{ fileToUpload.name }}</label>
   </div>
 </div>
-
-  <!--<div class="container pt-2 pb-3" style = "margin-left:260px;">
-    <div class="form-group" style = "text-align:center;">
-      <label style= "color: white;" for="file">Choose File &nbsp;</label>
-      <input type="file"
-         id="file"
-         (change)="handleFileInput($event.target.files)">
-    </div>
-  </div>
-  -->
+</div>
   <div class="hide-text" *ngIf = "resume !== undefined">
     <div class="hide-text element container blur-box">
       <p style = "text-align: center;font-size: 20px;">Overall Grade:  {{ resume.rezscore.score[0].grade[0] }}</p>
