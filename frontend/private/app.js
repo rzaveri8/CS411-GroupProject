@@ -255,7 +255,7 @@ app.get("/api/isLoggedInLI", passport.authenticate('linkedin'), function(req,res
 });
 
 app.get("/api/isLoggedIn", function(req,res){
-    console.log(req.user);
+    //console.log(req.user);
     if(req.user){
         res.json({logInStatus:1});
     }
@@ -269,12 +269,14 @@ app.get("/api/testAng", function(req,res){
 });
 
 
-app.get("/logout", function(req,res){
+app.get("/api/logout", function(req,res){
     /*
     Passport exposes a logout() function on the req object. Calling it will delete the user's id and token from their session
     */
+    console.log("Received request to logout user");
+    const firstName = req.user.firstName;
     req.logout();
-    res.redirect("/");
+    res.json({status:200, name: firstName});
 })
 
 

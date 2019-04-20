@@ -13,6 +13,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RecommenderComponent } from './recommender/recommender.component';
 
+import { AuthGuard } from './auth.guard';
+import { LogoutComponent } from './logout/logout.component';
+
 // Define the routes
 
 const ROUTES = [
@@ -23,14 +26,17 @@ const ROUTES = [
   },
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     component: DashboardComponent
   },
   {
     path: 'jobs',
+    canActivate: [AuthGuard],
     component: JobsComponent
   },
   {
     path: 'resume',
+    canActivate: [AuthGuard],
     component: ResumeComponent
   },
   {
@@ -39,7 +45,13 @@ const ROUTES = [
   },
   {
     path: 'recommender',
+    canActivate: [AuthGuard],
     component: RecommenderComponent
+  },
+  {
+    path: 'logout',
+    canActivate: [AuthGuard],
+    component: LogoutComponent
   }
 ];
 
@@ -52,7 +64,8 @@ const ROUTES = [
     ResumeComponent,
     DashboardComponent,
     HomepageComponent,
-    RecommenderComponent
+    RecommenderComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +74,7 @@ const ROUTES = [
     HttpClientModule,
     RouterModule.forRoot(ROUTES) //add routes to app
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
