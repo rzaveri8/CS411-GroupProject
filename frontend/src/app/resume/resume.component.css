@@ -1,0 +1,53 @@
+.bg {
+  background-image: url( "https://stingraysstudio.com/wp-content/uploads/2018/03/410119501Website-Design-Background.jpg");
+   /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.element {
+    /* set border styling */
+    border-color: #E0DDD7;
+    border-style: solid;
+    border-width: 5px;
+
+    /* set border roundness */
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    height: 65%;
+    background-color: #E0DDD7;
+    max-width: 1400px;
+}
+
+.blur-box {
+    background-color: #E0DDD7;
+    box-shadow: 0 0 5px 10px #E0DDD7;
+}
+
+.b {
+  box-sizing: content-box;
+  display:inline-block;
+  position: relative;
+  margin: 1%;
+  float:left;
+  width:29%;
+  height:295px;
+  background-color: lightgrey;
+  border: 5px solid black;
+  padding: 10px;
+}
+
+.center-title1 {
+  padding-left: 145px;
+}
+.center-title2 {
+  padding-left: 335px;
+}
+
+.center-title3 {
+  padding-left: 376px;
+}
