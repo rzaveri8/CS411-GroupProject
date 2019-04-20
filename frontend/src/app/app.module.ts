@@ -11,6 +11,7 @@ import { JobsComponent } from './jobs/jobs.component';
 import { ResumeComponent } from './resume/resume.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { RecommenderComponent } from './recommender/recommender.component';
 
 // Define the routes
 
@@ -35,6 +36,10 @@ const ROUTES = [
   {
     path: 'homepage',
     component: HomepageComponent
+  },
+  {
+    path: 'recommender',
+    component: RecommenderComponent
   }
 ];
 
@@ -46,7 +51,8 @@ const ROUTES = [
     JobsComponent,
     ResumeComponent,
     DashboardComponent,
-    HomepageComponent
+    HomepageComponent,
+    RecommenderComponent
   ],
   imports: [
     BrowserModule,
