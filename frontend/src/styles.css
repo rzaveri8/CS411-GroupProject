@@ -10,7 +10,7 @@ body, html {
   background-color: transparent !important;
   font-family: 'Lato', sans-serif;
 }
-.full-viewport {
+/*.full-viewport {*/
   /* The image used */
   background-image: url('././assets/images/white.jpg');
 
@@ -18,10 +18,11 @@ body, html {
   height: 100%;
 
   /* Center and scale the image nicely */
+  /*
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
+}*/
 
 .navbar{
   background-color: #a2cae647!important;
