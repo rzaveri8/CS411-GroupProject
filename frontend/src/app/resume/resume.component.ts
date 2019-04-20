@@ -15,6 +15,24 @@ export class ResumeComponent implements OnInit {
 
   constructor(public httpClient: HttpClient, private resumeService: ResumeService) { }
 
+  resumeFormat()
+  {
+    // Changes to percents
+    this.resume.rezscore.extended[0].pct_buzzwords[0] = this.resume.rezscore.extended[0].pct_buzzwords[0] * 100;
+    this.resume.rezscore.extended[0].pct_buzzwords[0] = this.resume.rezscore.extended[0].pct_buzzwords[0].toFixed(2);
+
+    this.resume.rezscore.extended[0].pct_whitespace[0] = this.resume.rezscore.extended[0].pct_whitespace[0] * 100;
+    this.resume.rezscore.extended[0].pct_whitespace[0] = this.resume.rezscore.extended[0].pct_whitespace[0].toFixed(2);
+    
+    // Capitalizes first letter of most popular words
+    this.resume.rezscore.language[0].word.forEach(element => {
+      element.string[0] = element.string[0].charAt(0).toUpperCase() + element.string[0].slice(1);
+    });
+
+    // Uncapitalizes grade headline
+    this.resume.rezscore.score[0].grade_headline[0] = this.resume.rezscore.score[0].grade_headline[0].charAt(0) + this.resume.rezscore.score[0].grade_headline[0].slice(1).toLowerCase();
+  }
+
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     this.uploadFileToActivity();
@@ -28,6 +46,7 @@ export class ResumeComponent implements OnInit {
           res = result;
         });
         this.resume = res;
+        this.resumeFormat();
         console.log(this.resume);
       }, error => {
         console.log(error);
