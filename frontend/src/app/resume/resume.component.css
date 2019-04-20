@@ -1,11 +1,14 @@
 .bg {
   background-image: url( "https://stingraysstudio.com/wp-content/uploads/2018/03/410119501Website-Design-Background.jpg");
    /* Full height */
-  height: 100%;
+
+  min-height: 100%;
+  min-height: 100vh;
   /* Center and scale the image nicely */
-  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .element {

@@ -189,9 +189,9 @@ app.get("/api/auth", passport.authenticate('linkedin', {state: 'SOME STATE'}), f
     //Redirects to LinkedIn
 })
 
-app.get("/users",(req,res)=> {
+app.get("/api/user",(req,res)=> {
   //console.log(req.user.headline)
-    res.json([req.user.id,req.user.firstName,req.user.lastName,req.user.headline,req.user.location,req.user.industry,req.user.pictureUrl]);
+    res.json({id: req.user.id, firstName: req.user.firstName, lastName: req.user.lastName, headline: req.user.headline, location: req.user.location, industry: req.user.industry, pictureUrl: req.user.pictureUrl});
 })
 // - fgure out how angular can tell if a person has logged in to authenticate it.
 // - integrate angualr with passport.js
