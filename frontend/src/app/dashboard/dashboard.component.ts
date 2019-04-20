@@ -16,17 +16,11 @@ export class DashboardComponent implements OnInit {
   acct_response: any;
   constructor(public httpClient: HttpClient, private router: Router) { }
 
-    getProfile() {
-
-      // return this.httpClient.get('/api/test')
-      //   .subscribe((res) => 
-      //     {
-      //       console.log(res);
-      //       this.profile = res;
-      //     })
-      this.profile = "hi";
-      return;
-    }
+  getProfile() {
+    this.httpClient.get("/api/user").subscribe((res) => {
+      this.profile = res;
+    });
+  }
 
   ngOnInit() {
     this.httpClient.get("/api/isLoggedIn").subscribe((res) => {
@@ -40,6 +34,8 @@ export class DashboardComponent implements OnInit {
         alert("You are logged in. Pat yourself on the back");
       }
     })
+
+    this.getProfile();
   };
 
 }
