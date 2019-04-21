@@ -8,10 +8,20 @@ import json
 
 app = Flask(__name__)
 
-options = Options()
-options.add_argument("--headless")
+options = Options();
+options.add_argument("--headless");
+options.add_argument("user-data-dir=/Users/manujadesilva/Desktop/CS411/semester-project/Profiles/") #load our profile with user account information
 
-driver = webdriver.Chrome(options=options);
+env = "dev";
+
+if(env == "exp" or env == "prod"):
+    #TODO: change to prod
+    EC2Driver = "/usr/bin/chromedriver"
+    driver = webdriver.Chrome(EC2Driver, options=options);
+    print("Running on experimental production");
+else:
+    driver = webdriver.Chrome(options=options)
+    print("Running on dev");
 
 loggedIn = False;
 
@@ -42,6 +52,7 @@ def getJobs(position):
     #Pass[i,1] represents a class job companies could be under
     pass00 = driver.find_elements_by_xpath('//*[@class="job-card-search__title artdeco-entity-lockup__title ember-view"]');
     pass01 = driver.find_elements_by_xpath('//*[@class="job-card-search__company-name t-14 t-black artdeco-entity-lockup__subtitle ember-view"]');
+    """
     pass10 = driver.find_elements_by_class_name('listed-job-posting__title');
     pass11 = driver.find_elements_by_class_name('listed-job-posting__company');
     pass20 = driver.find_elements_by_class_name('result-card__title');
@@ -56,7 +67,8 @@ def getJobs(position):
     companies = passes[listingsIndex][1];
     print(len(titles));
     print(len(companies));
-    jobs = processJobs(titles,companies);
+    """
+    jobs = processJobs(pass00,pass01);
     return Response(json.dumps(jobs), status=200, mimetype='application/json');
 
 def getCorrectListingIndex(arr):
@@ -93,5 +105,16 @@ def buildUrl(urlEncodedJob):
     finalUrl = url + urlEncodedJob;
     return finalUrl;
 
-if(__name__ == "__main__"):
+@app.route("/api/jobs/verifyLogin")
+def verifyLogin():
+    driver.get("http://www.linkedin.com");
+    if(driver.current_url == "https://www.linkedin.com/feed/" or driver.current_url == "http://www.linkedin.com/feed/"):
+        response = "Logged in to LinkedIn!";
+    else:
+        response = "Not logged in";
+    print(response);
+    return Response(response, status=200, mimetype="application/text");
+
+def run():
+    verifyLogin();
     app.run(host="0.0.0.0", port=8083);

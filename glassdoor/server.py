@@ -16,15 +16,14 @@ import json
 
 #Initialization
 #env = environment['CurrentEnvironment'];
-env = "prod"
+env = "dev"
 app = Flask(__name__);
 CORS(app)
 
 #Web driver options
 options = Options();
 options.add_argument("--headless"); #run in headless mode
-
-
+options.add_argument("user-data-dir=/Users/manujadesilva/Desktop/CS411/semester-project/Profiles/") #load our profile with user account information
 if(env == "exp" or env == "prod"):
     #TODO: change to prod
     EC2Driver = "/usr/bin/chromedriver"
@@ -93,9 +92,10 @@ def login():
 
 @app.route("/api/glassdoor/<company>/<position>")
 def initGlassdoorSearch(company,position):
+    """
     if(loggedIn == False):
         log("Not currently logged in")
-        login();
+        login();"""
     log("Attempting query");
     searchUrl = buildUrl(company, position);
     driver.get(searchUrl) #execute search
@@ -162,9 +162,11 @@ def getInterviewDifficultyLevels():
 
 
 def run():
-    login();
+    print("Running glassdoor API");
+    testLogin();
     app.run(host="0.0.0.0", port=8082);
 
-def testLogin():
-    login();
-
+@app.route("/api/glassdoor/verifyLogin")
+def verifyLogin():
+    driver.get("https://www.glassdoor.com");
+    verifyLoggedIn('//*[@id="MainCol"]/section[1]/div[1]/h2', False);
