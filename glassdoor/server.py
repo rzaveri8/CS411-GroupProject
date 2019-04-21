@@ -23,7 +23,7 @@ CORS(app)
 #Web driver options
 options = Options();
 options.add_argument("--headless"); #run in headless mode
-options.add_argument("user-data-dir=/Users/manujadesilva/Desktop/CS411/semester-project/Profiles/") #load our profile with user account information
+options.add_argument("user-data-dir=/home/ubuntu/osspd/Profiles/") #load our profile with user account information
 if(env == "exp" or env == "prod"):
     #TODO: change to prod
     EC2Driver = "/usr/bin/chromedriver"
@@ -36,25 +36,26 @@ else:
 loggedIn = False;
 
 def verifyLoggedIn(verificationHeader, wait):
+    print("Attempting to verify")
     if(wait == False):
         verificationHeaderResponse = driver.find_elements_by_xpath(verificationHeader);
         if(len(verificationHeaderResponse) > 0):
             if(verificationHeaderResponse[0].text == "Your Glassdoor Dashboard"):
                 #we are at the dashboard, so we are logged in
-                log("Webdriver logged in");
+                print("Webdriver logged in");
                 return True;
-            else:
-                #we may have ran into an error or are still not logged in properly
-                log("Not at the dashboard, may not be logged in. Exiting");
-                return False;
+        else:
+            #we may have ran into an error or are still not logged in properly
+            print("Not at the dashboard, may not be logged in. Exiting");
+            return False;
     else:
         driver.implicitly_wait(1); #wait for page to load
         verificationHeaderResponse = driver.find_element_by_xpath(verificationHeader);
         if(verificationHeaderResponse):
-            log("Now logged in");
+            print("Now logged in");
             return True;
         else:
-            log("Could not verify");
+            print("Could not verify");
             return False;
 
 #We have to be logged in order to get data
@@ -119,12 +120,12 @@ def getInterviewOffers():
 
 #aggregate percentage experience level
 def getInterviewExperience():
-    posExperience = driver.find_element_by_xpath('//*[@id="AllStats"]/div[1]/div/div/div[2]/div/div[2]/div[2]/span[1]');
+    posExperience = driver.find_elements_by_xpath('//*[@id="AllStats"]/div[1]/div/div/div[2]/div/div[2]/div[2]/span[1]');
     return processInterviewExperience(posExperience);
 
 #aggregate difficulty rating
 def getInterviewDifficulty():
-    difficultyRating = driver.find_element_by_xpath('//*[@id="AllStats"]/div[3]/div/div/div[1]/div ');
+    difficultyRating = driver.find_elements_by_xpath('//*[@id="AllStats"]/div[3]/div/div/div[1]/div ');
     return processInterviewDifficulty(difficultyRating);
 
 #individual comments
@@ -163,10 +164,15 @@ def getInterviewDifficultyLevels():
 
 def run():
     print("Running glassdoor API");
-    testLogin();
+    verifyLogin();
     app.run(host="0.0.0.0", port=8082);
 
 @app.route("/api/glassdoor/verifyLogin")
 def verifyLogin():
     driver.get("https://www.glassdoor.com");
-    verifyLoggedIn('//*[@id="MainCol"]/section[1]/div[1]/h2', False);
+    if(verifyLoggedIn('//*[@id="MainCol"]/section[1]/div[1]/h2', False)):
+        return "We are already logged in"
+    else:
+        login();
+        return "Now logged in"
+

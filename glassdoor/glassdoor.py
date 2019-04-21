@@ -13,13 +13,19 @@ def processInterviewOffers(offersRawData):
 
 def processInterviewExperience(posExperience):
     #get the posExperience, calculate neg experience and return both
-    pos = int(posExperience.text);
-    neg = 100 - pos;
-    exp = [pos, neg];
+    if( len(posExperience) > 0):
+        pos = int(posExperience[0].text);
+        neg = 100 - pos;
+        exp = [pos, neg];
+    else:
+        exp = [0,0];
     return exp;
 
 def processInterviewDifficulty(rating):
-    difficultyRating = rating.text;
+    if(len(rating) > 0 ):
+        difficultyRating = rating[0].text;
+    else:
+        difficultyRating = 0;
     return difficultyRating;
 
 def processInterviewComments(commentsRawData, additionalCommentsRawData):
