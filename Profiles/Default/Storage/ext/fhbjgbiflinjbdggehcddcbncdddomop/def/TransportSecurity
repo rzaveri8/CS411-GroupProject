@@ -1,0 +1,20 @@
+{
+   "aIDnJVjU33HRccgMJ2nQzYI9aRCYV8IFCn5jIsFpF8s=": {
+      "expiry": 1587244879.861724,
+      "mode": "force-https",
+      "sts_include_subdomains": false,
+      "sts_observed": 1555708879.861729
+   },
+   "tXjOdUMSBgtiUbrbGkl6XP80fiDB8uXOkUbnCf0IKvw=": {
+      "expect_ct": {
+         "expect_ct_enforce": false,
+         "expect_ct_expiry": 1552000825.681274,
+         "expect_ct_observed": 1551914425.681274,
+         "expect_ct_report_uri": "https://www.linkedin.com/platform-telemetry/ct"
+      },
+      "expiry": 1554506425.68125,
+      "mode": "force-https",
+      "sts_include_subdomains": false,
+      "sts_observed": 1551914425.681254
+   }
+}

@@ -1,0 +1,14 @@
+2019/04/17-23:11:31.920 26e427 Reusing MANIFEST /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_docs.google.com_0.indexeddb.leveldb/MANIFEST-000001
+2019/04/17-23:11:31.920 26e427 Recovering log #35
+2019/04/17-23:11:31.927 26e427 Reusing old log /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_docs.google.com_0.indexeddb.leveldb/000035.log 
+2019/04/19-10:38:31.803 15d43 Level-0 table #39: started
+2019/04/19-10:38:31.818 15d43 Level-0 table #39: 4567638 bytes OK
+2019/04/19-10:38:31.819 15d43 Delete type=0 #35
+2019/04/19-10:38:31.822 15d43 Compacting 4@0 + 0@1 files
+2019/04/19-10:38:31.832 15d43 Generated table #40@0: 44 keys, 1251001 bytes
+2019/04/19-10:38:31.832 15d43 Compacted 4@0 + 0@1 files => 1251001 bytes
+2019/04/19-10:38:31.832 15d43 compacted to: files[ 0 1 1 0 0 0 0 ]
+2019/04/19-10:38:31.833 15d43 Delete type=2 #39
+2019/04/19-10:38:31.833 15d43 Delete type=2 #34
+2019/04/19-10:38:31.835 15d43 Delete type=2 #36
+2019/04/19-10:38:31.835 15d43 Delete type=2 #31

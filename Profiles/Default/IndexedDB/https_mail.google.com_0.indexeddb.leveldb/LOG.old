@@ -1,0 +1,6 @@
+2019/03/15-16:01:30.432 126627 Reusing MANIFEST /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_mail.google.com_0.indexeddb.leveldb/MANIFEST-000001
+2019/03/15-16:01:30.434 126627 Recovering log #4
+2019/03/15-16:01:30.442 126627 Reusing old log /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_mail.google.com_0.indexeddb.leveldb/000004.log 
+2019/03/15-16:05:43.685 15d43 Level-0 table #8: started
+2019/03/15-16:05:43.714 15d43 Level-0 table #8: 1265357 bytes OK
+2019/03/15-16:05:43.716 15d43 Delete type=0 #4

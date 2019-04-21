@@ -1,0 +1,30 @@
+2019/02/28-15:49:48.362 22353 Reusing MANIFEST /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_docs.google.com_0.indexeddb.leveldb/MANIFEST-000001
+2019/02/28-15:49:48.362 22353 Recovering log #24
+2019/02/28-15:49:48.363 22353 Reusing old log /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_docs.google.com_0.indexeddb.leveldb/000024.log 
+2019/03/18-15:15:27.684 15d43 Level-0 table #28: started
+2019/03/18-15:15:27.704 15d43 Level-0 table #28: 4420419 bytes OK
+2019/03/18-15:15:27.706 15d43 Delete type=0 #24
+2019/03/18-15:15:27.709 15d43 Compacting 4@0 + 1@1 files
+2019/03/18-15:15:27.728 15d43 Generated table #29@0: 119 keys, 1662724 bytes
+2019/03/18-15:15:27.728 15d43 Compacted 4@0 + 1@1 files => 1662724 bytes
+2019/03/18-15:15:27.729 15d43 compacted to: files[ 0 1 1 0 0 0 0 ]
+2019/03/18-15:15:27.729 15d43 Delete type=2 #28
+2019/03/18-15:15:27.729 15d43 Delete type=2 #21
+2019/03/18-15:15:27.730 15d43 Delete type=2 #23
+2019/03/18-15:15:27.731 15d43 Delete type=2 #25
+2019/03/18-15:15:27.732 15d43 Delete type=2 #19
+2019/03/21-11:03:09.871 15d43 Level-0 table #31: started
+2019/03/21-11:03:09.895 15d43 Level-0 table #31: 4206833 bytes OK
+2019/03/21-11:03:09.897 15d43 Delete type=0 #27
+2019/03/28-14:59:55.323 15d43 Compacting 1@1 + 1@2 files
+2019/03/28-14:59:55.337 15d43 Generated table #32@1: 318 keys, 1664746 bytes
+2019/03/28-14:59:55.337 15d43 Compacted 1@1 + 1@2 files => 1664746 bytes
+2019/03/28-14:59:55.338 15d43 compacted to: files[ 1 0 1 0 0 0 0 ]
+2019/03/28-14:59:55.338 15d43 Delete type=2 #29
+2019/03/28-14:59:55.340 15d43 Delete type=2 #5
+2019/03/28-14:59:56.729 15d43 Level-0 table #34: started
+2019/03/28-14:59:56.742 15d43 Level-0 table #34: 4424121 bytes OK
+2019/03/28-14:59:56.742 15d43 Delete type=0 #30
+2019/04/04-18:49:52.306 15d43 Level-0 table #36: started
+2019/04/04-18:49:52.323 15d43 Level-0 table #36: 4803072 bytes OK
+2019/04/04-18:49:52.324 15d43 Delete type=0 #33
