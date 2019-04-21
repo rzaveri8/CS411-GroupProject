@@ -1,9 +1,0 @@
-2019/04/17-12:16:26.721 390653 Reusing MANIFEST /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_drive.google.com_0.indexeddb.leveldb/MANIFEST-000001
-2019/04/17-12:16:26.723 390653 Recovering log #2684
-2019/04/17-12:16:26.727 390653 Reusing old log /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_drive.google.com_0.indexeddb.leveldb/002684.log 
-2019/04/17-12:18:25.953 15d43 Level-0 table #2688: started
-2019/04/17-12:18:25.959 15d43 Level-0 table #2688: 4476891 bytes OK
-2019/04/17-12:18:25.960 15d43 Delete type=0 #2684
-2019/04/17-14:16:51.412 15d43 Level-0 table #2690: started
-2019/04/17-14:16:51.418 15d43 Level-0 table #2690: 4561368 bytes OK
-2019/04/17-14:16:51.419 15d43 Delete type=0 #2687

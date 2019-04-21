@@ -1,9 +1,0 @@
-2019/04/07-14:30:20.580 1677b3 Reusing MANIFEST /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_mail.google.com_0.indexeddb.leveldb/MANIFEST-000001
-2019/04/07-14:30:20.581 1677b3 Recovering log #7
-2019/04/07-14:30:20.581 1677b3 Reusing old log /Users/manujadesilva/Library/Application Support/Google/Chrome/Default/IndexedDB/https_mail.google.com_0.indexeddb.leveldb/000007.log 
-2019/04/07-14:30:52.697 15d43 Compacting 1@1 + 1@2 files
-2019/04/07-14:30:52.713 15d43 Generated table #10@1: 82 keys, 3694 bytes
-2019/04/07-14:30:52.713 15d43 Compacted 1@1 + 1@2 files => 3694 bytes
-2019/04/07-14:30:52.714 15d43 compacted to: files[ 0 0 1 0 0 0 0 ]
-2019/04/07-14:30:52.715 15d43 Delete type=2 #5
-2019/04/07-14:30:52.717 15d43 Delete type=2 #8
