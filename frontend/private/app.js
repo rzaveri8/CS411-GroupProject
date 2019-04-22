@@ -193,16 +193,7 @@ app.get("/api/user",(req,res)=> {
   //console.log(req.user.headline)
     res.json({id: req.user.id, firstName: req.user.firstName, lastName: req.user.lastName, headline: req.user.headline, location: req.user.location, industry: req.user.industry, pictureUrl: req.user.pictureUrl});
 })
-// - fgure out how angular can tell if a person has logged in to authenticate it.
-// - integrate angualr with passport.js
-//app.get("/nojob")
 
-/*app.get("/users", (request, response) => {
-    database.query('SELECT * FROM users', (error, result) => {
-        if (error) throw error;
-
-        response.send(result);
-    }); */
 
 //Callback
 app.get("/auth/callback", passport.authenticate('linkedin', {
@@ -236,37 +227,27 @@ position is capitalized*/
 
 //})
 
+/*** OUR APP ENDPOINTS ****/
 
 
-
-
-
-
-
-app.get("/api/isLoggedInLI", passport.authenticate('linkedin'), function(req,res){
-    /*
-    If the following json object is sent back, then the user successfully logged in. For all subsequent requests, we can access their token
-    using req.user.token and their id using req.user.id.
-
-    If the user is not logged in, then Passport will by default send a 401 Unauthorized Response.
-    */
-   console.log("Request received");
-   res.json({status:"User is logged in"});
-});
-
-app.get("/api/isLoggedIn", function(req,res){
-    //console.log(req.user);
-    if(req.user){
-        res.json({logInStatus:1});
+/* 
+Route middleware to perform some function before the next middleware is called for this path.
+In this case, we protect all endpoints that require user to be logged in.
+*/
+app.use('/api/', function(req,res,next){
+    if(!req.user){
+        res.json({status:401, error: "User not logged in.", logInStatus:0});
     }
     else{
-        res.json({logInStatus:0});
+        next();
     }
-});
+})
 
-app.get("/api/testConnection", function(req,res){
-    /* Test connection from client to server (non-protected) */
-    res.json({status: "The server speaks"});
+/*
+If we get here then the middleware verified that the user is logged in.
+*/
+app.get("/api/isLoggedIn", function(req,res){
+    res.json({logInStatus:1});
 });
 
 
@@ -280,25 +261,37 @@ app.get("/api/logout", function(req,res){
     res.json({status:200, name: firstName});
 })
 
+// Access dashboard
+app.get("/api/dashboard", function(req,res){
+    const firstName = req.user.firstName;
+    const lastName = req.user.lastName;
+    const headline = req.user.headline;
+    res.json({firstName: firstName, lastName: lastName, headline: headline});
+});
 
-/* Job search */
-app.get('/api/jobs/:position', function(req,res){
-    console.log("Received request to do job search");
+
+/* Automatic job search. User must have industry in their profile to execute auto job search  */
+app.get('/api/jobs/', function(req,res){
+    if(!req.user.industry){
+        res.json({status:400, error:"User must have industry in their profile."});
+    }
     const endpoint = "http://52.14.17.113:8083/api/jobs/";
-    const param = req.params.position;
+    const param = req.user.industry;
     const requestUrl = endpoint + param;
     console.log(requestUrl);
     request.get(requestUrl, function(error,response,body){
         if(error){
-            res.json({status:500});
+            console.log("Request failed");
+            res.json({status:500, error: "Server error."});
         }
         else{
-            res.json({status:200, data: body})
+            console.log("Found jobs");
+            res.json({status:200, data: JSON.parse(body), industry: req.user.industry});
         }
     })
 })
 
-// CONNECTING THE FRONT END
+/*** CONNECTING TO FRONT END (ANGULAR2) ***/
 
 // Catch all other routes and return the index file
 function allFrontEndRoutes(req,res){
@@ -307,10 +300,3 @@ function allFrontEndRoutes(req,res){
 app.use(allFrontEndRoutes);
 
 
-// Access dashboard
-app.get("/api/dashboard", passport.authenticate("linkedin"), function(req,res){
-    const firstName = req.user.firstName;
-    const lastName = req.user.lastName;
-    const headline = req.user.headline;
-    res.json({firstName: firstName, lastName: lastName, headline: headline});
-});

@@ -1,3 +1,10 @@
 <div class = "full-viewport">
+    <h4 *ngIf="error"> Error: {{ error }} </h4> 
+    <div *ngIf="jobs">
+        <h3> Industry/Position: {{ industry }} </h3>
+        <ul>
+            <li *ngFor="let job of jobs"> {{ job[0] }} - {{ job[1] }} </li>
+        </ul>
+    </div>
 </div>
 <!--<img class="irc_mi" src="https://nsiteam.com/social/wp-content/uploads/2015/12/blog-background-2.jpg">-->
