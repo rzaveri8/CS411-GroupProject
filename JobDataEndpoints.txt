@@ -1,0 +1,11 @@
+Glassdoor interview api:
+http://52.14.17.113:8082/api/glassdoor/<company>/<position>
+
+Indeed job reviews api: 
+http://52.14.17.113:8080/api/all/<company>/<position>\
+
+Job search api:
+http://52.14.17.113:8083/api/jobs/<position>
+
+*if position has multiple words in it, make sure they are separated by spaces or '+'s, and also that each word in position is capitalized
+

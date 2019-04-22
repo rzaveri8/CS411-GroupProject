@@ -264,7 +264,8 @@ app.get("/api/isLoggedIn", function(req,res){
     }
 });
 
-app.get("/api/testAng", function(req,res){
+app.get("/api/testConnection", function(req,res){
+    /* Test connection from client to server (non-protected) */
     res.json({status: "The server speaks"});
 });
 
@@ -279,6 +280,23 @@ app.get("/api/logout", function(req,res){
     res.json({status:200, name: firstName});
 })
 
+
+/* Job search */
+app.get('/api/jobs/:position', function(req,res){
+    console.log("Received request to do job search");
+    const endpoint = "http://52.14.17.113:8083/api/jobs/";
+    const param = req.params.position;
+    const requestUrl = endpoint + param;
+    console.log(requestUrl);
+    request.get(requestUrl, function(error,response,body){
+        if(error){
+            res.json({status:500});
+        }
+        else{
+            res.json({status:200, data: body})
+        }
+    })
+})
 
 // CONNECTING THE FRONT END
 
