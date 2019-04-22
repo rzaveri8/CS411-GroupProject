@@ -20,6 +20,10 @@ export class DashboardComponent implements OnInit {
   getProfile() {
     this.httpClient.get("/api/user").subscribe((res) => {
       this.profile = res;
+      if (this.profile.industry == undefined)
+      {
+        $("#myModal").modal();
+      }
     });
   }
 
@@ -55,10 +59,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getProfile();
-    if (this.profile.industry == undefined)
-    {
-      $("#myModal").modal();
-    }
   };
 
 }
