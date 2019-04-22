@@ -1,3 +1,22 @@
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Missing Industry</h4>
+      </div>
+      <div class="modal-body">
+        <p>It seems your LinkedIn profile is missing your industry. </p>
+        <p>Please input your desired industry or position to continue.</p>
+        <input type="text" placeholder="Enter Position" [(ngModel)]="rawIndustry">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "updateIndustry()">OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class = "bg">
   <h1 class = "pt-4" style = "text-align: center; font-family: Open Sans, sans-serif; font-size: 60px; color: white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Welcome {{ profile.firstName }}!</h1>
   <div class = "container content">
@@ -10,7 +29,7 @@
     </div>
   </div>
     <div class = "container cnt pt-5">
-      <button type="button" class="custom btn-lg btn btn-primary active btnLeft" >Jobs Recommender</button>
+      <button type="button" class="custom btn-lg btn btn-primary active btnLeft" routerLink="/recommender" routerLinkActive="active">Jobs Recommender</button>
       <button type="button" class="custom btn-lg btn btn-primary active btnRight" routerLink="/resume" routerLinkActive="active">Resume Parser</button>
       <button type="button" class="custom btn-lg btn btn-primary active btnRight" routerLink="/jobs" routerLinkActive="active">Job Search</button>
     </div>
