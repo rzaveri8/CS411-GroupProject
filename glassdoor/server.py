@@ -23,9 +23,9 @@ CORS(app)
 #Web driver options
 options = Options();
 options.add_argument("--headless"); #run in headless mode
-options.add_argument("user-data-dir=/home/ubuntu/osspd/Profiles/") #load our profile with user account information
 if(env == "exp" or env == "prod"):
     #TODO: change to prod
+    options.add_argument("user-data-dir=/home/ubuntu/osspd/Profiles/") #load our profile with user account information
     EC2Driver = "/usr/bin/chromedriver"
     driver = webdriver.Chrome(EC2Driver, options=options);
     log("Running on experimental production");
@@ -90,17 +90,28 @@ def login():
             loggedIn = False;
             return False;
 
-
+"""Company name MUST be separated by spaces if more than one word, and it MUST be lowercase """
 @app.route("/api/glassdoor/<company>/<position>")
 def initGlassdoorSearch(company,position):
-    """
-    if(loggedIn == False):
-        log("Not currently logged in")
-        login();"""
+    #initialize error json object and response object in case we can't find results for a query
+    error = {"error": "Glassdoor data not available for this position"}; 
+    errorResponse = Response(json.dumps(error), status=503, mimetype="application/json");
+    #execute search
     log("Attempting query");
     searchUrl = buildUrl(company, position);
-    driver.get(searchUrl) #execute search
-    result = driver.find_element_by_class_name("LC20lb").click();
+    driver.get(searchUrl); 
+    result = driver.find_element_by_class_name("LC20lb");
+    #verify that we have valid results for our query
+    if(result.text[-9:] != "Glassdoor"):
+        print("Glassdoor domain not found");
+        print(result.text[-9:] + ";");
+        return errorResponse;
+    if(company not in result.text.lower()):
+        print("Company name not found");
+        print(result.text);
+        return errorResponse;
+    #get result if query valid
+    result.click();
     data = {
        "offers": getInterviewOffers(),
        "experience": getInterviewExperience(),
