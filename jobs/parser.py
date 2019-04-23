@@ -3,8 +3,8 @@ from processJobs import *
 import requests
 
 proxies = {
-    'http': 'http://104.248.183.67:3128',
-    'https': 'http://104.248.183.67:3128'
+    'http': 'http://104.248.220.216:3128',
+    'https': 'http://104.248.220.216:3128'
 }
 
 debug = False;
