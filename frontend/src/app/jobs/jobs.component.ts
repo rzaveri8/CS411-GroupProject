@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { JobdataService } from '../jobdata.service';
 
 @Component({
   selector: 'app-jobs',
@@ -22,14 +23,15 @@ export class JobsComponent implements OnInit {
   glassURL: string;
 
   // if no job information is returned for given position and company
-  errorMessage: boolean;
+  errorMessage: string;
+  error: boolean;
   gError: boolean;
   iError: boolean;
 
   // shows loading symbol
   loading: boolean;
 
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient, private data: JobdataService) { }
 
   parseCompany(company_string){
     var raw = company_string;
@@ -74,7 +76,7 @@ export class JobsComponent implements OnInit {
   getJobs(){
     this.glassRes = undefined;
     this.indeedRes = undefined; //reset our jobs object so that the user doesn't see the old job information when doing a new search
-    this.errorMessage = false; //reset error message
+    this.error = false; //reset error message
     this.gError = false;
     this.iError = false;
     this.loading = true;
@@ -83,11 +85,12 @@ export class JobsComponent implements OnInit {
       this.rawGResponse = res;
       if(this.rawGResponse.responseType == 404){
         this.gError = true;
+        this.errorMessage = this.rawGResponse.error;
       }
       else{
         this.glassRes = this.rawGResponse;
       }
-      this.errorMessage = (this.gError) || (this.iError); // if either operation has an error, show error message
+      this.error = (this.gError) || (this.iError); // if either operation has an error, show error message
       this.loading = false;
     });
 
@@ -95,17 +98,32 @@ export class JobsComponent implements OnInit {
       this.rawIResponse = res;
       if(this.rawIResponse.responseType == 404){
         this.iError = true;
+        this.errorMessage = this.rawIResponse.error;
       }
       else{
         this.iError = false;
         this.indeedRes = this.rawIResponse;
       }
-      this.errorMessage = (this.gError) || (this.iError);
+      this.error = (this.gError) || (this.iError);
+      if (this.gError)
+      {
+        this.loading = false;
+      }
     });
 
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    var jobdata = this.data.getJobInfo();
+    if (jobdata != undefined)
+    {
+      this.position = jobdata[0];
+      this.company = jobdata[1];
+      jobdata = undefined;
+      this.data.setJobInfo(jobdata);
+      this.getJobs();
+    }
+   }
 
 }
