@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
       this.profile = res;
       if (this.profile.industry == undefined)
       {
-        $("#myModal").modal();
+        this.updateIndustry();
       }
     });
   }
@@ -54,7 +54,10 @@ export class DashboardComponent implements OnInit {
 
 
   updateIndustry()  {
+    $("#myModal").modal();
     this.profile.industry = this.parsePosition(this.rawIndustry);
+    let data = { "industry" : this.profile.industry };
+    this.httpClient.post("/api/industry", data).subscribe();
   }
 
   ngOnInit() {
