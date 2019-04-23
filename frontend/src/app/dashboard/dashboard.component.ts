@@ -55,6 +55,8 @@ export class DashboardComponent implements OnInit {
 
   updateIndustry()  {
     this.profile.industry = this.parsePosition(this.rawIndustry);
+    let data = { "industry" : this.profile.industry };
+    this.httpClient.post("/api/industry", data).subscribe();
   }
 
   ngOnInit() {
