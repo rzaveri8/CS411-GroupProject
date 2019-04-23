@@ -33,42 +33,26 @@ export class JobsComponent implements OnInit {
 
   constructor(public httpClient: HttpClient, private data: JobdataService) { }
 
-  parseCompany(company_string){
-    var raw = company_string;
-    return raw.replace(/\s+/g, '-').toLowerCase();
-  }
 
-  parsePosition(position_string){
-    var raw = position_string;
-    var string_contents = raw.split(" ");
+  parseInput(input_string: string, separator: string): string{
+    input_string = input_string.toLowerCase();
+    var string_contents = input_string.split(" ");
 
     //check if only one word passed into position
-    if(string_contents.length == 1){ //capitalize word and return
-        var parsed = raw.charAt(0).toUpperCase() + raw.slice(1);
-        //extract the first character of this string and "capitalize" it, and then leave the rest of the string as is and append it to a new string
-        //console.log(position_string);
-        return parsed;
+    if(string_contents.length == 1){ 
+        return input_string;
     }
 
-    //else run loop to capitalize each word
-    for(var i=0;i<string_contents.length;i++){
-      var raw_curr_string = string_contents[i];
-      var parsed_string = raw_curr_string.charAt(0).toUpperCase() + raw_curr_string.slice(1);
-      string_contents[i] = parsed_string;
-
-    }
-
-    //add '+' seperator in between strings
-    var parsed = string_contents.join("+");
-    //console.log(parsed);
-    return parsed;
+    //else add seperator in between words
+    var parsed_input = string_contents.join(separator);
+    return parsed_input;
   }
 
   buildUrl(){
-    var comp = this.parseCompany(this.company);
-    var pos = this.parsePosition(this.position);
+    var comp: string = this.parseInput(this.company, " ");
+    var pos: string = this.parseInput(this.position, "+");
     var baseI = "http://52.14.17.113:8080/api/indeed/";
-    var baseG = "http://52.14.17.113:8082/api/glassdoor/"
+    var baseG = "/api/glassdoor/"
     this.indeedURL = baseI + comp + "/" + pos;
     this.glassURL = baseG + comp + "/" + pos;
   }
