@@ -1,18 +1,3 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options;
-
-def formatJobTitle(position):
-    #if the position is not formatted as 'jobtitlepart1+jobtitlepart2', do so now
-    formattedJobTitle = "";
-    for char in range(0,len(position)):
-        if(position[char] != " "):
-            formattedJobTitle = formattedJobTitle + position[char];
-        else:
-            formattedJobTitle = formattedJobTitle + "+";
-
-    position= formattedJobTitle
-    return position;
-
 def prettyText(title, separator):
     raw = title.split(separator);
     pretty = "";
@@ -22,8 +7,29 @@ def prettyText(title, separator):
     pretty = pretty[:-1]; #remove space at end
     return pretty;
 
+"""
+Input must have "+"s or " "s between words if more than word
+Returned company is capitalized and has '-' between words
+Return position is capitalized and has '+' between words
+"""
+def formatText(text, splitter):
+    if(" " in text):
+        textParts = text.split(" ");
+    else:
+        textParts = text.split("+");
+    if(len(textParts) == 1):
+        #only one word, no need for additional parsing
+        return textParts[0].capitalize();
+    parsedText = "";
+    for i in range(len(textParts)):
+        parsedText = parsedText + textParts[i].capitalize() + splitter;
+    parsedText = parsedText[:-1];
+    return parsedText;
+
+
 def buildQuery(company, position):
-    position = formatJobTitle(position);
+    company = formatText(company, "-"); 
+    position = formatText(position, "+");
     baseUrl = "https://www.indeed.com/cmp/";
     partialUrl = baseUrl + company + "/";
     query = partialUrl + "reviews?fjobtitle=" + position;
