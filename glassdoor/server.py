@@ -8,7 +8,7 @@ from flask import Flask
 from flask import request
 from flask import Response
 from glassdoor import *
-from logger import log
+from logger import log, writeToFile
 from flask_cors import CORS
 from os import environ as environment
 import json
@@ -19,6 +19,7 @@ import json
 env = "dev"
 app = Flask(__name__);
 CORS(app)
+DEBUG = True;
 
 #Web driver options
 options = Options();
@@ -103,15 +104,14 @@ def initGlassdoorSearch(company,position):
     result = driver.find_element_by_class_name("LC20lb");
     #verify that we have valid results for our query
     if(result.text[-9:] != "Glassdoor"):
-        print("Glassdoor domain not found");
-        print(result.text[-9:] + ";");
         return errorResponse;
     if(company not in result.text.lower()):
-        print("Company name not found");
-        print(result.text);
         return errorResponse;
     #get result if query valid
     result.click();
+    if(DEBUG):
+        writeToFile(result.page_source);
+        return Response("Debugging Glassdoor, don't mind us", status=503, mimetype="application/text");
     data = {
        "offers": getInterviewOffers(),
        "experience": getInterviewExperience(),
@@ -136,7 +136,11 @@ def getInterviewExperience():
 
 #aggregate difficulty rating
 def getInterviewDifficulty():
-    difficultyRating = driver.find_elements_by_xpath('//*[@id="AllStats"]/div[3]/div/div/div[1]/div ');
+    #difficultyRating = driver.find_elements_by_xpath('//*[@id="AllStats"]/div[3]/div/div/div[1]/div ');
+    difficultyRatingPossible = driver.find_element_by_xpath('//*[@class="difficultyLabel subtle"]');
+    print("Difficulty rating:");
+    print(difficultyRatingPossible.text);
+    difficultyRating = driver.find_elements_by_xpath('//*[@class="difficultyLabel subtle"]');
     return processInterviewDifficulty(difficultyRating);
 
 #individual comments
