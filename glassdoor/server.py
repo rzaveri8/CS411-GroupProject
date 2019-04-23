@@ -23,7 +23,7 @@ DEBUG = True;
 
 #Web driver options
 options = Options();
-options.add_argument("--headless"); #run in headless mode
+#options.add_argument("--headless"); #run in headless mode
 if(env == "exp" or env == "prod"):
     #TODO: change to prod
     options.add_argument("user-data-dir=/home/ubuntu/osspd/Profiles/") #load our profile with user account information
@@ -71,7 +71,7 @@ def login():
     
     #else login to glassdoor
     else:
-        driver.find_element_by_xpath('//*[@id="TopNav"]/nav/div/div/div[1]/div[1]/a').click(); #sign in button
+        driver.find_element_by_xpath('//*[@id="TopNav"]/nav/div/div/div[4]/div[1]/a').click(); #sign in button
 
         usernameField = driver.find_element_by_name('username');
         passwordField = driver.find_element_by_name('password');

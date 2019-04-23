@@ -13,6 +13,8 @@ const database = require('./controllers/dbConnection');
 const app = express();
 const path = require('path');
 
+const glassdoorCache = require('./database/cache');
+
 var callbackURL = "";
 
 /* Setup Environment */
@@ -289,7 +291,10 @@ app.get("/api/dashboard", function(req,res){
 });
 
 
-/* Automatic job search. User must have industry in their profile to execute auto job search  */
+/* 
+Automatic job search. User must have industry/position in their profile to execute auto job search. 
+Industry/position must be separated by spaces or +'s if more than one word.
+*/
 app.get('/api/jobs/', function(req,res){
     if(!req.user.industry){
         res.json({status:400, error:"User must have industry in their profile."});
@@ -309,6 +314,14 @@ app.get('/api/jobs/', function(req,res){
         }
     })
 })
+
+/*
+Glassdoor search
+*/
+app.get(["/api/glassdoor/:company/:position","/test/glassdoor/:company/:position"], function(req,res){
+    glassdoorCache.getResult(res,req.params.company,req.params.position);
+})
+
 
 /*** CONNECTING TO FRONT END (ANGULAR2) ***/
 
