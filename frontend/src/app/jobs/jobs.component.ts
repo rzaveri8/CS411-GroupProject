@@ -9,14 +9,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class JobsComponent implements OnInit {
 
-  jobs: any;
-  rawResponse: any;
+  indeedRes: any; // response from indeed api
+  glassRes: any; // response from glassdoor api
+
+  // raw responses from apis before checking for errors
+  rawIResponse: any;
+  rawGResponse: any;
 
   position: string;
   company: string;
 
-  fullURL: string;
+  indeedURL: string;
+  glassURL: string;
+
+  // if no job information is returned for given position and company
   errorMessage: boolean;
+  gError: boolean;
+  iError: boolean;
+
+  // shows loading symbol
   loading: boolean;
 
   constructor(public httpClient: HttpClient) { }
@@ -55,26 +66,44 @@ export class JobsComponent implements OnInit {
   buildUrl(){
     var comp = this.parseCompany(this.company);
     var pos = this.parsePosition(this.position);
-    var baseUrl = "http://52.14.17.113:8080/api/all/";
-    this.fullURL = baseUrl + comp + "/" + pos;
+    var baseI = "http://52.14.17.113:8080/api/indeed/";
+    var baseG = "http://52.14.17.113:8082/api/glassdoor/"
+    this.indeedURL = baseI + comp + "/" + pos;
+    this.glassURL = baseG + comp + "/" + pos;
   }
 
   getJobs(){
-    this.jobs = undefined; //reset our jobs object so that the user doesn't see the old job information when doing a new search
+    this.glassRes = undefined;
+    this.indeedRes = undefined; //reset our jobs object so that the user doesn't see the old job information when doing a new search
     this.errorMessage = false; //reset error message
+    this.gError = false;
+    this.iError = false;
     this.loading = true;
     this.buildUrl();
-    this.httpClient.get(this.fullURL).subscribe((res) => {
-      this.loading = false;
-      this.rawResponse = res;
-      if(this.rawResponse.responseType == 404){
-        this.errorMessage = true;
+    this.httpClient.get(this.glassURL).subscribe((res) => {
+      this.rawGResponse = res;
+      if(this.rawGResponse.responseType == 404){
+        this.gError = true;
       }
       else{
-        this.errorMessage = false;
-        this.jobs = this.rawResponse;
+        this.glassRes = this.rawGResponse;
       }
+      this.errorMessage = (this.gError) || (this.iError); // if either operation has an error, show error message
+      this.loading = false;
     });
+
+    this.httpClient.get(this.indeedURL).subscribe((res) => {
+      this.rawIResponse = res;
+      if(this.rawIResponse.responseType == 404){
+        this.iError = true;
+      }
+      else{
+        this.iError = false;
+        this.indeedRes = this.rawIResponse;
+      }
+      this.errorMessage = (this.gError) || (this.iError);
+    });
+
 
   }
 
