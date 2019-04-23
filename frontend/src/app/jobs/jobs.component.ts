@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Job } from '../job';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({

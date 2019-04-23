@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
   getProfile() {
     this.httpClient.get("/api/user").subscribe((res) => {
       this.profile = res;
-      this.profile.industry = undefined;
       if (this.profile.industry == undefined)
       {
         this.updateIndustry();
