@@ -28,10 +28,11 @@
       <h2 style = "font-family: Open Sans, sans-serif; font-size: 20px;" *ngIf = "profile.location != undefined">Location: {{ profile.location }}</h2>
     </div>
   </div>
-    <div class = "container cnt pt-5">
+    <div class = "col-lg-12 container pt-5">
       <button type="button" class="custom btn-lg btn btn-primary active btnLeft" routerLink="/recommender" routerLinkActive="active">Jobs Recommender</button>
       <button type="button" class="custom btn-lg btn btn-primary active btnRight" routerLink="/resume" routerLinkActive="active">Resume Parser</button>
       <button type="button" class="custom btn-lg btn btn-primary active btnRight" routerLink="/jobs" routerLinkActive="active">Job Search</button>
+      <button type="button" class="custom btn-lg btn btn-primary active btnRight" (click)="updateIndustry()"> Edit Profile </button>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
