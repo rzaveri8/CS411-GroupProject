@@ -27,3 +27,18 @@
   font-family: 'Montserrat', sans-serif;
 
 }
+.full-viewport {
+  /* The image used */
+  background-image: url("http://blo-zou.com/data/wp/81/43646876-gray-backgrounds-wallpapers.jpg");
+  /* Full height */
+  min-height: 100%;
+  min-height: 100vh;
+
+  /* Center and scale the image nicely */
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+

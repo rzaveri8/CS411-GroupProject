@@ -1,5 +1,21 @@
 <div class = "full-viewport">
-    <h4 *ngIf="error"> Error: {{ error }} </h4> 
+  <div class="container">
+    <div class="background"></div>
+  </div>
+  <div class="containerr">
+    <div class="blurredPhoto"></div>
+    <div class="textt">Recommended Jobs</div>
+</div>
+
+  <div class="containerr">
+    <div class="blurredPhoto"></div>
+    <div class="textt">Error: {{ error }}</div>
+  </div>
+
+
+    <!--<div class="text">hello</div>-->
+
+    <h4 *ngIf="error"> Error: {{ error }} </h4>
     <div *ngIf="jobs">
         <h3> Industry/Position: {{ industry }} </h3>
         <ul>
