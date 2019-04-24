@@ -60,7 +60,7 @@
       <div class="col-md-3">
         <h5 class="text-center mt-3">In a nutshell: </h5>
         <div class="card nutshell-card">
-            <h6 class="text-left">Company Rating: {{ indeedRes.rating }}</h6>
+            <h6 class="text-left">Company Rating: {{ indeedRes.rating }}/5</h6>
             <div *ngIf = "indeedRes.pros.length > 0">
             <h6 class="text-left" style="color:green;">Pros:</h6>
             <ul *ngFor = "let pro of indeedRes.pros">
@@ -85,6 +85,14 @@
     <li *ngFor = "let comm of glassRes.comments"> {{ comm }} </li>
   </ul>
   <h4> Difficulty: {{ glassRes.difficulty }}</h4>
+  <h4>Experiences: {{ glassRes.experience[0] }}% positive, {{ glassRes.experience[1] }}% negative or neutral</h4>
+  <h4> Offers: </h4>
+  <ul>
+    <li> Accepted: {{ offers[0] }} </li>
+    <li> Declined: {{ offers[1] }} </li>
+    <li> No Offer: {{ offers[2] }} </li>
+  </ul>
+
   <h4> Path to Interview: </h4>
     <ul>
       <li *ngFor = "let path of glassRes.path"> {{ path[0] }}: {{ path[1] }}</li>

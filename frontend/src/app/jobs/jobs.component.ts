@@ -30,8 +30,7 @@ export class JobsComponent implements OnInit {
   // shows loading symbol
   loading: boolean;
 
-  glassDone: boolean;
-  indeedDone: boolean;
+  offers: any[];
 
   constructor(public httpClient: HttpClient, private data: JobdataService) { }
 
@@ -59,6 +58,24 @@ export class JobsComponent implements OnInit {
     this.glassURL = baseG + comp + "/" + pos;
   }
 
+  calcOffers()
+  {
+    var off = this.glassRes.offers;
+    var yes = 0;
+    var decline = 0;
+    var no = 0;
+    off.forEach(element => {
+      if (element == "No Offer")
+        no++;
+      else if (element == "Declined Offer")
+        decline++;
+      else if (element == "Accepted Offer")
+        yes++;
+    });
+
+    this.offers = [yes, decline, no];
+  }
+
   getGlass()
   {
     this.httpClient.get(this.glassURL).subscribe((res) => {
@@ -67,14 +84,13 @@ export class JobsComponent implements OnInit {
       this.glassRes = this.rawGResponse;
       this.error = (this.gError) && (this.iError); // if either operation has an error, show error message
       console.log("success from glassdoor");
-      this.glassDone = true;
+      this.calcOffers();
     },
     (err) => {
       console.log(err);
       console.log("error with glassdoor");
       this.gError = true;
       this.error = (this.gError) && (this.iError); // if either operation has an error, show error message
-      this.glassDone = true;
     });
   }
 
@@ -87,17 +103,22 @@ export class JobsComponent implements OnInit {
         this.iError = true;
         this.error = (this.gError) && (this.iError);
         this.loading = false;
-        this.indeedDone = true;
       }
       else {
         this.iError = false;
         this.indeedRes = this.rawIResponse;
+        this.indeedRes.rating = this.indeedRes.rating.toFixed(3);
         this.error = (this.gError) && (this.iError);
         this.loading = false; // indeed finishes last
         console.log("success from indeed");
-        this.indeedDone = true;
       }
       
+    },
+    (err) => {
+      console.log("error with indeed");
+      this.iError = true;
+      this.error = (this.gError) && (this.iError);
+      this.loading = false;
     });
   }
 
@@ -108,8 +129,6 @@ export class JobsComponent implements OnInit {
     this.gError = false;
     this.iError = false;
     this.loading = true;
-    this.indeedDone = undefined;
-    this.glassDone = undefined;
     this.buildUrl();
     this.getGlass();
     this.getIndeed();
