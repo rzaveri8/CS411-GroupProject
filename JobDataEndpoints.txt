@@ -1,4 +1,8 @@
 *Glassdoor interview api:
+Though Angular app:
+/api/glassdoor/<company>/<position>
+
+Through other outlets:
 http://52.14.17.113:8082/api/glassdoor/<company>/<position>
 
 *Indeed job reviews api: 

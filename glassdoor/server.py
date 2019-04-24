@@ -23,7 +23,7 @@ DEBUG = True;
 
 #Web driver options
 options = Options();
-options.add_argument("--headless"); #run in headless mode
+#options.add_argument("--headless"); #run in headless mode
 if(env == "exp" or env == "prod"):
     #TODO: change to prod
     options.add_argument("user-data-dir=/home/ubuntu/osspd/Profiles/") #load our profile with user account information

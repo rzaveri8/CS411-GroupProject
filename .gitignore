@@ -9,3 +9,5 @@ lib/
 __pycache__/
 Profiles/
 *.zip
+frontend/private/person1.json
+tests/
