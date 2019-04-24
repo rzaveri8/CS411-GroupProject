@@ -13,3 +13,9 @@ def log(stmnt):
         journal.write(stmnt);
     """
     print(stmnt);
+
+def writeToFile(contents):
+    f = open("result.html", "w");
+    f.write(contents);
+    f.close();
+    print("Wrote to file");

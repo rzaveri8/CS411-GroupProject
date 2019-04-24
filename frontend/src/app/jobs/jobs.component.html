@@ -27,9 +27,9 @@
 </section>
   <div class="col-12 pt-4">
   <div class="text-center">
-    <h6 *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
+    <h6 *ngIf="loading == true && errorMessage == false"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
     <div *ngIf="errorMessage == true">
-      <h3> We weren't able to find any data for that job. Try another ! </h3>
+      <h3> We weren't able to find any data for that job. Try another! </h3>
       <h4> Looking for suggestions ? Try these: </h4>
       <ul>
         <li class="no-list"> Software Engineer at Microsoft </li>
@@ -39,39 +39,64 @@
       </ul>
     </div>
   </div>
-  <div class="container hide-text" *ngIf = "jobs !== undefined">
-    <h3>What's it like to be a {{ jobs.position }} at {{ jobs.company }} ? </h3>
+  </div>
+
+  <div class="container hide-text" *ngIf = "(indeedRes != undefined) && (glassRes != undefined)">
+    <mat-tab-group>
+      <mat-tab label="Reviews">
+    <h3 style = "padding-top: 20px;">What's it like to be a {{ indeedRes.position }} at {{ indeedRes.company }} ? </h3>
     <div class="row">
       <div class="col-md-9">
         <h5 class="text-left pt-3 pb-0">Reviews:</h5>
-        <div class="card review-card mb-3" *ngFor = "let review of jobs.reviews" >
+        <div class="card review-card mb-3" *ngFor = "let review of indeedRes.reviews" >
           <div class="card-body">
             {{ review }}
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" style = "padding-left: -10px;">
         <h5 class="text-center mt-3">In a nutshell: </h5>
         <div class="card nutshell-card">
-            <h6 class="text-left">Company Rating: {{ jobs.rating }}</h6>
-            <div *ngIf = "jobs.pros.length > 0">
+            <h6 class="text-left">Company Rating: {{ indeedRes.rating }}</h6>
+            <div *ngIf = "indeedRes.pros.length > 0">
             <h6 class="text-left" style="color:green;">Pros:</h6>
-            <ul *ngFor = "let pro of jobs.pros">
+            <ul *ngFor = "let pro of indeedRes.pros">
               <li> {{ pro }} </li>
             </ul>
             </div>
-            <div *ngIf = "jobs.cons.length > 0">
+            <div *ngIf = "indeedRes.cons.length > 0">
             <h6 class="text-left" style="color:red;">Cons:</h6>
-            <ul *ngFor = "let con of jobs.cons">
+            <ul *ngFor = "let con of indeedRes.cons">
               <li> {{ con }} </li>
             </ul>
           </div>
         </div>
       </div>
   </div>
+  </mat-tab>
+
+<div class="container hide-text" *ngIf = "(indeedRes != undefined) && (glassRes != undefined)">
+  <mat-tab label="Interviews">
+    <p style = "padding-top: 10px; font-size: 25px;">Interview Difficulty: {{ glassRes.difficulty }}</p>
+      <h4> Path to Interview: </h4>
+    <ul>
+      <li *ngFor = "let path of glassRes.path"> {{ path[0] }}: {{ path[1] }}</li>
+    </ul>
+  <h4> Interview Questions: </h4>
+    <ul>
+      <li *ngFor = "let q of glassRes.questions"> {{ q }}</li>
+    </ul>
+  <h4> Comments: </h4>
+    <div class="card review-card mb-3"  *ngFor = "let comm of glassRes.comments">
+      <div class="card-body"> {{ comm }} </div>
+    </div>
+    </mat-tab>
+
+</div>
+    </mat-tab-group>
+
 </div>
 </div>
-  </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

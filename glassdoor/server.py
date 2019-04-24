@@ -8,7 +8,7 @@ from flask import Flask
 from flask import request
 from flask import Response
 from glassdoor import *
-from logger import log
+from logger import log, writeToFile
 from flask_cors import CORS
 from os import environ as environment
 import json
@@ -16,9 +16,10 @@ import json
 
 #Initialization
 #env = environment['CurrentEnvironment'];
-env = "dev"
+env = "prod"
 app = Flask(__name__);
 CORS(app)
+DEBUG = True;
 
 #Web driver options
 options = Options();
@@ -70,7 +71,7 @@ def login():
     
     #else login to glassdoor
     else:
-        driver.find_element_by_xpath('//*[@id="TopNav"]/nav/div/div/div[1]/div[1]/a').click(); #sign in button
+        driver.find_element_by_xpath('//*[@id="TopNav"]/nav/div/div/div[4]/div[1]/a').click(); #sign in button
 
         usernameField = driver.find_element_by_name('username');
         passwordField = driver.find_element_by_name('password');
@@ -103,15 +104,17 @@ def initGlassdoorSearch(company,position):
     result = driver.find_element_by_class_name("LC20lb");
     #verify that we have valid results for our query
     if(result.text[-9:] != "Glassdoor"):
-        print("Glassdoor domain not found");
-        print(result.text[-9:] + ";");
         return errorResponse;
     if(company not in result.text.lower()):
-        print("Company name not found");
-        print(result.text);
         return errorResponse;
     #get result if query valid
     result.click();
+    """
+    if(DEBUG):
+        writeToFile(driver.page_source);
+        return Response("Debugging Glassdoor, don't mind us", status=503, mimetype="application/text");
+    """
+    driver.implicitly_wait(1); #We have to wait for the page to load before we get all of our data
     data = {
        "offers": getInterviewOffers(),
        "experience": getInterviewExperience(),
@@ -136,7 +139,7 @@ def getInterviewExperience():
 
 #aggregate difficulty rating
 def getInterviewDifficulty():
-    difficultyRating = driver.find_elements_by_xpath('//*[@id="AllStats"]/div[3]/div/div/div[1]/div ');
+    difficultyRating = driver.find_elements_by_xpath('//*[@class="difficultyLabel subtle"]');
     return processInterviewDifficulty(difficultyRating);
 
 #individual comments

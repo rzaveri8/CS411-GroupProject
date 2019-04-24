@@ -203,6 +203,25 @@ app.get("/auth/callback", passport.authenticate('linkedin', {
 }));
 
 
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended : false}));
+
+
+ app.post("/api/industry", function(req, res) {
+     //const body = req.body;
+       console.log(req.body); //This prints the JSON document received (if it is a JSON document)
+
+
+//         var insertUserQuery = "INSERT INTO users(industry) VALUES(?)";
+//         database.query(insertUserQuery, [req.body], function(err,results){
+//            if(err) throw err; //console.log(results)
+//        })
+        console.log("it is done")
+
+
+});
+
+
 /*app.get("/api/glassdoor/:company/:position",function(req,res) {
 //  http://52.14.17.113:8080/api/all/<company>/<position>
   console.log("get jobs")
