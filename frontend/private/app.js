@@ -295,16 +295,10 @@ app.get("/api/dashboard", function(req,res){
 Automatic job search. User must have industry/position in their profile to execute auto job search.
 Industry/position must be separated by spaces or +'s if more than one word.
 */
-app.get('/api/jobs/', function(req,res){
-    getJobs(req,res);
-})
-
-
-async function getJobs(req,res){
-    const response = await user.getIndustry(undefined,req.user.id);
-    var industry = response;
+app.get('/api/jobs/:industry', function(req,res){
+    var industry = req.params.industry;
     if(industry == null){
-        res.status(400).json("User must have industry in their profile before they can execute an automatic job search.");
+        res.status(400).json("Industry required to execute job search");
         return;
     }
     const endpoint = "http://52.14.17.113:8083/api/jobs/";
@@ -317,9 +311,13 @@ async function getJobs(req,res){
         }
         else{
             console.log("Found jobs");
-            res.json({status:200, data: JSON.parse(body), industry: industry});
+            res.json({status:200, data: JSON.parse(body)});
         }
     })
+})
+
+
+async function getJobs(req,res){
 }
 /*
 Glassdoor search
