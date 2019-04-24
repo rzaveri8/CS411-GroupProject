@@ -39,6 +39,10 @@ export class RecommenderComponent implements OnInit {
       if(this.response.error){
         this.error = this.response.error;
       }
+    },
+    (err) => {
+      this.error = err.error.error;
+      this.loading = false;
     })
 
   }
