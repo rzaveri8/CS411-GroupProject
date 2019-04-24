@@ -83,3 +83,8 @@
     font-size: 30px;
     font-color: black;
 }
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
