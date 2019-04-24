@@ -35,7 +35,7 @@
   <div class="col-12 pt-4">
   <div class="text-center">
     <h6 *ngIf="loading == true && error == false"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
-    <div *ngIf="error == true">
+    <div *ngIf="error == true && loading == false">
       <h3> We weren't able to find any data for that job. Try another! </h3>
       <h4> Looking for suggestions ? Try these: </h4>
       <ul>
@@ -46,7 +46,7 @@
       </ul>
     </div>
   </div>
-  <div class="container hide-text" *ngIf = "(indeedRes != undefined) && (glassRes != undefined)">
+  <div class="container hide-text" *ngIf = "iError == false && loading == false">
     <h3>What's it like to be a {{ indeedRes.position }} at {{ indeedRes.company }} ? </h3>
     <div class="row">
       <div class="col-md-9">
@@ -79,7 +79,7 @@
 </div>
 </div>
 
-<div class="container hide-text" *ngIf = "(indeedRes != undefined) && (glassRes != undefined)">
+<div class="container hide-text" *ngIf = "gError == false && loading == false">
   <h4> Comments: </h4>
   <ul>
     <li *ngFor = "let comm of glassRes.comments"> {{ comm }} </li>
