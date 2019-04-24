@@ -11,7 +11,7 @@ export class UserService {
 
   response: any;
   industry: string;
-  
+
   public getIndustry(){
     return this.http.get("/api/user/getIndustry");
   }
@@ -19,4 +19,10 @@ export class UserService {
   public updateIndustry(newIndustry: string){
     return this.http.post("/api/user/setIndustry",newIndustry);
   }
+
+  public updateResumeGrade(resumegrade: string){
+    return this.http.post("/api/user/setresumegrade",resumegrade;
+  }
+
+
 }
