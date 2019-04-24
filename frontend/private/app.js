@@ -103,7 +103,7 @@ passport.use(new LinkedInStrategy({
   //  console.log(profile);
     //'use strict';
 
- /*   
+ /*
 const fs = require('fs');
 
 let person1 = {
@@ -134,7 +134,7 @@ passport.serializeUser(function(user,done){
     */
 
    console.log("The user is " + user);
-   
+
    var checkUserExistsQuery = "SELECT * FROM users WHERE userKey=?";
    database.query(checkUserExistsQuery, [user.id], function(err,results, fields){
        if(err) throw err;
@@ -249,7 +249,7 @@ position is capitalized*/
 /*** OUR APP ENDPOINTS ****/
 
 
-/* 
+/*
 Route middleware to perform some function before the next middleware is called for this path.
 In this case, we protect all endpoints that require user to be logged in.
 */
@@ -291,8 +291,8 @@ app.get("/api/dashboard", function(req,res){
 });
 
 
-/* 
-Automatic job search. User must have industry/position in their profile to execute auto job search. 
+/*
+Automatic job search. User must have industry/position in their profile to execute auto job search.
 Industry/position must be separated by spaces or +'s if more than one word.
 */
 app.get('/api/jobs/', function(req,res){
@@ -335,6 +335,10 @@ app.post("/api/user/setIndustry", function(req,res){
         res.status(400).json({error: "Please input an industry"});
     }
     user.updateIndustry(res,req.user.id, req.body.industry);
+})
+
+app.get("/api/user/resumegrade", function(req,res) {
+  user.updateResumeGrade(res,req.user.id,req.body.resumeGrade);
 })
 
 
