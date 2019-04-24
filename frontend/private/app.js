@@ -335,8 +335,31 @@ app.post("/api/user/setIndustry", function(req,res){
     user.updateIndustry(res,req.user.id, req.body.industry);
 })
 
-app.get("/api/user/resumegrade", function(req,res) {
-  user.updateResumeGrade(res,req.user.id,req.body.resumeGrade);
+
+app.get("/api/user/:resumegrade", function(req,res){
+    var resumegrade = req.params.resumegrade;
+    if(resumegrade == null){
+        res.status(400).json("Please upload resume to get a job likelihood estimate");
+        return;
+    }
+    const endpoint = "http://52.14.17.113:8083/api/user/";
+    const requestUrl = endpoint + resumegrade;
+    console.log(requestUrl);
+    request.get(requestUrl, function(error,response,body){
+        if(error){
+            console.log("Request failed");
+            res.json({status:500, error: "Server error."});
+        }
+        else{
+            console.log("Found resume grade");
+            res.json({status:200, data: JSON.parse(body)});
+        }
+    })
+})
+
+app.post("/api/user/resumegrade", function(req,res) {
+  user.updateResumeGrade(res,req.user.id,req.body.resumegrade);
+  console.log(req.body.resumeGrade)
 })
 
 

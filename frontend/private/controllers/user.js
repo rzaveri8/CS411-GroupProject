@@ -43,4 +43,20 @@ function updateIndustry(res,userId, industry){
         }
     })
 }
-module.exports = {getIndustry, updateIndustry}
+
+function updateResumeGrade(res,userId, resumegrade){
+    const updateResumeGradeQuery = "UPDATE users SET resumeGrade = ? WHERE userKey = ?";
+    console.log("Updating user id " + userId + " resumeGrade to " + resumegrade);
+    database.query(updateResumeGradeQuery, [resumegrade, userId], function(error,results){
+        if(error){
+            console.log(error);
+            res.status(500).json("An error occurred while posting the user's resume grade");
+        }
+        else{
+            res.status(200).json({status: "resume grade uploaded"});
+        }
+    })
+}
+
+
+module.exports = {getIndustry, updateIndustry, updateResumeGrade}
