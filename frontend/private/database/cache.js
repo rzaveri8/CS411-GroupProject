@@ -1,3 +1,7 @@
+/*
+Glassdoor API Access & Cache
+*/
+
 const database = require("../controllers/dbConnection");
 const request = require("request");
 
