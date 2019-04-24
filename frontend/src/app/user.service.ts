@@ -23,6 +23,8 @@ export class UserService {
   public updateResumeGrade(resumegrade: string){
     return this.http.post("/api/user/setresumegrade",resumegrade;
   }
-
+  public getResumeGrade(){
+    return this.http.get("/api/user/getresumegrade");
+  }
 
 }
