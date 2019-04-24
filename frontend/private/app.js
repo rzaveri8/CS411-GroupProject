@@ -335,6 +335,12 @@ app.post("/api/user/setIndustry", function(req,res){
     user.updateIndustry(res,req.user.id, req.body.industry);
 })
 
+/*** Accessing User Information ***/
+app.get("/api/user/getIndustry", function(req,res){
+    const userId = req.user.id;
+    user.getIndustry(res,userId);
+});
+
 
 app.get("/api/user/:resumegrade", function(req,res){
     var resumegrade = req.params.resumegrade;
@@ -342,8 +348,6 @@ app.get("/api/user/:resumegrade", function(req,res){
         res.status(400).json("Please upload resume to get a job likelihood estimate");
         return;
     }
-    //const endpoint = "http://52.14.17.113:8083/api/user/";
-    //const requestUrl = endpoint + resumegrade;
     console.log(requestUrl);
     request.get(requestUrl, function(error,response,body){
         if(error){
@@ -357,17 +361,18 @@ app.get("/api/user/:resumegrade", function(req,res){
     })
 })
 
-app.post("/api/user/resumegrade", function(req,res) {
+app.post("/api/user/setresumegrade", function(req,res) {
   user.updateResumeGrade(res,req.user.id,req.body.resumegrade);
   console.log(req.body.resumeGrade)
 })
 
-
-/*** Accessing User Information ***/
-app.get("/api/user/getIndustry", function(req,res){
+app.get("/api/user/getresumegrade", function(req,res){
     const userId = req.user.id;
-    user.getIndustry(res,userId);
+    user.getResumeGrade(res,userId);
 });
+
+
+
 
 /*** CONNECTING TO FRONT END (ANGULAR2) ***/
 
