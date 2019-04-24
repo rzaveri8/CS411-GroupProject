@@ -342,8 +342,8 @@ app.get("/api/user/:resumegrade", function(req,res){
         res.status(400).json("Please upload resume to get a job likelihood estimate");
         return;
     }
-    const endpoint = "http://52.14.17.113:8083/api/user/";
-    const requestUrl = endpoint + resumegrade;
+    //const endpoint = "http://52.14.17.113:8083/api/user/";
+    //const requestUrl = endpoint + resumegrade;
     console.log(requestUrl);
     request.get(requestUrl, function(error,response,body){
         if(error){
