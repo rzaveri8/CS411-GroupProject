@@ -296,9 +296,15 @@ Automatic job search. User must have industry/position in their profile to execu
 Industry/position must be separated by spaces or +'s if more than one word.
 */
 app.get('/api/jobs/', function(req,res){
-    const industry = user.getIndustry(undefined,req.user.id);
+    getJobs(req,res);
+})
+
+
+async function getJobs(req,res){
+    const response = await user.getIndustry(undefined,req.user.id);
+    var industry = response;
     if(industry == null){
-        res.status(400).json({error:"User must have industry in their profile before they can execute an automatic job search."});
+        res.status(400).json("User must have industry in their profile before they can execute an automatic job search.");
         return;
     }
     const endpoint = "http://52.14.17.113:8083/api/jobs/";
@@ -314,8 +320,7 @@ app.get('/api/jobs/', function(req,res){
             res.json({status:200, data: JSON.parse(body), industry: industry});
         }
     })
-})
-
+}
 /*
 Glassdoor search
 */
@@ -325,21 +330,11 @@ app.get(["/api/glassdoor/:company/:position","/test/glassdoor/:company/:position
 
 /*** Updating User Information ***/
 
-app.post("/api/setIndustry", function(req,res){
+app.post("/api/user/setIndustry", function(req,res){
     if(!req.body.industry){
         res.status(400).json({error: "Please input an industry"});
     }
-    console.log("Updating user id " + req.user.id + " industry to " + req.body.industry);
-    const updateIndustryQuery = "UPDATE users SET industry = ? WHERE userKey = ?";
-    database.query(updateIndustryQuery, [req.body.industry,req.user.id], function(error,results){
-        if(error){
-            console.log(error);
-            res.status(500).json({error: "An error occurred while updating the user's industry"});
-        }
-        else{
-            res.status(200);
-        }
-    })
+    user.updateIndustry(res,req.user.id, req.body.industry);
 })
 
 

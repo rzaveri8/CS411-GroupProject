@@ -6,7 +6,7 @@ function getIndustry(res,userId){
         if(error){
             console.log(error);
             if(res != undefined){
-                res.status(500).json({error: "An error occurred while fetching the user's industry"});
+                res.status(500).json("An error occurred while fetching the user's industry");
             }
             else{
                 return undefined;
@@ -16,17 +16,31 @@ function getIndustry(res,userId){
             const industry = results[0].industry;
             if(res != undefined){
                 if(industry == null){
-                    res.status(400).json({error:"User does not have industry in their profile."});
+                    res.status(400).json("You don't have an industry in your profile.");
                 }
                 else{
                     res.status(200).json({industry: industry});
                 }
             }
             else{
+                console.log("The industry is " + industry);
                 return industry;
             }
         }
     })
 }
 
-module.exports = {getIndustry}
+function updateIndustry(res,userId, industry){
+    const updateIndustryQuery = "UPDATE users SET industry = ? WHERE userKey = ?";
+    console.log("Updating user id " + userId + " industry to " + industry);
+    database.query(updateIndustryQuery, [industry, userId], function(error,results){
+        if(error){
+            console.log(error);
+            res.status(500).json("An error occurred while updating the user's industry");
+        }
+        else{
+            res.status(200).json({status: "Update successful"});
+        }
+    })
+}
+module.exports = {getIndustry, updateIndustry}

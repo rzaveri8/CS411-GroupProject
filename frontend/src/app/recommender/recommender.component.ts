@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JobdataService } from '../jobdata.service';
 import { RouterModule, Routes } from '@angular/router';
+import { UserService } from '../user.service';
 
 declare var $: any;
 
@@ -12,15 +13,16 @@ declare var $: any;
 })
 export class RecommenderComponent implements OnInit {
 
-  constructor(private http: HttpClient, private data: JobdataService) { }
+  constructor(private http: HttpClient, private data: JobdataService, private user: UserService, private job: JobdataService) { }
 
   response: any;
   jobs: any;
-  industry: string;
+  industry: any;
   error: string;
   loading: boolean;
 
   selectedJob: string[];
+  canSearch: boolean;
 
   jobSearch(job: string[]) {
     this.selectedJob = job;
@@ -28,19 +30,35 @@ export class RecommenderComponent implements OnInit {
     $("#myModal").modal();
   }
 
+  updateUserIndustry(industry: string){
+    console.log("The input is ");
+    console.log(industry);    
+    //this.user.updateIndustry(industry);
+  }
+
+  confirmUserIndustryAndGetJobs(){
+      this.user.getIndustry().subscribe((res) => {
+        this.response = res;
+        this.industry = this.response.industry;
+        this.job.getJobs().subscribe((res)=>{
+          this.response = res;
+          this.jobs = this.response.data;
+          this.loading = false;
+        }, (error) => {
+          this.loading = false;
+          this.error = error.error;
+        })
+      }, (error) => {
+        this.loading = false; 
+        this.error = error.error;
+        this.canSearch = false; //Assume that the user does not have an industry set
+      })
+  }
+
+
   ngOnInit() {
     this.loading = true;
-    this.error = "";
-    this.http.get("/api/jobs").subscribe((res)=> {
-      this.response = res;
-      this.jobs = this.response.data;
-      this.industry = this.response.industry;
-      this.loading = false;
-      if(this.response.error){
-        this.error = this.response.error;
-      }
-    })
-
+    this.confirmUserIndustryAndGetJobs();
   }
 
 }

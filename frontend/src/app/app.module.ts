@@ -12,10 +12,10 @@ import { ResumeComponent } from './resume/resume.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RecommenderComponent } from './recommender/recommender.component';
-
-import { AuthGuard } from './auth.guard';
 import { LogoutComponent } from './logout/logout.component';
 
+import { AuthGuard } from './auth.guard';
+import { UserService } from './user.service';
 // Define the routes
 
 const ROUTES = [
