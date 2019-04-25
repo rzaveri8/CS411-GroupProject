@@ -29,7 +29,7 @@
 }
 .full-viewport {
   /* The image used */
-  background-image: url("http://blo-zou.com/data/wp/81/43646876-gray-backgrounds-wallpapers.jpg");
+  background-image: url("/assets/images/gray.jpg");
   /* Full height */
   min-height: 100%;
   min-height: 100vh;
@@ -41,11 +41,11 @@
   background-size: cover;
   background-attachment: fixed;
 }
-#footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    color: white;
-}
 
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 35px 25px;
+}
