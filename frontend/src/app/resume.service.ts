@@ -15,7 +15,8 @@ export class ResumeService {
     formData.append('resume', fileToUpload, fileToUpload.name);
     return this.httpClient
       .post(endpoint, formData, { responseType: 'text' });
-}
+
+  }
 
   constructor(public httpClient: HttpClient) {
    }
