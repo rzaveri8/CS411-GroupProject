@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Velozity</a>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav ml-md-auto d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/resume" routerLinkActive="active">Resume Grader
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/jobs" routerLinkActive="active">Job Search
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/recommender" routerLinkActive="active">Job Recommender
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/saved" routerLinkActive="active"> Saved Jobs
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/logout">Log Out</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link" href="https://github.com/rzaveri8/CS411-GroupProject/"> Learn More </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<div class = "full-viewport">
+  <div class="jumbotron" >
+  <div class="container">
+    <p style = "text-align: center; font-size: 35px;">Saved Jobs</p>
+    <br>
+    <!-- <button type="button" class="custom btn-lg btn btn-primary active btn-format" (click)="activateUpdateUserIndustryModal()"> Edit Industry </button> -->
+    <span class="lead" style = "text-align: center; margin-left: 30px;">Belows are the jobs you have favorited:</span>
+    <div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class = "full-viewport">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+    <!--      <h5 class="text-left pb-0" *ngIf="industry"> My Current Industry/Position: {{ industry }} </h5>-->
+          <h4 *ngIf="error"> Error: {{ error }} </h4>
+          <!-- <div *ngIf="industry == undefined">
+            <p> Please update your industry to execute an automatic job search. </p>
+            <input #industryField type="text" class="form-control" length="100">
+            <button type="submit" class="btn btn-default btn-small" (click)="updateUserIndustry(industryField.value)">Update</button>
+          </div> -->
+          <div class = "container" style = "width: 600px;"*ngIf="jobs">
+            <div class="card mb-3" *ngFor="let job of jobs">
+              <div class="card-body savejob-card" style = "text-align: center;" id="selectedJob">
+                {{ job.company }} - {{ job.jobTitle }}
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

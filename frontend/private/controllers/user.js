@@ -71,7 +71,7 @@ function saveJob(userKey, company, position){
   })
 };
 
-function getSaveJob(userKey){
+function getSaveJob(userKey, res){
   const getSaveJobQuery = "SELECT company, jobTitle FROM savedJobs WHERE userKey=?";
   console.log("Getting saved jobs for user " + userKey);
   database.query(getSaveJobQuery, [userKey], function(error, results){
@@ -79,6 +79,17 @@ function getSaveJob(userKey){
       console.log(error);
     }
     else{
+        console.log(results);
+        const comp = results.company;
+        const pos = results.position;
+        if(res != undefined)
+        {
+            res.status(200).json({results:results});
+        }
+        else
+        {
+            return results;
+        }
       console.log("Retrieved jobs successfully");
     }
   })

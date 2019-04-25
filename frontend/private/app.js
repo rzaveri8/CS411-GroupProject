@@ -277,11 +277,12 @@ app.get("/api/user/getIndustry", function(req,res){
 
 
 app.post(["/api/user/saveJob", "/test/saveJob"], function(req,res) {
-  user.saveJob(req.body.id, req.body.company, req.body.position);
+  user.saveJob(req.user.id, req.body.company, req.body.position);
+  res.json(200);
 });
 
 app.get(["/api/user/getSaveJob",  "/test/getSaveJob"], function(req,res) {
-  user.getSaveJob(req.user.id);
+  user.getSaveJob(userKey,res);
 })
 
 
