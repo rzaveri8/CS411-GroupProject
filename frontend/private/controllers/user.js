@@ -58,6 +58,20 @@ function updateResumeGrade(res,userId, resumeGrade){
     })
 }
 
+function saveJob(userKey, company, position){
+  const saveJobQuery = "INSERT INTO savedJobs(userKey, company, jobTitle) VALUES (?, ?, ?)";
+  console.log("Adding job " + company + " " + position + " to " + userKey + " saved jobs ");
+  database.query(saveJobQuery, [userKey, company, position], function(error, results){
+    if(error){
+      console.log(error);
+    }
+    else{
+      console.log("Saved job successfully");
+    }
+  })
+}
+
+
 // function getResumeGrade(res,userId){
 //     const getIndustryQuery = "SELECT resumeGrade FROM users WHERE userKey = ?";
 //     database.query(getresumeGradeQuery, [userId], function(error,results){
@@ -89,4 +103,4 @@ function updateResumeGrade(res,userId, resumeGrade){
 // }
 
 
-module.exports = {getIndustry, updateIndustry, updateResumeGrade}
+module.exports = {getIndustry, updateIndustry, updateResumeGrade, saveJob}
