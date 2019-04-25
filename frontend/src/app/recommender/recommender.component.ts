@@ -20,10 +20,8 @@ export class RecommenderComponent implements OnInit {
 
   response: any;
   jobs: any;
-  industry: any;
   error: string;
   loading: boolean;
-
   rawIndustry: any;
 
   selectedJob: string[];
@@ -35,16 +33,18 @@ export class RecommenderComponent implements OnInit {
     $("#myModal").modal();
   }
 
+  activateUpdateUserIndustryModal(){
+    $("#posModal").modal({
+      backdrop: 'static',
+      keyboard: false
+    });
+  }
+
   updateUserIndustry(){
-    // $("#posModal").modal({
-    //   backdrop: 'static',
-    //   keyboard: false
-    // });
-    console.log("The input is ");
-    console.log(this.industry); 
-    this.industry = this.rawIndustry;   
+    console.log("The input is " + this.rawIndustry);
     this.error = "";
-    this.user.updateIndustry(this.industry).subscribe((res) => {
+    this.user.updateIndustry(this.rawIndustry).subscribe((res) => {
+        this.loading = true;
         this.refresh();
     });
   }
@@ -52,10 +52,12 @@ export class RecommenderComponent implements OnInit {
   refresh()
   {
     this.http.get("/api/jobs/").subscribe((res)=>{
-      this.response = res;
+      this.user.updatedIndustry = false; //update our flag to represent that the user has not updated their industry since our most recent search
+      this.response = res;  
       this.jobs = this.response.data;
       this.loading = false;
       this.error = "";
+      this.data.saveJobsLocally(this.jobs);
     }, (error) => {
       this.loading = false;
       this.error = error.error.error;
@@ -66,12 +68,13 @@ export class RecommenderComponent implements OnInit {
   confirmUserIndustryAndGetJobs(){
       this.user.getIndustry().subscribe((res) => {
         this.response = res;
-        this.industry = this.response.industry;
+        this.user.industry = this.response.industry;
         this.http.get("/api/jobs/").subscribe((res)=>{
           this.response = res;
           this.jobs = this.response.data;
           this.loading = false;
           this.error = "";
+          this.data.saveJobsLocally(this.jobs);
         }, (error) => {
           this.loading = false;
           this.error = error.error.error;
@@ -83,20 +86,28 @@ export class RecommenderComponent implements OnInit {
         this.loading = false; 
         this.error = error.error;
         this.canSearch = false; 
-        if (this.industry == undefined)
+        if (this.user.industry == undefined)
         {
-          $("#posModal").modal({
-            backdrop: 'static',
-            keyboard: false
-          });
+          this.activateUpdateUserIndustryModal();
         }
       })
   }
 
+
+
   ngOnInit() {
     this.loading = true;
     this.error = "";
-    this.confirmUserIndustryAndGetJobs();
+    if(this.data.jobsSaved && !this.user.updatedIndustry){
+      console.log("Getting previously saved jobs");
+      this.jobs = this.data.getLocallySavedJobs();
+      this.loading = false;
+    }
+    else{
+      console.log("Executing new job search");
+      this.confirmUserIndustryAndGetJobs();
+    }
+
   }
 
 }

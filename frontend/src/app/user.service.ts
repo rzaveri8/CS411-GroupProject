@@ -16,13 +16,18 @@ export class UserService {
   };
 
   response: any;
-  industry: string;
+  public updatedIndustry: boolean = false;
+  public industry: string = undefined;
+
 
   public getIndustry(){
+    this.updatedIndustry = false;
     return this.http.get("/api/user/getIndustry");
   }
 
   public updateIndustry(newIndustry: string){
+    this.updatedIndustry = true;
+    this.industry = newIndustry;
     const reqBody: string = "industry=" + newIndustry;
     return this.http.post("/api/user/setIndustry", reqBody, this.httpOptions);
   }

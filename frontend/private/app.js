@@ -134,13 +134,13 @@ passport.serializeUser(function(user,done){
 
 passport.deserializeUser(function(user,done){
     /*
-    Deserialize the user's information from the user table for easy access. 
+    Deserialize the user's information from the user table for easy access.
     */
     const getUserQuery = "SELECT userKey,firstName,lastName,pictureUrl, headline, industry,location,resumeGrade FROM users WHERE userKey= ? ";
     database.query(getUserQuery, [user.id], function(error, results){
         if(error){
             console.log("Error while fetching user from database");
-            res.status(500);
+            return done(error,false);
         }
         else{
             if(results.length > 0){
@@ -241,7 +241,7 @@ app.get('/api/jobs/', function(req,res){
     const requestUrl = endpoint + req.user.industry;
     request.get(requestUrl, function(error,response,body){
         if(error){
-    
+
             res.status(500).json("Server error.");
         }
         else{
@@ -272,6 +272,12 @@ app.get("/api/user/getIndustry", function(req,res){
     const userId = req.user.id;
     user.getIndustry(res,userId);
 });
+
+
+app.post(["/api/user/saveJob", "/test/saveJob"], function(req,res) {
+  user.saveJob(req.body.id, req.body.company, req.body.position);
+});
+
 
 
 app.post("/api/user/setresumegrade", function(req,res) {
