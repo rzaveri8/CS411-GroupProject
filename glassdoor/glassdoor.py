@@ -14,7 +14,10 @@ def processInterviewOffers(offersRawData):
 def processInterviewExperience(posExperience):
     #get the posExperience, calculate neg experience and return both
     if( len(posExperience) > 0):
-        pos = int(posExperience[0].text);
+        posLiteral = posExperience[0].text
+        if(posLiteral == ""):
+            return [0,100];
+        pos = int(posLiteral);
         neg = 100 - pos;
         exp = [pos, neg];
     else:

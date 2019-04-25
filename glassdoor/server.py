@@ -103,7 +103,7 @@ def initGlassdoorSearch(company,position):
     driver.get(searchUrl); 
     result = driver.find_element_by_class_name("LC20lb");
     #verify that we have valid results for our query
-    if(result.text[-9:] != "Glassdoor"):
+    if(result.text[-31:] != "Interview Questions | Glassdoor"):
         return errorResponse;
     if(company not in result.text.lower()):
         return errorResponse;
