@@ -279,7 +279,7 @@ app.post(["/api/user/saveJob", "/test/saveJob"], function(req,res) {
 });
 
 app.get(["/api/user/getSaveJob",  "/test/getSaveJob"], function(req,res) {
-  user.getSaveJob(req.user.id);
+  user.getSaveJob("someId",res);
 })
 
 
