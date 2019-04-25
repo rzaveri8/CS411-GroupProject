@@ -51,3 +51,7 @@
 .jumbotron{
 height: 30vh;
 }
+
+.container-fluid {
+  padding-bottom: 400px;
+}
