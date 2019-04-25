@@ -8,10 +8,10 @@
       <change beforePath="$PROJECT_DIR$/frontend/src/app/resume/resume.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/resume/resume.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/resume/resume.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/resume/resume.component.html" afterDir="false" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+    <list default="true" id="29caa9f7-2fd4-40a1-8597-6793251ec282" name="Default Changelist" comment="save jobs query">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/private/app.js" afterPath="$PROJECT_DIR$/frontend/private/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/private/controllers/user.js" afterPath="$PROJECT_DIR$/frontend/private/controllers/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/yarn.lock" afterPath="$PROJECT_DIR$/frontend/yarn.lock" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -83,8 +83,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/private/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="281" column="0" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+            <state relative-caret-position="286">
+              <caret line="281" column="29" selection-start-line="281" selection-start-column="29" selection-end-line="281" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -93,8 +93,8 @@
       <file leaf-file-name="user.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/private/controllers/user.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
+            <state relative-caret-position="285">
+              <caret line="81" column="46" selection-start-line="81" selection-start-column="46" selection-end-line="81" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -116,6 +116,9 @@
             <state relative-caret-position="675">
               <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding>
+                <marker date="1556216310000" expanded="true" signature="304:504" ph="{...}" />
+                <marker date="1556216310000" expanded="true" signature="514:542" ph="{...}" />
+                <marker date="1556216310000" expanded="true" signature="550:595" ph="{...}" />
                 <marker date="1556216310000" expanded="true" signature="611:661" ph="{...}" />
               </folding>
             </state>
@@ -176,6 +179,7 @@
     <option name="height" value="955" />
         <option value="$PROJECT_DIR$/frontend/private/app.js" />
         <option value="$PROJECT_DIR$/frontend/private/controllers/user.js" />
+        <option value="$PROJECT_DIR$/frontend/private/app.js" />
       </list>
     </option>
   </component>
@@ -354,6 +358,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="editor.config.accepted" value="true" />
   </component>
   <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
     <UpdatedFiles>
@@ -558,12 +563,20 @@
       <option name="presentableId" value="Default" />
       <updated>1555984616351</updated>
       <workItem from="1556159230216" duration="560000" />
-      <workItem from="1556215286238" duration="1121000" />
+      <workItem from="1556215286238" duration="2767000" />
     </task>
+    <task id="LOCAL-00001" summary="save jobs query">
+      <created>1556216552518</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1556216552518</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1681000" />
+    <option name="totallyTimeSpent" value="3327000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="192" y="23" width="1440" height="873" extended-state="0" />
@@ -606,6 +619,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="save jobs query" />
+    <option name="LAST_COMMIT_MESSAGE" value="save jobs query" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -668,6 +685,9 @@
         <state relative-caret-position="675">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding>
+            <marker date="1556216310000" expanded="true" signature="304:504" ph="{...}" />
+            <marker date="1556216310000" expanded="true" signature="514:542" ph="{...}" />
+            <marker date="1556216310000" expanded="true" signature="550:595" ph="{...}" />
             <marker date="1556216310000" expanded="true" signature="611:661" ph="{...}" />
           </folding>
         </state>
@@ -719,6 +739,9 @@
         <state relative-caret-position="435">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
+            <marker date="1556216310000" expanded="true" signature="304:504" ph="{...}" />
+            <marker date="1556216310000" expanded="true" signature="514:542" ph="{...}" />
+            <marker date="1556216310000" expanded="true" signature="550:595" ph="{...}" />
             <marker date="1556216310000" expanded="true" signature="611:661" ph="{...}" />
           </folding>
         </state>
@@ -880,6 +903,9 @@
         <state relative-caret-position="675">
           <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
           <folding>
+            <marker date="1556216310000" expanded="true" signature="304:504" ph="{...}" />
+            <marker date="1556216310000" expanded="true" signature="514:542" ph="{...}" />
+            <marker date="1556216310000" expanded="true" signature="550:595" ph="{...}" />
             <marker date="1556216310000" expanded="true" signature="611:661" ph="{...}" />
           </folding>
         </state>
@@ -945,16 +971,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/private/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="281" column="0" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+        <state relative-caret-position="286">
+          <caret line="281" column="29" selection-start-line="281" selection-start-column="29" selection-end-line="281" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/private/controllers/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
+        <state relative-caret-position="285">
+          <caret line="81" column="46" selection-start-line="81" selection-start-column="46" selection-end-line="81" selection-end-column="46" />
           <folding />
         </state>
       </provider>

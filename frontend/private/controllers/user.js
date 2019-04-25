@@ -69,7 +69,22 @@ function saveJob(userKey, company, position){
       console.log("Saved job successfully");
     }
   })
+};
+
+function getSaveJob(userKey){
+  const getSaveJobQuery = "SELECT company, jobTitle FROM savedJobs WHERE userKey=?";
+  console.log("Getting saved jobs for user " + userKey);
+  database.query(getSaveJobQuery, [userKey], function(error, results){
+    if(error){
+      console.log(error);
+    }
+    else{
+      console.log("Retrieved jobs successfully");
+    }
+  })
 }
+
+
 
 
 // function getResumeGrade(res,userId){
@@ -103,4 +118,4 @@ function saveJob(userKey, company, position){
 // }
 
 
-module.exports = {getIndustry, updateIndustry, updateResumeGrade, saveJob}
+module.exports = {getIndustry, updateIndustry, updateResumeGrade, saveJob, getSaveJob}
