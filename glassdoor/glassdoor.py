@@ -84,6 +84,3 @@ def parsePosition(position):
         return parsedPosition[:-1].lower();
     else:
         return position.lower();
-
-if(__name__ == "__main__"):
-    print(parsePosition("analyst"));
