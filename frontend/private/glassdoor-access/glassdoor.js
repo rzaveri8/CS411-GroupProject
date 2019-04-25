@@ -46,7 +46,8 @@ function getResultFromAPI(req,res,company,position){
 
     const glassdoorEndpoint = "http://52.14.17.113:8082/api/glassdoor/";
     const requestUrl = glassdoorEndpoint + company + "/" + position;
-    
+    console.log("The requested url is: ");
+    console.log(requestUrl);
     //start the request
     request.get(requestUrl,function(error,response,body){
         if(error){
