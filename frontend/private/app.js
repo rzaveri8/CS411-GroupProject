@@ -317,8 +317,6 @@ app.get('/api/jobs/:industry', function(req,res){
 })
 
 
-async function getJobs(req,res){
-}
 /*
 Glassdoor search
 */
@@ -342,27 +340,9 @@ app.get("/api/user/getIndustry", function(req,res){
 });
 
 
-app.get("/api/user/:resumegrade", function(req,res){
-    var resumegrade = req.params.resumegrade;
-    if(resumegrade == null){
-        res.status(400).json("Please upload resume to get a job likelihood estimate");
-        return;
-    }
-    console.log(requestUrl);
-    request.get(requestUrl, function(error,response,body){
-        if(error){
-            console.log("Request failed");
-            res.json({status:500, error: "Server error."});
-        }
-        else{
-            console.log("Found resume grade");
-            res.json({status:200, data: JSON.parse(body)});
-        }
-    })
-})
-
 app.post("/api/user/setresumegrade", function(req,res) {
-  user.updateResumeGrade(res,req.user.id,req.body.resumegrade);
+  user.updateResumeGrade(res,req.user.id,req.body.resumeGrade);
+  console.log("The resume grade to set is");
   console.log(req.body.resumeGrade)
 })
 
