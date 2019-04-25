@@ -27,3 +27,25 @@
   font-family: 'Montserrat', sans-serif;
 
 }
+.full-viewport {
+  /* The image used */
+  background-image: url("../../assets/images/gray.jpg");
+  /* Full height */
+  min-height: 100%;
+  min-height: 100vh;
+
+  /* Center and scale the image nicely */
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 35px 25px;
+}

@@ -1,18 +1,16 @@
 .full-viewport {
   /* The image used */
-  background-image: url("https://nsiteam.com/social/wp-content/uploads/2015/12/blog-background-2.jpg");
+  background-image: url("../../assets/images/silver.jfif");
+
   /* Full height */
   min-height: 100%;
   min-height: 100vh;
 
   /* Center and scale the image nicely */
-
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-
-  color: white;
 }
 
 .job-card {
@@ -20,7 +18,40 @@
   background-color: #212529;
 }
 
-/*
-"http://blo-zou.com/data/wp/81/43646876-gray-backgrounds-wallpapers.jpg"
+.container-design {
+    position: absolute;
+    width: 40%;
+    height: 20%;
+    text-align: center;
+    background-color: white;
+    align-items: center;
+}
 
-*/
+.containerr {
+  display: flex;
+  padding-top: 30px;
+  align-items: center;
+}
+
+.element {
+    /* set border styling */
+    border-color: DCDCDC;
+    border-style: solid;
+    border-width: 6px;
+
+    /* set border roundness */
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    background-color: #808080;
+    max-width: 1400px;
+    color: white;
+}
+
+.jumbotron{
+height: 30vh;
+}
+
+.container-fluid {
+  padding-bottom: 400px;
+}

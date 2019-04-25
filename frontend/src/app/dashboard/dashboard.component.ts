@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router'
 import { allSettled } from 'q';
+import { UserService } from '../user.service';
 
 declare var $: any;
 
@@ -15,11 +16,12 @@ export class DashboardComponent implements OnInit {
   profile: any =[];
   rawIndustry: string;
 
-  constructor(public httpClient: HttpClient, private router: Router) { }
+  constructor(public httpClient: HttpClient, private router: Router, private user: UserService) { }
 
   getProfile() {
     this.httpClient.get("/api/user").subscribe((res) => {
       this.profile = res;
+      this.user.industry = this.profile.industry;
       if (this.profile.industry == undefined)
       {
         this.updateIndustry();
@@ -56,8 +58,9 @@ export class DashboardComponent implements OnInit {
   updateIndustry()  {
     $("#myModal").modal();
     this.profile.industry = this.parsePosition(this.rawIndustry);
-    let data = { "industry" : this.profile.industry };
-    this.httpClient.post("/api/industry", data).subscribe();
+    this.user.updateIndustry(this.profile.industry).subscribe((res)=>{}, (error)=>{
+      alert(error.error);
+    })
   }
 
   ngOnInit() {

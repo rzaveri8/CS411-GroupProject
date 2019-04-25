@@ -13,6 +13,9 @@ const database = require('./controllers/dbConnection');
 const app = express();
 const path = require('path');
 
+const glassdoorCache = require('./glassdoor-access/glassdoor');
+const user = require("./controllers/user");
+
 var callbackURL = "";
 
 /* Setup Environment */
@@ -60,6 +63,7 @@ app.use(session({
 }));
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 /* establish passport and its settings to authenticate users */
 
@@ -81,7 +85,7 @@ passport.use(new LinkedInStrategy({
     to help us identify the user
     (e.g user_id, username, email)
     */
-    var user = {
+    var userDataFromLinkedIn = {
         accessToken: accessToken,
         id: profile.id,
         firstName: profile.name.givenName,
@@ -90,34 +94,10 @@ passport.use(new LinkedInStrategy({
         location: profile._json.location.name,
         industry: profile._json.industry,
         pictureUrl: profile._json.pictureUrl,
-        //url: profile._json.url
-      //  industry: industry,
-        //pictureUrl: pictureUrl,
-
+        resumeGrade: null
     }
-//  });
-  //  console.log(profile);
-    //'use strict';
-
-const fs = require('fs');
-
-let person1 = {
-  accessToken: accessToken,
-  id: profile.id,
-  firstName: profile.name.givenName,
-  lastName: profile.name.familyName,
-  location: profile._json.location.name,
-  industry: profile._json.industry,
-  headline: profile._json.headline,
-  pictureUrl: profile._json.pictureUrl,
-  url: profile._json.url
-};
-
-console.log(profile.name.givenName);
-let data = JSON.stringify(person1);
-fs.writeFileSync('person1.json', data);
-    return done(null,user);
-}))
+    return done(null,userDataFromLinkedIn);
+}));
 
 passport.serializeUser(function(user,done){
     /*
@@ -125,15 +105,9 @@ passport.serializeUser(function(user,done){
     After doing that, we will invoke done() to tell passport to store the user's id and access token in their session.
     In the session, their id and token will be stored under the user object under the passport object.
     */
-
-   console.log("The user is " + user);
-
-   /*var insertUserQuery = "INSERT INTO users(userKey,firstName,lastName,headline,location,industry,pictureURL) VALUES(?,?,?,?,?,?,?)";
-   database.query(insertUserQuery, [user.id,user.firstName, user.lastName,user.headline, user.location, user.industry, user.pictureURL ], function(err,results){
-       if(err) throw err; //console.log(results)
-   }) */
-   //connection.connect();
-  var checkUserExistsQuery = "SELECT * FROM users WHERE userKey=?";
+   //"We are going to write the user into the user table, and store their session key in the session store
+   console.log("Serializing user");
+   var checkUserExistsQuery = "SELECT * FROM users WHERE userKey=?";
    database.query(checkUserExistsQuery, [user.id], function(err,results, fields){
        if(err) throw err;
        else{
@@ -144,44 +118,47 @@ passport.serializeUser(function(user,done){
                 if(err) throw err; //console.log(results)
             })
            }
-           //Else they already exist, no further operations neccessary on user
+           /*
+           Else they already exist. No further operations are necessary.
+           */
        }
    })
 
-// NEED TO DO:
-// - if statement for existing
-// - if statement for if there's no industry - go to page where they insert job title, insert
-//that into data base
-// create api for angular to use to get data base info.
-
-   //connection.end();
-
-
-    console.log("User was serialized");
-    user = {
+    userSaveToSession = {
         id: user.id,
         token: user.accessToken,
-        //id: profile.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        headline: user.headline,
-        location: user.location,
-        industry: user.industry,
-        pictureUrl: user.pictureUrl
     }
-    done(null,user);
+
+    done(null,userSaveToSession);
 })
+
 passport.deserializeUser(function(user,done){
     /*
-    Deserialize the user's information (id and token) from the session.
-    This allows us to access the passport object in the session store as req.user within all requests.
-    In this case, the passport object contains a user object.
+    Deserialize the user's information from the user table for easy access.
     */
-
-    // Display all users
-
-// });
-    done(null,user);
+    const getUserQuery = "SELECT userKey,firstName,lastName,pictureUrl, headline, industry,location,resumeGrade FROM users WHERE userKey= ? ";
+    database.query(getUserQuery, [user.id], function(error, results){
+        if(error){
+            console.log("Error while fetching user from database");
+            return done(error,false);
+        }
+        else{
+            if(results.length > 0){
+                var userData = results[0];
+                const user = {
+                    id: userData.userKey,
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    headline: userData.headline,
+                    location: userData.location,
+                    industry: userData.industry,
+                    pictureUrl: userData.pictureUrl,
+                    resumeGrade: userData.resumeGrade
+                }
+                return done(null,user)
+            }
+        }
+    })
 })
 
 //Authentication
@@ -202,54 +179,10 @@ app.get("/auth/callback", passport.authenticate('linkedin', {
     //console.log("success");
 }));
 
-
-app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({extended : false}));
-
-
- app.post("/api/industry", function(req, res) {
-     //const body = req.body;
-       console.log(req.body); //This prints the JSON document received (if it is a JSON document)
-
-
-//         var insertUserQuery = "INSERT INTO users(industry) VALUES(?)";
-//         database.query(insertUserQuery, [req.body], function(err,results){
-//            if(err) throw err; //console.log(results)
-//        })
-        console.log("it is done")
-
-
-});
-
-
-/*app.get("/api/glassdoor/:company/:position",function(req,res) {
-//  http://52.14.17.113:8080/api/all/<company>/<position>
-  console.log("get jobs")
-  res.json(["Hey"]);
-  res.send(req.params)
-
-}) */
-
-
-  /* Glassdoor:
-http://52.14.17.113:8082/api/glassdoor/<company>/<position>
-// create an api that request the parameters for this info and fills it in.
-// does both of these requests at the same time
-
-Indeed:
-http://52.14.17.113:8080/api/all/<company>/<position>
-
-*if position has multiple words in it, make sure they are
-separated by spaces or '+'s, and also that each word in
-position is capitalized*/
-
-
-//})
-
 /*** OUR APP ENDPOINTS ****/
 
 
-/* 
+/*
 Route middleware to perform some function before the next middleware is called for this path.
 In this case, we protect all endpoints that require user to be logged in.
 */
@@ -262,13 +195,14 @@ app.use('/api/', function(req,res,next){
     }
 })
 
+/*** Accessing App Data ***/
+
 /*
 If we get here then the middleware verified that the user is logged in.
 */
 app.get("/api/isLoggedIn", function(req,res){
     res.json({logInStatus:1});
 });
-
 
 app.get("/api/logout", function(req,res){
     /*
@@ -280,6 +214,11 @@ app.get("/api/logout", function(req,res){
     res.json({status:200, name: firstName});
 })
 
+//Test deserializing logic
+app.get("/api/printUser", function(req,res){
+    res.json(req.user);
+})
+
 // Access dashboard
 app.get("/api/dashboard", function(req,res){
     const firstName = req.user.firstName;
@@ -289,26 +228,73 @@ app.get("/api/dashboard", function(req,res){
 });
 
 
-/* Automatic job search. User must have industry in their profile to execute auto job search  */
+/*
+Automatic job search. User must have industry/position in their profile to execute auto job search.
+Industry/position must be separated by spaces or +'s if more than one word.
+*/
 app.get('/api/jobs/', function(req,res){
     if(!req.user.industry){
-        res.json({status:400, error:"User must have industry in their profile."});
+        res.status(400).json("Industry required to execute job search");
+        return;
     }
     const endpoint = "http://52.14.17.113:8083/api/jobs/";
-    const param = req.user.industry;
-    const requestUrl = endpoint + param;
-    console.log(requestUrl);
+    const requestUrl = endpoint + req.user.industry;
     request.get(requestUrl, function(error,response,body){
         if(error){
-            console.log("Request failed");
-            res.json({status:500, error: "Server error."});
+
+            res.status(500).json("Server error.");
         }
         else{
-            console.log("Found jobs");
-            res.json({status:200, data: JSON.parse(body), industry: req.user.industry});
+            res.status(200).json({data: JSON.parse(body)});
         }
     })
 })
+
+/*
+Glassdoor search
+*/
+app.get(["/api/glassdoor/:company/:position","/test/glassdoor/:company/:position"], function(req,res){
+    glassdoorCache.getResult(req,res,req.params.company, req.params.position);
+})
+
+/*** Updating User Information ***/
+
+app.post("/api/user/setIndustry", function(req,res){
+    console.log(req.body.industry);
+    if(!req.body.industry){
+        res.status(400).json("Please input an industry");
+    }
+    user.updateIndustry(res,req.user.id, req.body.industry);
+})
+
+/*** Accessing User Information ***/
+app.get("/api/user/getIndustry", function(req,res){
+    const userId = req.user.id;
+    user.getIndustry(res,userId);
+});
+
+
+app.post(["/api/user/saveJob", "/test/saveJob"], function(req,res) {
+  user.saveJob(req.body.id, req.body.company, req.body.position);
+});
+
+app.get(["/api/user/getSaveJob",  "/test/getSaveJob"], function(req,res) {
+  user.getSaveJob(req.user.id);
+})
+
+
+
+app.post("/api/user/setresumegrade", function(req,res) {
+  user.updateResumeGrade(res,req.user.id,req.body.grade);
+  console.log("The resume grade to set is");
+  console.log(req.body.grade);
+})
+
+app.get("/api/user/getresumegrade", function(req,res){
+    const userId = req.user.id;
+    user.getResumeGrade(res,userId);
+});
+
 
 /*** CONNECTING TO FRONT END (ANGULAR2) ***/
 
@@ -316,6 +302,5 @@ app.get('/api/jobs/', function(req,res){
 function allFrontEndRoutes(req,res){
     res.sendFile('dist/index.html', { root: '.'});
 }
+
 app.use(allFrontEndRoutes);
-
-

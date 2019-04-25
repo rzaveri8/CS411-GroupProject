@@ -1,5 +1,5 @@
 .bg {
-  background-image: url("https://stingraysstudio.com/wp-content/uploads/2018/03/410119501Website-Design-Background.jpg");
+  background-image: url("../../assets/images/keyboard.png");
    /* Full height */
 
   min-height: 100%;
@@ -10,9 +10,6 @@
   background-size: cover;
   background-attachment: fixed;
 }
-/*
-"https://images.unsplash.com/photo-1511406239133-2c1130a2d754?ixlib=rb-0.3.5&amp;s=644be818a0f99f970141c7b198ef1e75&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80"
-*/
 
 .element {
     /* set border styling */
@@ -58,3 +55,26 @@
   padding-left: 376px;
 }
 
+.upload-photo {
+   position: absolute;
+   z-index: -1;
+}
+
+/*.container-fluid {
+background-color: lightgrey;
+width: 30%;
+height: 20%;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    height: 65%;
+    background-color: #E0DDD7;
+    max-width: 1400px;
+    align: center;
+}*/
+
+.someselector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

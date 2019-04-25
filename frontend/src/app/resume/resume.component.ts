@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { parseString } from 'xml2js';
 import { ResumeService } from '../resume.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-resume',
@@ -12,8 +13,12 @@ export class ResumeComponent implements OnInit {
 
   resume: any;
   fileToUpload: File = null;
+  loading: boolean;
 
-  constructor(public httpClient: HttpClient, private resumeService: ResumeService) { }
+  error: boolean;
+
+
+  constructor(public httpClient: HttpClient, private resumeService: ResumeService, private userS: UserService) { }
 
   resumeFormat()
   {
@@ -40,17 +45,35 @@ export class ResumeComponent implements OnInit {
 
   uploadFileToActivity() {
     this.resume = undefined;
-    this.resumeService.postFile(this.fileToUpload).subscribe(data => {
+    this.loading = true;
+    this.error = false;
+
+    if (this.fileToUpload.type == "application/pdf" || this.fileToUpload.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || this.fileToUpload.type == "text/plain")
+    {
+      console.log("valid file");
+      this.resumeService.postFile(this.fileToUpload).subscribe(data => {
         var res;
         parseString( data, function (err, result) {
           res = result;
         });
         this.resume = res;
+        this.userS.updateResumeGrade(this.resume.rezscore.score[0].grade[0][0]);
         this.resumeFormat();
         console.log(this.resume);
+        this.loading = false;
       }, error => {
         console.log(error);
+        this.error = true;
       });
+    }
+    else
+    {
+      console.log("Invalid file type");
+      this.loading = false;
+      this.error = true;
+    }
+
+    
   }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 .bg {
-  background-image: url("https://backgroundcheckall.com/wp-content/uploads/2017/12/contact-us-background-9.jpg");
+  background-image: url("../../assets/images/pen_paper.jpg");
    /* Full height */
 
   height: 100%;
@@ -13,20 +13,8 @@
 
 }
 
-.cnt {
-max-width:1100;
-}
-
 .custom {
     width: 210px !important;
-}
-
-.btnRight{
-margin-left:90px;
-}
-
-.btnLeft{
-margin-left:140px;
 }
 
 * {
@@ -42,23 +30,20 @@ margin-left:140px;
 .content {
     padding:20px;
     margin-top: 20px;
-    padding-top: 20px;
+    padding-top: 50px;
     position: relative;
-    /*background-color: #EAEAEA;
-    border: 3px solid #9C9C9C;*/
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
     font-family: sans-serif;
     text-align: center;
     line-height: 1;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    max-width: 20%;
-    max-height: 50%;
+    height: 60%;
+    width: 57vh;
 }
 
-
-
+.button-space {
+  display: flex;
+  justify-content: space-around;
+}
 
 
 
