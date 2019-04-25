@@ -1,49 +1,16 @@
 .full-viewport {
   /* The image used */
-  background-image: url("http://backgrounddownload.com/wp-content/uploads/2018/09/minimalist-gray-background-1.jpg");
+  background-image: url("../../assets/images/silver.jfif");
+
   /* Full height */
   min-height: 100%;
   min-height: 100vh;
 
-  /* Center and scale the image nicely */ 
-
+  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-/*https://nsiteam.com/social/wp-content/uploads/2015/12/blog-background-2.jpg")
-"http://www.pptbackgrounds.org/uploads/black-and-gray-powerpoint-templates.jpg"*/
-
-}
-.background  {
-    background-color: #CCC;
-    filter: blur(5px) brightness(0.5);
-    position: relative;
-    align-items: center;
-    height: 10%;
-    width: 30%;
-    margin: 0 auto;
-    font-family: sans-serif;
-    text-align: center;
-
-}
-.text {
-    align-items: center;
-    position: relative;
-    margin: 0px;
-    text-align: center;
-
-}
- .blur {
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px) brightness(0.7);
-  width: 100px;
-  height: 100px;
-  background-color: #CCC;
-
 }
 
 .job-card {
@@ -51,40 +18,36 @@
   background-color: #212529;
 }
 
-/*
-"http://blo-zou.com/data/wp/81/43646876-gray-backgrounds-wallpapers.jpg"
-
-*/
-.containerr {
-    width: 600px;
-    height: 200px;
-    position: relative;
-    align-items:center;
-    text-align:center;
-    margin-left: 520px;
-}
-
-.blurredPhoto {
+.container-design {
     position: absolute;
-    width: 80%;
-    height: 30%;
+    width: 40%;
+    height: 20%;
     text-align: center;
     background-color: white;
+    align-items: center;
 }
 
-.textt {
-    position: absolute;
-    width: 300px;
-    height: 200px;
-    padding-top: 15px;
-    text-align: center;
-    margin-left: 135px;
-    font-family: Sans-Serif;
-    font-size: 30px;
-    font-color: black;
-}
-.container {
+.containerr {
   display: flex;
-  justify-content: space-around;
+  padding-top: 30px;
+  align-items: center;
 }
 
+.element {
+    /* set border styling */
+    border-color: DCDCDC;
+    border-style: solid;
+    border-width: 6px;
+
+    /* set border roundness */
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    background-color: #808080;
+    max-width: 1400px;
+    color: white;
+}
+
+.jumbotron{
+height: 30vh;
+}

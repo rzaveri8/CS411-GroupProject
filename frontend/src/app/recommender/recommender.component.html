@@ -1,13 +1,18 @@
 <div class = "full-viewport">
-  <!--<div class="container">-->
-    <!--<div class="background"></div>-->
-  <!--</div>-->
-  <!--<div class="containerr">-->
-    <!--<div class="blurredPhoto"></div>-->
-    <!--<div class="textt">Recommended Jobs</div>-->
-<!--</div>-->
+<!--<h5 style = "text-align: center; padding-top: 40px; color: white; padding-bottom: 50px;font-size: 45px;">Recommended Jobs</h5>-->
+   <!--<div class="container">-->
+     <!--<div class="container-design element"><p style = "font-size: 30px;"><u>Recommended Jobs</u></p>-->
+        <!--<p style = "font-size: 20px;">Based on your current industry/position of <i>{{ industry }}</i>, we recommend the following jobs:</p>-->
+      <!--</div>-->
+   <!--</div>-->
+  <div class="jumbotron" >
+  <div class="container">
+    <p style = "text-align: center; font-size: 35px;">Recommended Jobs</p>
+    <br>
 
-<h5 style = "text-align: center; padding-top: 40px; color: white; padding-bottom: 50px;font-size: 45px;">Recommended Jobs</h5>
+    <p class="lead" style = "text-align: center;">Based on your current industry/position of <i>{{ industry }}</i>, we recommend the following jobs:</p>
+  </div>
+</div>
 <div id="posModal" class="modal fade" role="dialog">
     <div class="modal-dialog">      
         <div class="modal-content">
@@ -24,7 +29,7 @@
   </div>
 
     <h4 *ngIf="error"> Error: {{ error }} </h4>
-    <h6 style = "text-align:center;" *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=40px> </h6>
+    <h6 style = "text-align:center; padding-top: 30px;" *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
     <div *ngIf="jobs">
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">      
@@ -44,7 +49,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-          <h5 class="text-left pb-0" *ngIf="industry"> My Current Industry/Position: {{ industry }} </h5>
+    <!--      <h5 class="text-left pb-0" *ngIf="industry"> My Current Industry/Position: {{ industry }} </h5>-->
           <h4 *ngIf="error"> Error: {{ error }} </h4> 
           <!-- <div *ngIf="industry == undefined">
             <p> Please update your industry to execute an automatic job search. </p>
@@ -52,9 +57,9 @@
             <button type="submit" class="btn btn-default btn-small" (click)="updateUserIndustry(industryField.value)">Update</button>
           </div> -->
           <h6 *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
-          <div *ngIf="jobs">
+          <div class = "container" style = "width: 600px;"*ngIf="jobs">
             <div class="card mb-3" *ngFor="let job of jobs">
-              <div class="card-body job-card" style = "width: 100vh;" id="selectedJob" (click)="jobSearch(job)">
+              <div class="card-body job-card" style = "text-align: center;" id="selectedJob" (click)="jobSearch(job)">
                 {{ job[0] }} - {{ job[1] }}
                 </div>
               </div>
