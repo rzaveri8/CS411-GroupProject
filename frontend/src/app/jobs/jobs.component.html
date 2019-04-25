@@ -25,7 +25,8 @@
     </div>
   </section>
 </section>
-  <div class="col-12 pt-4">
+
+    <div class="col-12 pt-4">
   <div class="text-center">
     <h6 *ngIf="loading == true && error == false"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
     <div *ngIf="error == true && loading == false">
@@ -41,14 +42,14 @@
   </div>
   </div>
 
-  <div class="container hide-text" *ngIf = "(indeedRes != undefined) && (glassRes != undefined)">
-    <mat-tab-group>
-      <mat-tab label="Reviews">
+  <div class="container hide-text" *ngIf = "iError == false && loading == false">
+<mat-tab-group>
+   <mat-tab label="Reviews">
     <h3 style = "padding-top: 20px;">What's it like to be a {{ indeedRes.position }} at {{ indeedRes.company }} ? </h3>
     <div class="row">
       <div class="col-md-9">
         <h5 class="text-left pt-3 pb-0">Reviews:</h5>
-        <div class="card review-card mb-3" *ngFor = "let review of indeedRes.reviews" >
+        <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;" *ngFor = "let review of indeedRes.reviews" >
           <div class="card-body">
             {{ review }}
           </div>
@@ -73,45 +74,60 @@
         </div>
       </div>
   </div>
-  </mat-tab>
+   </mat-tab>
 
-<div class="container hide-text" *ngIf = "(indeedRes != undefined) && (glassRes != undefined)">
-  <mat-tab label="Interviews">
-    <p style = "padding-top: 10px; font-size: 25px;">Interview Difficulty: {{ glassRes.difficulty }}</p>
-      <h4> Path to Interview: </h4>
+
 <div class="container hide-text" *ngIf = "gError == false && loading == false">
-  <h4> Comments: </h4>
-  <ul>
-    <li *ngFor = "let comm of glassRes.comments"> {{ comm }} </li>
-  </ul>
-  <h4> Difficulty: {{ glassRes.difficulty }}</h4>
-  <h4>Experiences: {{ glassRes.experience[0] }}% positive, {{ glassRes.experience[1] }}% negative or neutral</h4>
-  <h4> Offers: </h4>
-  <ul>
-    <li> Accepted: {{ offers[0] }} </li>
-    <li> Declined: {{ offers[1] }} </li>
-    <li> No Offer: {{ offers[2] }} </li>
-  </ul>
+ <mat-tab label="Interviews">
+   <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;">
+     <div class="card-body">
+       <div class="container" style = "padding: 10px;">
+         <div class="row">
+    <div class="col" style = "text-align:center;"><p style = "font-size:25px;"><a style = "font-size: 25px;">Overall Interview Difficulty:</a> {{ glassRes.difficulty }}</p></div>
+         </div>
+        <div class="row">
+       <!--   <div class = "centerBlock">-->
+          <div class="col-sm">
+            <h4> Path to Interview: </h4>
+            <ul>
+            <li *ngFor = "let path of glassRes.path"> {{ path[0] }}: {{ path[1] }}</li>
+            </ul>
+            <p style = "font-size: 30px;">Experiences:</p>
+            <ul>
+            <li>{{ glassRes.experience[0] }}% positive
+            <li> {{ glassRes.experience[1] }}% negative or neutral </li>
+            </ul>
+            <h4> Offers: </h4>
+            <ul>
+            <li> Accepted: {{ offers[0] }} </li>
+            <li> Declined: {{ offers[1] }} </li>
+            <li> No Offer: {{ offers[2] }} </li>
+            </ul>
+            </div>
 
-  <h4> Path to Interview: </h4>
-    <ul>
-      <li *ngFor = "let path of glassRes.path"> {{ path[0] }}: {{ path[1] }}</li>
-    </ul>
-  <h4> Interview Questions: </h4>
-    <ul>
+    <div class="col-sm">
+      <h4> Interview Questions: </h4>
+      <ul>
       <li *ngFor = "let q of glassRes.questions"> {{ q }}</li>
     </ul>
-  <h4> Comments: </h4>
-    <div class="card review-card mb-3"  *ngFor = "let comm of glassRes.comments">
-      <div class="card-body"> {{ comm }} </div>
     </div>
-    </mat-tab>
+  </div>
+       </div>
+</div>
+
+   </div>
+
+  <h4> Comments: </h4>
+    <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;" *ngFor = "let comm of glassRes.comments">
+      <div class="card-body" > {{ comm }} </div>
+       </div>
+ </mat-tab>
+  </div>
+</mat-tab-group>
 
 </div>
-    </mat-tab-group>
+</div>
 
-</div>
-</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
