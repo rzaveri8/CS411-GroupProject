@@ -7,7 +7,20 @@
     <div class="textt">Recommended Jobs</div>
 </div>
 
-
+<div id="posModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">      
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Missing Position</h4>
+          </div>
+          <div class="modal-body">
+            <p>Please enter your position or industry to continue.</p>
+            <input type="text" placeholder="Enter Position" [(ngModel)]="industry">
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "updateUserIndustry()">OK</button>        
+          </div>
+      </div>
+    </div>
+  </div>
 
     <h4 *ngIf="error"> Error: {{ error }} </h4>
     <h6 *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
