@@ -7,7 +7,7 @@
         <h4 class="modal-title">Add Position</h4>
       </div>
       <div class="modal-body">
-        <p>Please input your current tor desired position to continue.</p>
+        <p>Please input your current or desired position to continue.</p>
         <input type="text" placeholder="Enter Position" [(ngModel)]="rawIndustry">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "updateIndustry()">OK</button>
       </div>
@@ -24,12 +24,12 @@
     <div class = "container pt-3" style = "text-align:left;">
       <p style = "font-family: Open Sans, sans-serif; font-size: 20px;" *ngIf = "profile.industry != undefined"><u>Job:</u> {{ profile.industry }} </p>
       <p style = "font-family: Open Sans, sans-serif; font-size: 20px;" *ngIf = "profile.location != undefined"><u>Location:</u> {{ profile.location }}</p>
-      <p style = "font-size: 15px; text-align: center;"><i> ***Note: For best results, please parse resume before using job recommender</i></p>
+      <p style = "font-size: 15px; text-align: center;"><i> Note: For best results, please upload resume first</i></p>
     </div>
   </div>
     <div class = "col-lg-12 button-space" style = "padding-top: 3%;">
-      <button type="button" class="custom btn-lg btn btn-primary active " routerLink="/recommender" routerLinkActive="active">Jobs Recommender</button>
-      <button type="button" class="custom btn-lg btn btn-primary active " routerLink="/resume" routerLinkActive="active">Resume Parser</button>
+      <button type="button" class="custom btn-lg btn btn-primary active " routerLink="/recommender" routerLinkActive="active">Job Recommender</button>
+      <button type="button" class="custom btn-lg btn btn-primary active " routerLink="/resume" routerLinkActive="active">Resume Grader</button>
       <button type="button" class="custom btn-lg btn btn-primary active " routerLink="/jobs" routerLinkActive="active">Job Search</button>
       <button type="button" class="custom btn-lg btn btn-primary active" (click)="updateIndustry()"> Edit Profile </button>
     </div>
