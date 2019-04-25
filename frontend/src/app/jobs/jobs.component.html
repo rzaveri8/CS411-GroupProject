@@ -28,8 +28,8 @@
 
     <div class="col-12 pt-4">
   <div class="text-center">
-    <h6 *ngIf="loading == true && error == false"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
-    <div *ngIf="error == true && loading == false">
+    <h6 *ngIf="(loading == true && error == false) || (glassRes==undefined && loading == false && error == false)"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
+    <div *ngIf="error == true">
       <h3> We weren't able to find any data for that job. Try another! </h3>
       <h4> Looking for suggestions ? Try these: </h4>
       <ul>
@@ -42,90 +42,92 @@
   </div>
   </div>
 
-  <div class="container hide-text" *ngIf = "iError == false && loading == false">
-<mat-tab-group>
-   <mat-tab label="Reviews">
-    <h3 style = "padding-top: 20px;">What's it like to be a {{ indeedRes.position }} at {{ indeedRes.company }} ? </h3>
-    <div class="row">
-      <div class="col-md-9">
-        <h5 class="text-left pt-3 pb-0">Reviews:</h5>
-        <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;" *ngFor = "let review of indeedRes.reviews" >
-          <div class="card-body">
-            {{ review }}
+<div class="container">
+  <mat-tab-group>
+    <div class="container hide-text" *ngIf = "iError == false && loading == false">
+    <mat-tab label="Reviews">
+      <h3 style = "padding-top: 20px;">What's it like to be a {{ indeedRes.position }} at {{ indeedRes.company }} ? </h3>
+      <div class="row">
+        <div class="col-md-9">
+          <h5 class="text-left pt-3 pb-0">Reviews:</h5>
+          <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;" *ngFor = "let review of indeedRes.reviews" >
+            <div class="card-body">
+              {{ review }}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3" style = "padding-left: -10px;">
-        <h5 class="text-center mt-3">In a nutshell: </h5>
-        <div class="card nutshell-card">
-            <h6 class="text-left">Company Rating: {{ indeedRes.rating }}/5</h6>
-            <div *ngIf = "indeedRes.pros.length > 0">
-            <h6 class="text-left" style="color:green;">Pros:</h6>
-            <ul *ngFor = "let pro of indeedRes.pros">
-              <li> {{ pro }} </li>
-            </ul>
+        <div class="col-md-3" style = "padding-left: -10px;">
+          <h5 class="text-center mt-3">In a nutshell: </h5>
+          <div class="card nutshell-card">
+              <h6 class="text-left">Company Rating: {{ indeedRes.rating }}/5</h6>
+              <div *ngIf = "indeedRes.pros.length > 0">
+              <h6 class="text-left" style="color:green;">Pros:</h6>
+              <ul *ngFor = "let pro of indeedRes.pros">
+                <li> {{ pro }} </li>
+              </ul>
+              </div>
+              <div *ngIf = "indeedRes.cons.length > 0">
+              <h6 class="text-left" style="color:red;">Cons:</h6>
+              <ul *ngFor = "let con of indeedRes.cons">
+                <li> {{ con }} </li>
+              </ul>
             </div>
-            <div *ngIf = "indeedRes.cons.length > 0">
-            <h6 class="text-left" style="color:red;">Cons:</h6>
-            <ul *ngFor = "let con of indeedRes.cons">
-              <li> {{ con }} </li>
-            </ul>
           </div>
         </div>
-      </div>
-  </div>
-   </mat-tab>
-
-
-<div class="container hide-text" *ngIf = "gError == false && loading == false">
- <mat-tab label="Interviews">
-   <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;">
-     <div class="card-body">
-       <div class="container" style = "padding: 10px;">
-         <div class="row">
-    <div class="col" style = "text-align:center;"><p style = "font-size:25px;"><a style = "font-size: 25px;">Overall Interview Difficulty:</a> {{ glassRes.difficulty }}</p></div>
-         </div>
-        <div class="row">
-       <!--   <div class = "centerBlock">-->
-          <div class="col-sm">
-            <h4> Path to Interview: </h4>
-            <ul>
-            <li *ngFor = "let path of glassRes.path"> {{ path[0] }}: {{ path[1] }}</li>
-            </ul>
-            <p style = "font-size: 30px;">Experiences:</p>
-            <ul>
-            <li>{{ glassRes.experience[0] }}% positive
-            <li> {{ glassRes.experience[1] }}% negative or neutral </li>
-            </ul>
-            <h4> Offers: </h4>
-            <ul>
-            <li> Accepted: {{ offers[0] }} </li>
-            <li> Declined: {{ offers[1] }} </li>
-            <li> No Offer: {{ offers[2] }} </li>
-            </ul>
-            </div>
-
-    <div class="col-sm">
-      <h4> Interview Questions: </h4>
-      <ul>
-      <li *ngFor = "let q of glassRes.questions"> {{ q }}</li>
-    </ul>
     </div>
+    </mat-tab>
+
+    </div>
+  <div class="container hide-text" *ngIf = "gError == false && loading == false">
+  <mat-tab label="Interviews">
+    <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;">
+      <div class="card-body">
+        <div class="container" style = "padding: 10px;">
+          <div class="row">
+      <div class="col" style = "text-align:center;"><p style = "font-size:25px;"><a style = "font-size: 25px;">Overall Interview Difficulty:</a> {{ glassRes.difficulty }}</p></div>
+          </div>
+          <div class="row">
+        <!--   <div class = "centerBlock">-->
+            <div class="col-sm">
+              <h4> Path to Interview: </h4>
+              <ul>
+              <li *ngFor = "let path of glassRes.path"> {{ path[0] }}: {{ path[1] }}</li>
+              </ul>
+              <!-- <p style = "font-size: 30px;">Experiences:</p> -->
+              <h4>Experiences:</h4>
+              <ul>
+              <li>{{ glassRes.experience[0] }}% Positive
+              <li> {{ glassRes.experience[1] }}% Negative or Neutral </li>
+              </ul>
+              <h4> Offers: </h4>
+              <ul>
+              <li> Accepted: {{ offers[0] }} </li>
+              <li> Declined: {{ offers[1] }} </li>
+              <li> No Offer: {{ offers[2] }} </li>
+              </ul>
+              </div>
+
+      <div class="col-sm">
+        <h4> Interview Questions: </h4>
+        <ul>
+        <li *ngFor = "let q of glassRes.questions"> {{ q }}</li>
+      </ul>
+      </div>
+    </div>
+        </div>
   </div>
-       </div>
+
+    </div>
+
+    <h4> Comments: </h4>
+      <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;" *ngFor = "let comm of glassRes.comments">
+        <div class="card-body" > {{ comm }} </div>
+        </div>
+  </mat-tab>
+    </div>
+  </mat-tab-group>
 </div>
 
-   </div>
-
-  <h4> Comments: </h4>
-    <div class="card review-card mb-3" style="margin-top:20px; margin-right: 30px; margin-left: 30px;" *ngFor = "let comm of glassRes.comments">
-      <div class="card-body" > {{ comm }} </div>
-       </div>
- </mat-tab>
-  </div>
-</mat-tab-group>
-
-</div>
 </div>
 
 </body>

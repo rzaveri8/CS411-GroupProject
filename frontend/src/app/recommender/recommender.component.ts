@@ -4,6 +4,7 @@ import { JobdataService } from '../jobdata.service';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from '../user.service';
 
+
 declare var $: any;
 
 @Component({
@@ -13,13 +14,15 @@ declare var $: any;
 })
 export class RecommenderComponent implements OnInit {
 
-  constructor(private http: HttpClient, private data: JobdataService, private user: UserService, private job: JobdataService) { }
+  constructor(private http: HttpClient, private data: JobdataService, private user: UserService) { }
 
   response: any;
   jobs: any;
   industry: any;
   error: string;
   loading: boolean;
+
+  rawIndustry: any;
 
   selectedJob: string[];
   canSearch: boolean;
@@ -30,23 +33,38 @@ export class RecommenderComponent implements OnInit {
     $("#myModal").modal();
   }
 
-  updateUserIndustry(industry: string){
+  updateUserIndustry(){
+    // $("#posModal").modal({
+    //   backdrop: 'static',
+    //   keyboard: false
+    // });
     console.log("The input is ");
-    console.log(industry);    
-    //this.user.updateIndustry(industry);
+    console.log(this.industry); 
+    this.industry = this.rawIndustry;   
+    this.user.updateIndustry(this.industry);
   }
 
   confirmUserIndustryAndGetJobs(){
       this.user.getIndustry().subscribe((res) => {
         this.response = res;
         this.industry = this.response.industry;
-        this.job.getJobs().subscribe((res)=>{
+        this.industry = undefined;
+        if (this.industry == undefined)
+        {
+          $("#posModal").modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+        }
+        console.log(this.industry + "going into http");
+        this.http.get("/api/jobs/" + this.industry).subscribe((res)=>{
           this.response = res;
           this.jobs = this.response.data;
           this.loading = false;
         }, (error) => {
           this.loading = false;
-          this.error = error.error;
+          this.error = error.error.error;
+          console.log("error with getJobs");
         })
       }, (error) => {
         this.loading = false; 
@@ -55,9 +73,9 @@ export class RecommenderComponent implements OnInit {
       })
   }
 
-
   ngOnInit() {
     this.loading = true;
+    this.error = "";
     this.confirmUserIndustryAndGetJobs();
   }
 
