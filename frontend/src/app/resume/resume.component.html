@@ -3,7 +3,7 @@
     <h1 style = "color: white;">
     How <strong>strong</strong> is your resume?
     </h1>
-    <p style = "color: white; font-family: Snell Roundhand, cursive; padding-top: 20px;"><i>Upload your resume below and find out how your resume will look to employers</i></p>
+    <p style = "color: white; padding-top: 20px;"><i>Upload your resume below and find out how your resume will look to employers</i></p>
 
   </div>
 
@@ -13,10 +13,12 @@
     <input type="file" class="custom-file-input" id="file" (change)="handleFileInput($event.target.files)">
     <label class="custom-file-label" style="width:320px;" for="file" *ngIf = "fileToUpload == undefined">Choose file</label>
     <label class="custom-file-label"style="width:320px;" for="file" *ngIf = "fileToUpload != undefined"> {{ fileToUpload.name }}</label>
-  </div>
-  <p style = "color: white;font-size: 15px;">*Note: Our parser only accepts docx and pdf files</p>
+</div>
+  <p style = "color: white;font-size: 15px;">*Note: Parser only accepts docx, text and pdf files</p>
 </div>
 </div>
+
+
   <div style = "padding-top:40px;"></div>
     <h6 style = "text-align:center; color:white;" *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
 

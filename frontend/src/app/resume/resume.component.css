@@ -58,3 +58,7 @@
   padding-left: 376px;
 }
 
+.upload-photo {
+   position: absolute;
+   z-index: -1;
+}
