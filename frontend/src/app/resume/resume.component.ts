@@ -15,6 +15,8 @@ export class ResumeComponent implements OnInit {
   fileToUpload: File = null;
   loading: boolean;
 
+  error: boolean;
+
 
   constructor(public httpClient: HttpClient, private resumeService: ResumeService, private userS: UserService) { }
 
@@ -44,8 +46,12 @@ export class ResumeComponent implements OnInit {
   uploadFileToActivity() {
     this.resume = undefined;
     this.loading = true;
+    this.error = false;
 
-    this.resumeService.postFile(this.fileToUpload).subscribe(data => {
+    if (this.fileToUpload.type == "application/pdf" || this.fileToUpload.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || this.fileToUpload.type == "text/plain")
+    {
+      console.log("valid file");
+      this.resumeService.postFile(this.fileToUpload).subscribe(data => {
         var res;
         parseString( data, function (err, result) {
           res = result;
@@ -57,9 +63,17 @@ export class ResumeComponent implements OnInit {
         this.loading = false;
       }, error => {
         console.log(error);
-
-
+        this.error = true;
       });
+    }
+    else
+    {
+      console.log("Invalid file type");
+      this.loading = false;
+      this.error = true;
+    }
+
+    
   }
 
   ngOnInit() {

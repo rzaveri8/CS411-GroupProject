@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   getProfile() {
     this.httpClient.get("/api/user").subscribe((res) => {
       this.profile = res;
+      this.user.industry = this.profile.industry;
       if (this.profile.industry == undefined)
       {
         this.updateIndustry();
@@ -57,9 +58,7 @@ export class DashboardComponent implements OnInit {
   updateIndustry()  {
     $("#myModal").modal();
     this.profile.industry = this.parsePosition(this.rawIndustry);
-    this.user.updateIndustry(this.profile.industry).subscribe((res)=>{
-      alert("The industry was updated !");
-    }, (error)=>{
+    this.user.updateIndustry(this.profile.industry).subscribe((res)=>{}, (error)=>{
       alert(error.error);
     })
   }
