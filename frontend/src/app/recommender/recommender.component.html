@@ -15,8 +15,8 @@
           </div>
           <div class="modal-body">
             <p>Please enter your position or industry to continue.</p>
-            <input type="text" placeholder="Enter Position" [(ngModel)]="industry">
-            <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "updateUserIndustry()">OK</button>        
+            <input type="text" placeholder="Enter Position" [(ngModel)]="rawIndustry">
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "updateUserIndustry()">Update</button>        
           </div>
       </div>
     </div>
@@ -46,11 +46,11 @@
       <div class="col-md-12">
           <h5 class="text-left pt-3 pb-0" *ngIf="industry"> My Current Industry/Position: {{ industry }} </h5>
           <h4 *ngIf="error"> Error: {{ error }} </h4> 
-          <div *ngIf="!canSearch">
+          <!-- <div *ngIf="industry == undefined">
             <p> Please update your industry to execute an automatic job search. </p>
             <input #industryField type="text" class="form-control" length="100">
-            <button type="submit" class="btn btn-default btn-small    " (click)="updateUserIndustry(industryField.value)">Update</button>
-          </div>
+            <button type="submit" class="btn btn-default btn-small" (click)="updateUserIndustry(industryField.value)">Update</button>
+          </div> -->
           <h6 *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
           <div *ngIf="jobs">
             <div class="card mb-3" *ngFor="let job of jobs">

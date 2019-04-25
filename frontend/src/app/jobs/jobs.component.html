@@ -28,8 +28,8 @@
 
     <div class="col-12 pt-4">
   <div class="text-center">
-    <h6 *ngIf="loading == true && error == false || (glassRes==undefined && loading == false)"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
-    <div *ngIf="error == true && loading == false">
+    <h6 *ngIf="(loading == true && error == false) || (glassRes==undefined && loading == false && error == false)"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
+    <div *ngIf="error == true">
       <h3> We weren't able to find any data for that job. Try another! </h3>
       <h4> Looking for suggestions ? Try these: </h4>
       <ul>

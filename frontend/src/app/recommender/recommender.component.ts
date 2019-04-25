@@ -22,6 +22,8 @@ export class RecommenderComponent implements OnInit {
   error: string;
   loading: boolean;
 
+  rawIndustry: any;
+
   selectedJob: string[];
   canSearch: boolean;
 
@@ -32,12 +34,13 @@ export class RecommenderComponent implements OnInit {
   }
 
   updateUserIndustry(){
-    $("#posModal").modal({
-      backdrop: 'static',
-      keyboard: false
-    });
+    // $("#posModal").modal({
+    //   backdrop: 'static',
+    //   keyboard: false
+    // });
     console.log("The input is ");
-    console.log(this.industry);    
+    console.log(this.industry); 
+    this.industry = this.rawIndustry;   
     this.user.updateIndustry(this.industry);
   }
 
@@ -45,10 +48,15 @@ export class RecommenderComponent implements OnInit {
       this.user.getIndustry().subscribe((res) => {
         this.response = res;
         this.industry = this.response.industry;
+        this.industry = undefined;
         if (this.industry == undefined)
         {
-          this.updateUserIndustry();
+          $("#posModal").modal({
+            backdrop: 'static',
+            keyboard: false
+          });
         }
+        console.log(this.industry + "going into http");
         this.http.get("/api/jobs/" + this.industry).subscribe((res)=>{
           this.response = res;
           this.jobs = this.response.data;
