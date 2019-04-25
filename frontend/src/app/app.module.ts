@@ -19,6 +19,7 @@ import { LogoutComponent } from './logout/logout.component';
 
 import { AuthGuard } from './auth.guard';
 import { UserService } from './user.service';
+import { SavedComponent } from './saved/saved.component';
 // Define the routes
 
 const ROUTES = [
@@ -55,6 +56,11 @@ const ROUTES = [
     path: 'logout',
     canActivate: [AuthGuard],
     component: LogoutComponent
+  },
+  {
+    path: 'saved',
+    canActivate: [AuthGuard],
+    component: SavedComponent
   }
 ];
 
@@ -68,7 +74,8 @@ const ROUTES = [
     DashboardComponent,
     HomepageComponent,
     RecommenderComponent,
-    LogoutComponent
+    LogoutComponent,
+    SavedComponent
   ],
   imports: [
     BrowserModule,
