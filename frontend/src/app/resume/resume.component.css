@@ -59,3 +59,22 @@
    position: absolute;
    z-index: -1;
 }
+
+/*.container-fluid {
+background-color: lightgrey;
+width: 30%;
+height: 20%;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    height: 65%;
+    background-color: #E0DDD7;
+    max-width: 1400px;
+    align: center;
+}*/
+
+.someselector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
