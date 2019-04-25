@@ -136,7 +136,6 @@ passport.deserializeUser(function(user,done){
     /*
     Deserialize the user's information from the user table for easy access. 
     */
-    console.log("Deserializing user");
     const getUserQuery = "SELECT userKey,firstName,lastName,pictureUrl, headline, industry,location,resumeGrade FROM users WHERE userKey= ? ";
     database.query(getUserQuery, [user.id], function(error, results){
         if(error){
@@ -232,23 +231,20 @@ app.get("/api/dashboard", function(req,res){
 Automatic job search. User must have industry/position in their profile to execute auto job search.
 Industry/position must be separated by spaces or +'s if more than one word.
 */
-app.get('/api/jobs/:industry', function(req,res){
-    var industry = req.params.industry;
-    if(industry == null){
+app.get('/api/jobs/', function(req,res){
+    if(!req.user.industry){
         res.status(400).json("Industry required to execute job search");
         return;
     }
     const endpoint = "http://52.14.17.113:8083/api/jobs/";
-    const requestUrl = endpoint + industry;
-    console.log(requestUrl);
+    const requestUrl = endpoint + req.user.industry;
     request.get(requestUrl, function(error,response,body){
         if(error){
-            console.log("Request failed");
-            res.json({status:500, error: "Server error."});
+    
+            res.status(500).json("Server error.");
         }
         else{
-            console.log("Found jobs");
-            res.json({status:200, data: JSON.parse(body)});
+            res.status(200).json({data: JSON.parse(body)});
         }
     })
 })

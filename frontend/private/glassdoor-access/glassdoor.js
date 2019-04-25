@@ -77,7 +77,6 @@ function getResultFromAPI(req,res,company,position){
 Calculate the job capture likelihood and return that and glassdoor data to user
 */
 function returnResult(req,res,data){
-    //TODO: Parse data
     data = JSON.parse(data);
     if(req.user.resumeGrade){
         /* Calculate the job capture likelihood */
