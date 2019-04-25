@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { parseString } from 'xml2js';
 import { ResumeService } from '../resume.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-resume',
@@ -15,7 +16,7 @@ export class ResumeComponent implements OnInit {
   loading: boolean;
 
 
-  constructor(public httpClient: HttpClient, private resumeService: ResumeService) { }
+  constructor(public httpClient: HttpClient, private resumeService: ResumeService, private userS: UserService) { }
 
   resumeFormat()
   {
@@ -50,6 +51,7 @@ export class ResumeComponent implements OnInit {
           res = result;
         });
         this.resume = res;
+        this.userS.updateResumeGrade(this.resume.rezscore.score[0].grade[0][0]);
         this.resumeFormat();
         console.log(this.resume);
         this.loading = false;
