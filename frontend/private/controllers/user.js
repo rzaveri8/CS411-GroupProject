@@ -84,7 +84,7 @@ function getSaveJob(userKey, res){
         const pos = results.position;
         if(res != undefined)
         {
-            res.status(200).json(results);
+            res.status(200).json({results:results});
         }
         else
         {

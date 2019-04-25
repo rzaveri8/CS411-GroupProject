@@ -64,8 +64,8 @@
           </div> -->
           <div class = "container" style = "width: 600px;"*ngIf="jobs">
             <div class="card mb-3" *ngFor="let job of jobs">
-              <div class="card-body job-card" style = "text-align: center;" id="selectedJob" (click)="jobSearch(job)">
-                {{ job[0] }} - {{ job[1] }}
+              <div class="card-body savejob-card" style = "text-align: center;" id="selectedJob">
+                {{ job.company }} - {{ job.jobTitle }}
                 </div>
               </div>
           </div>
