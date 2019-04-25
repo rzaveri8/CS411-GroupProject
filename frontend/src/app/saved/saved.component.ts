@@ -21,11 +21,19 @@ export class SavedComponent implements OnInit {
   jobs: any;
   error: string;
   loading: boolean;
+  company: any;
+  jobTitle: any;
    /*jobSearch(job: string[]) {
     this.selectedJob = job;
     this.data.setJobInfo(this.selectedJob);
     $("#myModal").modal();
   } */
+
+  saveJobfunc(company,position){
+    this.user.saveJob(company,position).subscribe((res) => {
+      console.log("saved job")
+    })
+  }
 
   ngOnInit() {
     this.http.get("/api/user/getSaveJob").subscribe((res) => {
