@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { JobdataService } from '../jobdata.service';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from '../user.service';
+import { parseString } from 'xml2js';
+
 
 
 declare var $: any;
@@ -41,7 +43,24 @@ export class RecommenderComponent implements OnInit {
     console.log("The input is ");
     console.log(this.industry); 
     this.industry = this.rawIndustry;   
-    this.user.updateIndustry(this.industry);
+    this.error = "";
+    this.user.updateIndustry(this.industry).subscribe((res) => {
+        this.refresh();
+    });
+  }
+
+  refresh()
+  {
+    this.http.get("/api/jobs/").subscribe((res)=>{
+      this.response = res;
+      this.jobs = this.response.data;
+      this.loading = false;
+      this.error = "";
+    }, (error) => {
+      this.loading = false;
+      this.error = error.error.error;
+      console.log("error with getJobs");
+    })
   }
 
   confirmUserIndustryAndGetJobs(){
@@ -52,6 +71,7 @@ export class RecommenderComponent implements OnInit {
           this.response = res;
           this.jobs = this.response.data;
           this.loading = false;
+          this.error = "";
         }, (error) => {
           this.loading = false;
           this.error = error.error.error;
