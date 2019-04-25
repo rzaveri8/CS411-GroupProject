@@ -19,7 +19,7 @@ const user = require("./controllers/user");
 var callbackURL = "";
 
 /* Setup Environment */
-var environment = process.env.CurrentEnvironment;
+var environment = "prod";
 
 if(environment == undefined){
     //If the environment variable is not set, assume we are in a developer environment
@@ -29,10 +29,12 @@ if(environment == undefined){
 if(environment == "dev"){
     app.listen(3000);
     callbackURL = "http://localhost:3000/auth/callback";
+    successRedirect = "http://localhost:4200/dashboard";
 }
 else{
     app.listen(8081);
     callbackURL = "http://52.14.17.113:8081/auth/callback";
+    successRedirect = "http://52.14.17.113/dashboard";
 }
 
 app.use(express.static("dist"));
@@ -174,7 +176,7 @@ app.get("/api/user",(req,res)=> {
 
 //Callback
 app.get("/auth/callback", passport.authenticate('linkedin', {
-    successRedirect: "http://localhost:4200/dashboard",
+    successRedirect: successRedirect,
     failureRedirect: "/",
     //console.log("success");
 }));
