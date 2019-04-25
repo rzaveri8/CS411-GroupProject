@@ -182,7 +182,7 @@ app.get("/auth/callback", passport.authenticate('linkedin', {
 /*** OUR APP ENDPOINTS ****/
 
 
-/* 
+/*
 Route middleware to perform some function before the next middleware is called for this path.
 In this case, we protect all endpoints that require user to be logged in.
 */
@@ -228,8 +228,8 @@ app.get("/api/dashboard", function(req,res){
 });
 
 
-/* 
-Automatic job search. User must have industry/position in their profile to execute auto job search. 
+/*
+Automatic job search. User must have industry/position in their profile to execute auto job search.
 Industry/position must be separated by spaces or +'s if more than one word.
 */
 app.get('/api/jobs/:industry', function(req,res){
@@ -269,12 +269,24 @@ app.post("/api/user/setIndustry", function(req,res){
     user.updateIndustry(req,res,req.user.id, req.body.industry);
 })
 
-
 /*** Accessing User Information ***/
 app.get("/api/user/getIndustry", function(req,res){
     const userId = req.user.id;
     user.getIndustry(res,userId);
 });
+
+
+app.post("/api/user/setresumegrade", function(req,res) {
+  user.updateResumeGrade(res,req.user.id,req.body.grade);
+  console.log("The resume grade to set is");
+  console.log(req.body.grade);
+})
+
+app.get("/api/user/getresumegrade", function(req,res){
+    const userId = req.user.id;
+    user.getResumeGrade(res,userId);
+});
+
 
 /*** CONNECTING TO FRONT END (ANGULAR2) ***/
 
