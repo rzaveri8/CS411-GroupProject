@@ -13,21 +13,10 @@
 
 }
 
-.cnt {
-max-width:1100;
-}
-
 .custom {
     width: 210px !important;
 }
 
-.btnRight{
-margin-left:90px;
-}
-
-.btnLeft{
-margin-left:140px;
-}
 
 * {
   border-radius: 0 !important;
@@ -53,10 +42,16 @@ margin-left:140px;
     line-height: 1;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    max-width: 20%;
-    max-height: 50%;
+    /*max-width: 23%;
+    max-height: 60%;*/
+    height: 48vh;
+    width: 48vh;
 }
 
+.button-space {
+  display: flex;
+  justify-content: space-around;
+}
 
 
 

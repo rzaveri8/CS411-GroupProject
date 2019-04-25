@@ -13,6 +13,8 @@ export class ResumeComponent implements OnInit {
 
   resume: any;
   fileToUpload: File = null;
+  loading: boolean;
+
 
   constructor(public httpClient: HttpClient, private resumeService: ResumeService, private userS: UserService) { }
 
@@ -41,6 +43,8 @@ export class ResumeComponent implements OnInit {
 
   uploadFileToActivity() {
     this.resume = undefined;
+    this.loading = true;
+
     this.resumeService.postFile(this.fileToUpload).subscribe(data => {
         var res;
         parseString( data, function (err, result) {
@@ -50,8 +54,11 @@ export class ResumeComponent implements OnInit {
         this.userS.updateResumeGrade(this.resume.rezscore.score[0].grade[0][0]);
         this.resumeFormat();
         console.log(this.resume);
+        this.loading = false;
       }, error => {
         console.log(error);
+
+
       });
   }
 
