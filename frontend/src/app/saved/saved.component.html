@@ -48,38 +48,9 @@
     </div>
   </div>
 </div>
-  <div id="posModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Enter Position</h4>
-          </div>
-          <div class="modal-body">
-            <p>Please enter your position or industry to continue.</p>
-            <input type="text" placeholder="Enter Position" [(ngModel)]="rawIndustry">
-            <button type="button" class="btn btn-default" data-dismiss="modal" (click) = "updateUserIndustry()">Update</button>
-          </div>
-      </div>
-    </div>
-  </div>
 
-    <h4 *ngIf="error"> Error: {{ error }} </h4>
-    <h6 style = "text-align:center; padding-top: 30px;" *ngIf="loading == true"> Loading <img src="../../assets/images/gear.gif" height=50px> </h6>
-    <div *ngIf="jobs">
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Job Search</h4>
-        </div>
-      <div class="modal-body">
-        <p>Would you like to search this job?</p>
-        <button type="button" class="btn btn-default" data-dismiss="modal" routerLink="/jobs" routerLinkActive="active">OK</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+
 <div class = "full-viewport">
   <div class="container">
     <div class="row">
