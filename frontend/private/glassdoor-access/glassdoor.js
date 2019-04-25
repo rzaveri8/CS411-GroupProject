@@ -17,7 +17,7 @@ function cacheResult(company,position,data){
     })
 }
 
-function getResultFromDB(res,company,position){
+function getResultFromDB(req,res,company,position){
     //console.log("$" + company + "$");
     //console.log("$" + position + "$");
     const searchQuery = "SELECT interviewData FROM glassdoorCache WHERE company = ? AND position = ? ";
@@ -27,13 +27,13 @@ function getResultFromDB(res,company,position){
         }
         else{
             if(results.length > 0 ){
-                var data = results[0].interviewData;
-                res.status(200).json(JSON.parse(data));
                 console.log("Fetched result from database");
+                var data = results[0].interviewData;
+                returnResult(req,res,data);
                 return;
             }
             else{
-                getResultFromAPI(res,company,position);
+                getResultFromAPI(req,res,company,position);
             }
         }
     })
@@ -42,7 +42,7 @@ function getResultFromDB(res,company,position){
 /*
 If the request result isn't cached in the database, fetch it from the API.
 */
-function getResultFromAPI(res,company,position){
+function getResultFromAPI(req,res,company,position){
 
     const glassdoorEndpoint = "http://52.14.17.113:8082/api/glassdoor/";
     const requestUrl = glassdoorEndpoint + company + "/" + position;
@@ -64,7 +64,7 @@ function getResultFromAPI(res,company,position){
             }
             else{
                 console.log("Fetched result from API");
-                res.status(200).json(data); //send the request back
+                returnResult(req,res,body); //send the request back
                 cacheResult(company,position,body); //cache the result
                 return;
             }
@@ -72,13 +72,42 @@ function getResultFromAPI(res,company,position){
     });
 }
 
+
+/*
+Calculate the job capture likelihood and return that and glassdoor data to user
+*/
+function returnResult(req,res,data){
+    //TODO: Parse data
+    data = JSON.parse(data);
+    if(req.user.resumeGrade){
+        /* Calculate the job capture likelihood */
+        //console.log("Calculating likelihood");
+        const scores = {"A":0, "B": -1, "C": -2, "D": -3, "F": -4};
+        const rawResumeScore = scores[req.user.resumeGrade];
+        const scaledResumeScore = rawResumeScore * 0.5;
+        const rawInterviewScore = parseInt(data.difficulty);
+        const scaledInterviewScore = rawInterviewScore * -0.5;
+        const jobCaptureLikelihood = 5 + scaledResumeScore + scaledInterviewScore;
+        const jobCaptureLikelihoodPercentage = jobCaptureLikelihood / 5;
+        data["likelihood"] = jobCaptureLikelihoodPercentage * 100;
+        res.status(200).json(data);
+    }
+    else{
+    /* 
+    If the user has not parsed their resume yet, then we cannot provide them with a job capture likelihood, 
+    so we can just send back the Glassdoor data itself 
+    */ 
+   return res.status(200).json(data);
+    }
+}
+
 /*
 Attempt to get result from cache first;
 If it doesn't exist in the cache, only then perform a request to the API.
 Finally, cache the result. 
 */
-function getResult(res,company,position){
-    getResultFromDB(res,company,position);
+function getResult(req,res,company,position){
+    getResultFromDB(req,res,company,position);
 }
 
 
