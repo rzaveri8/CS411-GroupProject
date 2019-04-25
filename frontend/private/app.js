@@ -341,9 +341,9 @@ app.get("/api/user/getIndustry", function(req,res){
 
 
 app.post("/api/user/setresumegrade", function(req,res) {
-  user.updateResumeGrade(res,req.user.id,req.body.resumeGrade);
+  user.updateResumeGrade(res,req.user.id,req.body.grade);
   console.log("The resume grade to set is");
-  console.log(req.body.resumeGrade)
+  console.log(req.body.grade);
 })
 
 app.get("/api/user/getresumegrade", function(req,res){
