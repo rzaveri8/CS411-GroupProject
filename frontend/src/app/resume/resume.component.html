@@ -45,14 +45,14 @@
         <a>{{ resume.rezscore.advice[0].tip[0].short[0].a[0]._ }}</a>
       </div>
       <div class="b">
-        <p> <strong>Percentile: </strong>{{ resume.rezscore.score[0].percentile[0] }} </p>
-        <p> <strong>Readability: </strong>{{ resume.rezscore.extended[0].ari_score[0] }}</p>
-        <p> <strong>Buzzword Percent: </strong>{{ resume.rezscore.extended[0].pct_buzzwords[0] }}</p>
-        <p> <strong>Whitespace Percent: </strong>{{ resume.rezscore.extended[0].pct_whitespace[0] }}</p>
-        <p> <strong>Word Count:</strong> {{ resume.rezscore.extended[0].wordcount[0] }}</p>
-        <p> <strong>Brevity Score:</strong> {{ resume.rezscore.score[0].brevity_score[0] }} </p>
-        <p> <strong>Depth Score: </strong>{{ resume.rezscore.score[0].depth_score[0] }} </p>
-        <p> <strong>Impact Score: </strong>{{ resume.rezscore.score[0].impact_score[0] }} </p>
+        <p *ngIf="resume.rezscore.score[0].percentile != undefined"> <strong>Percentile: </strong>{{ resume.rezscore.score[0].percentile[0] }} </p>
+        <p *ngIf="resume.rezscore.extended[0].ari_score[0] != undefined"> <strong>Readability: </strong>{{ resume.rezscore.extended[0].ari_score[0] }}</p>
+        <p *ngIf="resume.rezscore.extended[0].pct_buzzwords[0] != undefined"> <strong>Buzzword Percent: </strong>{{ resume.rezscore.extended[0].pct_buzzwords[0] }}%</p>
+        <p *ngIf="resume.rezscore.extended[0].pct_whitespace[0] != undefined"> <strong>Whitespace Percent: </strong>{{ resume.rezscore.extended[0].pct_whitespace[0] }}%</p>
+        <p *ngIf="resume.rezscore.extended[0].wordcount[0] != undefined"> <strong>Word Count:</strong> {{ resume.rezscore.extended[0].wordcount[0] }}</p>
+        <p *ngIf="resume.rezscore.score[0].brevity_score[0] != undefined"> <strong>Brevity Score:</strong> {{ resume.rezscore.score[0].brevity_score[0] }}/100 </p>
+        <p *ngIf="resume.rezscore.score[0].depth_score[0] != undefined"> <strong>Depth Score: </strong>{{ resume.rezscore.score[0].depth_score[0] }}/100 </p>
+        <p *ngIf="resume.rezscore.score[0].impact_score[0] != undefined"> <strong>Impact Score: </strong>{{ resume.rezscore.score[0].impact_score[0] }}/100 </p>
       </div>
   </div>
   </div>
