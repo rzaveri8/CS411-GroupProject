@@ -71,3 +71,16 @@ def processInterviewDifficultyLevels(difficultyLevelsRawData):
         print(difficultyLevelsRawData[i].text);
     return;
 
+def parsePosition(position):
+    if("+" in position): 
+        #multiple words in position
+        positionParts = position.split("+");
+        parsedPosition = "";
+        for i in range(len(positionParts)):
+            parsedPosition = parsedPosition + positionParts[i] + " ";
+        return parsedPosition[:-1].lower();
+    else:
+        return position.lower();
+
+if(__name__ == "__main__"):
+    print(parsePosition("analyst"));
