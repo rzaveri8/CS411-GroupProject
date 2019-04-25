@@ -23,13 +23,14 @@ export class JobsComponent implements OnInit {
   glassURL: string;
 
   // if no job information is returned for given position and company
-  error: boolean;
   gError: boolean;
   iError: boolean;
 
   // shows loading symbol
-  loading: boolean;
+  glassLoad: boolean;
+  indeedLoad: boolean;
 
+  // holds count of offers
   offers: any[];
 
   constructor(public httpClient: HttpClient, private data: JobdataService) { }
@@ -58,6 +59,7 @@ export class JobsComponent implements OnInit {
     this.glassURL = baseG + comp + "/" + pos;
   }
 
+  // calculates how many offers accepted, declined, or not given
   calcOffers()
   {
     var off = this.glassRes.offers;
@@ -75,25 +77,27 @@ export class JobsComponent implements OnInit {
 
     this.offers = [yes, decline, no];
   }
-
+ 
+  // api call for glassdoor
   getGlass()
   {
     this.httpClient.get(this.glassURL).subscribe((res) => {
       this.rawGResponse = res;
       this.gError = false;
       this.glassRes = this.rawGResponse;
-      this.error = (this.gError) && (this.iError); // if either operation has an error, show error message
       console.log("success from glassdoor");
       this.calcOffers();
+      this.glassLoad = false;
     },
     (err) => {
       console.log(err);
       console.log("error with glassdoor");
       this.gError = true;
-      this.error = (this.gError) && (this.iError); // if either operation has an error, show error message
+      this.glassLoad = false;
     });
   }
 
+  // api call for indeed
   getIndeed() {
     this.httpClient.get(this.indeedURL).subscribe((res) => {
       this.rawIResponse = res;
@@ -101,15 +105,13 @@ export class JobsComponent implements OnInit {
       {
         console.log("error with indeed");
         this.iError = true;
-        this.error = (this.gError) && (this.iError);
-        this.loading = false;
+        this.indeedLoad = false;
       }
       else {
         this.iError = false;
         this.indeedRes = this.rawIResponse;
         this.indeedRes.rating = this.indeedRes.rating.toFixed(3);
-        this.error = (this.gError) && (this.iError);
-        this.loading = false; // indeed finishes last
+        this.indeedLoad = false;
         console.log("success from indeed");
       }
       
@@ -117,32 +119,33 @@ export class JobsComponent implements OnInit {
     (err) => {
       console.log("error with indeed");
       this.iError = true;
-      this.error = (this.gError) && (this.iError);
-      this.loading = false;
+      this.indeedLoad = false;
     });
   }
 
+  // executes on search button click
   getJobs(){
     this.glassRes = undefined;
     this.indeedRes = undefined; //reset our jobs object so that the user doesn't see the old job information when doing a new search
-    this.error = false; //reset error message
     this.gError = false;
     this.iError = false;
-    this.loading = true;
+    this.indeedLoad = true;
+    this.glassLoad = true;
     this.buildUrl();
     this.getGlass();
     this.getIndeed();
-    this.error = (this.gError) && (this.iError);
   }
 
   ngOnInit() {
+    // pulls info from Jobdata service if there is anything there to grab 
+    // (ie, user routed to this page by clicking on a recommended job)
     var jobdata = this.data.getJobInfo();
     if (jobdata != undefined)
     {
       this.position = jobdata[0];
       this.company = jobdata[1];
       jobdata = undefined;
-      this.data.setJobInfo(jobdata);
+      this.data.setJobInfo(jobdata); // resets this to undefined after the info has been pulled
       this.getJobs();
     }
    }
