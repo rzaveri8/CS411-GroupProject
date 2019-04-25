@@ -21,10 +21,20 @@ export class SavedComponent implements OnInit {
   jobs: any;
   error: string;
   loading: boolean;
+   /*jobSearch(job: string[]) {
+    this.selectedJob = job;
+    this.data.setJobInfo(this.selectedJob);
+    $("#myModal").modal();
+  } */
 
   ngOnInit() {
     this.http.get("/api/user/getSaveJob").subscribe((res) => {
-      
+      this.jobs = res;
+      console.log(this.jobs);
+      this.loading = false;
+      this.error = "";
+      //this.data.saveJobsLocally(this.jobs);
+
       console.log("yay");
     },
     (err) => {
