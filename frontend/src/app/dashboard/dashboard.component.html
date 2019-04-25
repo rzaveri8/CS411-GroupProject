@@ -17,7 +17,7 @@
 
 <div class = "bg">
   <h1 class = "pt-4" style = "text-align: center; font-family: Open Sans, sans-serif; font-size: 60px; color: white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Welcome {{ profile.firstName }}!</h1>
-  <div class = "container content">
+  <div class = "container-fluid content">
     <div class = "pt-50" style = "text-align: center;">
       <img src="{{ profile.pictureUrl }}" width="240" height="240">
     </div>
@@ -27,7 +27,7 @@
       <p style = "font-size: 15px; text-align: center;"><i> ***Note: For best results, please parse resume before using job recommender</i></p>
     </div>
   </div>
-    <div class = "col-lg-12 button-space" style = "padding-top: 4%;">
+    <div class = "col-lg-12 button-space" style = "padding-top: 3%;">
       <button type="button" class="custom btn-lg btn btn-primary active " routerLink="/recommender" routerLinkActive="active">Jobs Recommender</button>
       <button type="button" class="custom btn-lg btn btn-primary active " routerLink="/resume" routerLinkActive="active">Resume Parser</button>
       <button type="button" class="custom btn-lg btn btn-primary active " routerLink="/jobs" routerLinkActive="active">Job Search</button>
