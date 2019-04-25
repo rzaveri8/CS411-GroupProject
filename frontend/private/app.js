@@ -259,10 +259,11 @@ app.get(["/api/glassdoor/:company/:position","/test/glassdoor/:company/:position
 /*** Updating User Information ***/
 
 app.post("/api/user/setIndustry", function(req,res){
+    console.log(req.body.industry);
     if(!req.body.industry){
-        res.status(400).json({error: "Please input an industry"});
+        res.status(400).json("Please input an industry");
     }
-    user.updateIndustry(req,res,req.user.id, req.body.industry);
+    user.updateIndustry(res,req.user.id, req.body.industry);
 })
 
 /*** Accessing User Information ***/

@@ -9,6 +9,12 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  httpOptions: object = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/x-www-form-urlencoded',
+    })
+  };
+
   response: any;
   industry: string;
 
@@ -17,17 +23,13 @@ export class UserService {
   }
 
   public updateIndustry(newIndustry: string){
-    return this.http.post("/api/user/setIndustry",newIndustry);
+    const reqBody: string = "industry=" + newIndustry;
+    return this.http.post("/api/user/setIndustry", reqBody, this.httpOptions);
   }
 
   public updateResumeGrade(resumeGrade: string){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/x-www-form-urlencoded',
-      })
-    };
     var body = "grade=" + resumeGrade;
-    this.http.post("/api/user/setresumegrade",body, httpOptions).subscribe((res) => {
+    this.http.post("/api/user/setresumegrade",body, this.httpOptions).subscribe((res) => {
       console.log(res);
     },
     (err) => {
