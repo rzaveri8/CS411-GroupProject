@@ -47,7 +47,6 @@ export class ResumeComponent implements OnInit {
           res = result;
         });
         this.resume = res;
-        console.log(this.resume.rezscore.score[0].grade[0][0]);
         this.userS.updateResumeGrade(this.resume.rezscore.score[0].grade[0][0]);
         this.resumeFormat();
         console.log(this.resume);

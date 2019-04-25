@@ -21,8 +21,6 @@ export class UserService {
   }
 
   public updateResumeGrade(resumeGrade: string){
-    console.log("inside updateResumeGrade");
-    console.log(resumeGrade);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/x-www-form-urlencoded',
