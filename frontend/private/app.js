@@ -140,6 +140,7 @@ passport.deserializeUser(function(user,done){
     database.query(getUserQuery, [user.id], function(error, results){
         if(error){
             console.log("Error while fetching user from database");
+            res.status(500);
         }
         else{
             if(results.length > 0){

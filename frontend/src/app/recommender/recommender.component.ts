@@ -48,16 +48,7 @@ export class RecommenderComponent implements OnInit {
       this.user.getIndustry().subscribe((res) => {
         this.response = res;
         this.industry = this.response.industry;
-        this.industry = undefined;
-        if (this.industry == undefined)
-        {
-          $("#posModal").modal({
-            backdrop: 'static',
-            keyboard: false
-          });
-        }
-        console.log(this.industry + "going into http");
-        this.http.get("/api/jobs/" + this.industry).subscribe((res)=>{
+        this.http.get("/api/jobs/").subscribe((res)=>{
           this.response = res;
           this.jobs = this.response.data;
           this.loading = false;
@@ -67,9 +58,18 @@ export class RecommenderComponent implements OnInit {
           console.log("error with getJobs");
         })
       }, (error) => {
+        //Assume that the user does not have an industry set
+        alert(error.error);
         this.loading = false; 
         this.error = error.error;
-        this.canSearch = false; //Assume that the user does not have an industry set
+        this.canSearch = false; 
+        if (this.industry == undefined)
+        {
+          $("#posModal").modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+        }
       })
   }
 
