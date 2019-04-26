@@ -43,7 +43,16 @@
   </div>
 
 <div class="container">
-  <mat-tab-group>
+  <div class = "container-fluid" style = "padding-left: 75%;">
+  <div class = "hide-text" style = "text-align: right;" *ngIf = "gError == false && glassLoad == false && indeedLoad == false">
+    <div class="card review-card mb-3" style="width: 17rem; text-align: center;">
+      <div class="card-body">Job Capture Likelihood: {{glassRes.likelihood }}%
+        </div>
+    </div>
+    </div>
+    </div>
+
+  <mat-tab-group *ngIf="indeedLoad == false && glassLoad == false">
     <div class="container hide-text" *ngIf = "iError == false && indeedLoad == false">
     <mat-tab label="Reviews">
       <h3 style = "padding-top: 20px;">What's it like to be a {{ indeedRes.position }} at {{ indeedRes.company }} ? </h3>
@@ -84,7 +93,7 @@
       <div class="card-body">
         <div class="container" style = "padding: 10px;">
           <div class="row">
-      <div class="col" style = "text-align:center;"><p style = "font-size:25px;"><a style = "font-size: 25px;">Overall Interview Difficulty:</a> {{ glassRes.difficulty }}</p></div>
+      <div class="col" style = "text-align:center;"><p style = "font-size:25px;"><a style = "font-size: 25px;">Overall Interview Difficulty:</a> {{ glassRes.difficulty }}/5</p></div>
           </div>
           <div class="row">
         <!--   <div class = "centerBlock">-->
