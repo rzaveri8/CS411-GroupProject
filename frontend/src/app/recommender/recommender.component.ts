@@ -26,6 +26,7 @@ export class RecommenderComponent implements OnInit {
 
   selectedJob: string[];
   canSearch: boolean;
+  jobSearchRoute: string = "/api/jobs/"; 
 
   jobSearch(job: string[]) {
     this.selectedJob = job;
@@ -51,7 +52,7 @@ export class RecommenderComponent implements OnInit {
 
   refresh()
   {
-    this.http.get("/api/jobs/").subscribe((res)=>{
+    this.http.get(this.jobSearchRoute).subscribe((res)=>{
       this.user.updatedIndustry = false; //update our flag to represent that the user has not updated their industry since our most recent search
       this.response = res;  
       this.jobs = this.response.data;
@@ -69,7 +70,7 @@ export class RecommenderComponent implements OnInit {
       this.user.getIndustry().subscribe((res) => {
         this.response = res;
         this.user.industry = this.response.industry;
-        this.http.get("/api/jobs/").subscribe((res)=>{
+        this.http.get(this.jobSearchRoute).subscribe((res)=>{
           this.response = res;
           this.jobs = this.response.data;
           this.loading = false;

@@ -57,6 +57,8 @@ export class JobsComponent implements OnInit {
     var baseG = "/api/glassdoor/"
     this.indeedURL = baseI + comp + "/" + pos;
     this.glassURL = baseG + comp + "/" + pos;
+    console.log("Indeed request url: " + this.indeedURL);
+    console.log("Glassdoor request url: " + this.glassURL);
   }
 
   // calculates how many offers accepted, declined, or not given
@@ -90,8 +92,8 @@ export class JobsComponent implements OnInit {
       this.glassLoad = false;
     },
     (err) => {
-      console.log(err);
       console.log("error with glassdoor");
+      console.log(err.error);
       this.gError = true;
       this.glassLoad = false;
     });
@@ -104,6 +106,7 @@ export class JobsComponent implements OnInit {
       if (this.rawIResponse.responseType == 404)
       {
         console.log("error with indeed");
+        console.log(this.rawIResponse);
         this.iError = true;
         this.indeedLoad = false;
       }
@@ -118,6 +121,7 @@ export class JobsComponent implements OnInit {
     },
     (err) => {
       console.log("error with indeed");
+      console.log(err.error);
       this.iError = true;
       this.indeedLoad = false;
     });

@@ -19,7 +19,7 @@ const user = require("./controllers/user");
 var callbackURL = "";
 
 /* Setup Environment */
-var environment = "prod";
+var environment = "dev";
 
 if(environment == undefined){
     //If the environment variable is not set, assume we are in a developer environment
@@ -233,25 +233,80 @@ app.get("/api/dashboard", function(req,res){
 /*
 Automatic job search. User must have industry/position in their profile to execute auto job search.
 Industry/position must be separated by spaces or +'s if more than one word.
+'/api/jobs' returns all jobs, even if they don't have corresponding glassdoor or indeed information
+'/api/getVerifiedJobs' returns only jobs guaranteed to have glassdoor or indeed information
 */
-app.get('/api/jobs/', function(req,res){
+app.get(['/api/jobs/','/api/getVerifiedJobs'], function(req,res){
     if(!req.user.industry){
         res.status(400).json("Industry required to execute job search");
         return;
     }
-    const endpoint = "http://52.14.17.113:8083/api/jobs/";
-    const requestUrl = endpoint + req.user.industry;
-    request.get(requestUrl, function(error,response,body){
+    const jobSearchEndpoint = "http://52.14.17.113:8083/api/jobs/";
+    const jobSearchRequestUrl = jobSearchEndpoint + req.user.industry;
+    request.get(jobSearchRequestUrl, function(error,response,body){
         if(error){
 
             res.status(500).json("Server error.");
         }
         else{
-            res.status(200).json({data: JSON.parse(body)});
+            jobs = JSON.parse(body);
+            console.log("The path is " + req.path);
+            if(req.path == "/api/getVerifiedJobs/"){
+                getVerifiedJobs(jobs,res);
+            }
+            else{
+                res.status(200).json({data: jobs});
+            }
         }
     })
 })
 
+
+app.get('/test/jobs/:industry', function(req,res){
+    const industry = req.params.industry;
+    const endpoint = "http://52.14.17.113:8083/api/jobs/";
+    const requestUrl = endpoint + industry;
+    request.get(requestUrl, function(error,response,body){
+        if(error){
+            console.log(error);
+        }
+        else{
+            jobs = JSON.parse(body);
+            getVerifiedJobs(jobs,res);
+        }
+    })
+})
+
+
+async function getVerifiedJobs(jobs,res){
+    var deliverableJobs = [];
+    for(job of jobs){
+        const company = job[1].toLowerCase();
+        const position = job[0].replace(" ", "+").toLowerCase();
+        await glassdoorCache.verifyResult(company,position)
+        .then(() =>{
+            console.log("Success for " + position + " at " + company);
+            deliverableJobs.push(job);
+        })
+        .catch(err => {
+            console.log("Error for " + position + " at " + company);
+            const indeedEndpoint = "http://52.14.17.113:8080/api/indeed/";
+            const indeedRequest = indeedEndpoint + company + "/" + position;
+            console.log("Searching indeed " + indeedRequest);
+            request.get(indeedRequest, function(error,response,body){
+                var data = JSON.parse(body);
+                if(data.reviews){
+                    console.log("Indeed data found")
+                    deliverableJobs.push([job[0],job[1]]);
+                }
+                else{
+                    console.log("Indeed data not found either");
+                }
+            })
+        })
+    }
+    res.status(200).json({data: deliverableJobs});
+}
 /*
 Glassdoor search
 */

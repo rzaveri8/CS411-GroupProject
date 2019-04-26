@@ -6,7 +6,7 @@ Through other outlets:
 http://52.14.17.113:8082/api/glassdoor/<company>/<position>
 
 *Indeed job reviews api: 
-http://52.14.17.113:8080/api/all/<company>/<position>
+http://52.14.17.113:8080/api/indeed/<company>/<position>
 
 Job search api:
 http://52.14.17.113:8083/api/jobs/<position>

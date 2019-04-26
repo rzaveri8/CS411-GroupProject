@@ -4,6 +4,8 @@ Glassdoor API Access & Cache
 
 const database = require("../controllers/dbConnection");
 const request = require("request");
+const searchQuery = "SELECT interviewData FROM glassdoorCache WHERE company = ? AND position = ? ";
+const glassdoorEndpoint = "http://52.14.17.113:8082/api/glassdoor/";
 
 function cacheResult(company,position,data){
     const insertQuery = "INSERT INTO glassdoorCache(company,position,interviewData) VALUES(?,?,?)";
@@ -20,7 +22,6 @@ function cacheResult(company,position,data){
 function getResultFromDB(req,res,company,position){
     //console.log("$" + company + "$");
     //console.log("$" + position + "$");
-    const searchQuery = "SELECT interviewData FROM glassdoorCache WHERE company = ? AND position = ? ";
     database.query(searchQuery, [company, position], function(error,results,fields){
         if(error){
             console.log(error);
@@ -29,8 +30,12 @@ function getResultFromDB(req,res,company,position){
             if(results.length > 0 ){
                 console.log("Fetched result from database");
                 var data = results[0].interviewData;
-                returnResult(req,res,data);
-                return;
+                if(res){
+                    returnResult(req,res,data);
+                }
+                else{
+                    return true;
+                }
             }
             else{
                 getResultFromAPI(req,res,company,position);
@@ -44,10 +49,8 @@ If the request result isn't cached in the database, fetch it from the API.
 */
 function getResultFromAPI(req,res,company,position){
 
-    const glassdoorEndpoint = "http://52.14.17.113:8082/api/glassdoor/";
     const requestUrl = glassdoorEndpoint + company + "/" + position;
-    console.log("The requested url is: ");
-    console.log(requestUrl);
+    console.log("Glassdoor: the requested url is: " + requestUrl);
     //start the request
     request.get(requestUrl,function(error,response,body){
         if(error){
@@ -60,14 +63,22 @@ function getResultFromAPI(req,res,company,position){
             if(data.error){
                 /* Data not available */
                 console.log("Requested from API but data was not available");
-                res.status(404).json({error: data.error});
-                return;
+                if(res){
+                    res.status(404).json({error: data.error});
+                }
+                else{
+                    return false;
+                }
             }
             else{
                 console.log("Fetched result from API");
-                returnResult(req,res,body); //send the request back
+                if(res){
+                    returnResult(req,res,body); //send the request back
+                }
+                else{
+                    return true;
+                }
                 cacheResult(company,position,body); //cache the result
-                return;
             }
         }
     });
@@ -107,9 +118,42 @@ If it doesn't exist in the cache, only then perform a request to the API.
 Finally, cache the result. 
 */
 function getResult(req,res,company,position){
+    console.log("Glassdoor request company: " + company  + " position: " + position);
     getResultFromDB(req,res,company,position);
 }
 
 
+function verifyResult(company,position){
+    return new Promise((resolve, reject) => {
+        database.query(searchQuery, [company,position], function(error,results){
+            if(results.length > 0){
+                console.log("Found result in db")
+                return resolve();
+            }
+            else{
+                const requestUrl = glassdoorEndpoint + company + "/" + position;
+                console.log(requestUrl);
+                request.get(requestUrl, function(error,response,body){
+                    if(error){
+                        console.log("Error occurred while fetching")
+                        return reject("Error");
+                    }
+                    else{
+                        data = JSON.parse(body);
+                        if(data.error){
+                            console.log("No data found")
+                            return reject("Error");
+                        }
+                        else{
+                            console.log("API found result");
+                            resolve();
+                            cacheResult(company, position, body);
+                        }
+                    }
+                })
+            }
+        })
+    })
+}
 
-module.exports = {getResult};
+module.exports = {getResult, verifyResult};
