@@ -14,7 +14,10 @@ def processInterviewOffers(offersRawData):
 def processInterviewExperience(posExperience):
     #get the posExperience, calculate neg experience and return both
     if( len(posExperience) > 0):
-        pos = int(posExperience[0].text);
+        posLiteral = posExperience[0].text
+        if(posLiteral == ""):
+            return [0,100];
+        pos = int(posLiteral);
         neg = 100 - pos;
         exp = [pos, neg];
     else:
@@ -71,3 +74,13 @@ def processInterviewDifficultyLevels(difficultyLevelsRawData):
         print(difficultyLevelsRawData[i].text);
     return;
 
+def parsePosition(position):
+    if("+" in position): 
+        #multiple words in position
+        positionParts = position.split("+");
+        parsedPosition = "";
+        for i in range(len(positionParts)):
+            parsedPosition = parsedPosition + positionParts[i] + " ";
+        return parsedPosition[:-1].lower();
+    else:
+        return position.lower();

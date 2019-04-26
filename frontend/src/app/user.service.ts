@@ -45,4 +45,12 @@ export class UserService {
     return this.http.get("/api/user/getresumegrade");
   }
 
+  public saveJob(company:string, position: string) {
+    var body = "company=" +company + "position=" +position;
+    //var company = "company=" + company;
+    //var position = "position=" + position;
+    return this.http.post("/api/user/saveJob",body,this.httpOptions);
 }
+
+
+  }
