@@ -1,4 +1,3 @@
+# First-Time User (Creating an Account)
 
-# First-Time User (Creating an Account):
-
-A first time user will create an account by clicking the Sign Up button on the homepage, or splash screen, of our app, where they will be redirected to the first page of the Sign-Up process. On this first page, they will have the option to manually create an account by providing us with their first name, last name, password, and email address. They will also have the option to sign up with an existing Facebook or Google profile, which they can do by selecting the Sign Up With Google/Facebook buttons. Upon submission of this first page of the sign-up process, the user will be presented with the second page of the sign-up process, where they will enter the email address of their LinkedIn account. Upon submission of this data, they will either be taken to their My Dashboard (see story 3) or redirected to the Sparse LinkedIn account page (see story 2).    
+A first time user will login in with their LinkedIn account by selecting the *Login with LinkedIn* button on the homepage of the site. Upon authorizing our app to access some of their LinkedIn data, they will be redirected to the Velozity dashboard.
